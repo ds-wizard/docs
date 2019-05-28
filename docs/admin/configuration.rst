@@ -408,11 +408,21 @@ Template files
 
 We provide currently basic ``root`` template but it is possible to get inpired and create more or edit it:
 
-- ``template/dmp/root.json`` = metadata about the template
+- ``templates/dmp/root.json`` = metadata about the template
 - ``templates/dmp/root.html.j2`` = main template file
 - ``templates/dmp/root.css`` = stylesheet file included in the main file
 
-Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Model/DataManagementPlan/DataManagementPlan.hs>`_. 
+Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Model/DataManagementPlan/DataManagementPlan.hs>`_.
+
+You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
+
+.. code-block:: json
+
+   {
+     "uuid": "43a3fdd1-8535-42e0-81a7-5edbff296e65",
+     "name": "Common DSW Template",
+     "rootFile": "root.html.j2"
+   }
 
 Graphics and scripts
 --------------------
@@ -461,7 +471,8 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
       - 3000:3000
     volumes:
       - /dsw/app-config.cfg:/dsw/config/app-config.cfg
-      - /dsw/root.html.jinja:/dsw/templates/dmp/root.html.jinja
+      - /dsw/root.json:/dsw/templates/dmp/root.json
+      - /dsw/root.html.j2:/dsw/templates/dmp/root.html.j2
       - /dsw/root.css:/dsw/templates/dmp/root.css
     external_links:
       - mongo_mongo_1:mongo
