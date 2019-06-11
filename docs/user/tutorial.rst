@@ -18,7 +18,6 @@ Create a chapter
 ----------------
 
 Once you have created a new KM, it's time to fill it with chapters (i.e. sections, think of it as headers of your model).
-
  1. Write a name of the KM (e.g. 'My test KM')
  2. Press :red:`+ Add chapter`
  3. Write a **Title** (e.g. 'Introduction') and **Text** (e.g. 'Background information'). Note: The **Text** field is where you add a description of what the chapter will contain questions about.
@@ -32,7 +31,6 @@ Notice the grey area which gives an overview of your KM. Use this to navigate be
 Add a question
 --------------
 Questions can be of different types:
-
 * Options
 * List of items
 * Value
@@ -40,7 +38,6 @@ Questions can be of different types:
 Let's create some questions of each type to demonstrate:
 
 **Value**
-
  1. Select *Value* as **Question Type**
  2. Write 'Project title' in the **Title** field
  3. In the **Text** field, write 'Please enter the title of your project', as instructive text
@@ -48,7 +45,6 @@ Let's create some questions of each type to demonstrate:
  5. **Value type** can be *String*, *Date*, *Number* or *Text*, select *Text*
 
 **List of items**
-
  1. Click on :green:`Introduction` in the grey overview area of the editor
  2. Press :red:`+Add question` in order to create a new question
  3. Select *List of items* as **Question Type**
@@ -65,7 +61,6 @@ Let's create some questions of each type to demonstrate:
     f. Write 'Email' as **Title**
 
 **Options**
-
  1. Click on :green:`Introduction` in the grey overview area of the editor
  2. Press :red:`+Add question` in order to create a new question
  3. Select *Options* as **Question Type**
@@ -89,8 +84,7 @@ Notice that this automatically lead you to the top level of the KM Editor, outsi
  
 Add Reference and Expert
 ------------------------
-All question types have the availability of adding references and experts, to be used for adding additional information and people to contact in order to get help, respectively. Let's add one of each:
-
+All question types have the possibility of adding references and experts, to be used for adding additional information and people to contact in order to get help, respectively. Let's add one of each:
  1. Click on the arrow at :green:`Research field` in the grey overview area, and scroll down to **References**
  2. Click on :red:`+Add reference`
  3. Write 'https://en.wikipedia.org/wiki/List_of_life_sciences' as **URL**
@@ -117,7 +111,6 @@ In order to see what the resulting questionnaire will look like, you can click o
 Tags
 ----
 Also on the top row if the wizard, is the "TAGS" viewer function. Tags can be used to mark questions as of interest to certain stakeholders, when only a subset of the questions are of interest. We have not defined any tags yet, so let's do that:
-
  1. Click on :green:`'My test KM'` in the grey overview area, and scroll down to **Tags**
  2. Click on :red:`+ Add tag`
  3. Write 'Library' as **Name**
@@ -130,7 +123,6 @@ Also on the top row if the wizard, is the "TAGS" viewer function. Tags can be us
 Publish
 -------
 When you are happy with the content and look of your KM, it is time to make it available for people to use it (either as a start for their own KM or for users to fill it out in form of so called Questionnaires):
-
  1. Click on "KM Editor" in the leftside menu
  2. Position the mouse on your KM ('Test of KM Editor') and click on :red:`Publish` among the alternatives that becomes visible
  3. Add a version number in **New version** (e.g. '1.0.0')
