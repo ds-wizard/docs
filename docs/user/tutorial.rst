@@ -31,6 +31,7 @@ Notice the grey area which gives an overview of your KM. Use this to navigate be
 Add a question
 --------------
 Questions can be of different types:
+
 * Options
 * List of items
 * Value
@@ -85,6 +86,7 @@ Notice that this automatically lead you to the top level of the KM Editor, outsi
 Add Reference and Expert
 ------------------------
 All question types have the possibility of adding references and experts, to be used for adding additional information and people to contact in order to get help, respectively. Let's add one of each:
+
  1. Click on the arrow at :green:`Research field` in the grey overview area, and scroll down to **References**
  2. Click on :red:`+Add reference`
  3. Write 'https://en.wikipedia.org/wiki/List_of_life_sciences' as **URL**
@@ -97,10 +99,12 @@ All question types have the possibility of adding references and experts, to be 
 Change order of questions
 -------------------------
 It is possible to rearrange the order of questions, if they are on the same 'level'(but not between levels at the moment of writing this how-to). Let's try:
+
  1. Click on :green:`Introduction` and scroll down to **Questions**. The three questions created are all on the same level.
  2. Position the mouse on the grey area next to :red:`Research field`, hold down the left button of the mouse and drag-and-drop above :red:`Project title`
 
 If and when the need arise to move a question to another level/group of questions, there are currently to alternatives:
+
  * Rewrite the question in the new position, or
  * `Export`_ the knowledge model and edit the resulting json file in an appropriate editor, and then import it again
 
@@ -111,6 +115,7 @@ In order to see what the resulting questionnaire will look like, you can click o
 Tags
 ----
 Also on the top row if the wizard, is the "TAGS" viewer function. Tags can be used to mark questions as of interest to certain stakeholders, when only a subset of the questions are of interest. We have not defined any tags yet, so let's do that:
+
  1. Click on :green:`'My test KM'` in the grey overview area, and scroll down to **Tags**
  2. Click on :red:`+ Add tag`
  3. Write 'Library' as **Name**
@@ -123,6 +128,7 @@ Also on the top row if the wizard, is the "TAGS" viewer function. Tags can be us
 Publish
 -------
 When you are happy with the content and look of your KM, it is time to make it available for people to use it (either as a start for their own KM or for users to fill it out in form of so called Questionnaires):
+
  1. Click on "KM Editor" in the leftside menu
  2. Position the mouse on your KM ('Test of KM Editor') and click on :red:`Publish` among the alternatives that becomes visible
  3. Add a version number in **New version** (e.g. '1.0.0')
@@ -132,6 +138,7 @@ When you are happy with the content and look of your KM, it is time to make it a
 Export
 ------
 A knowledge model kan be exported into a json formatted file:
+
  1. Click on "Knowledge Models" in the left hand menu
  2. Position your mouse on the KM ('Test of KM Editor') and click on :red:`View detail`
  3. Click on :red:`Export` and save the file on your computer.
@@ -139,6 +146,7 @@ A knowledge model kan be exported into a json formatted file:
 Import
 ------
 A knowledge model can be imported:
+
  1. Click on "Knowledge Models" in the left hand menu
  2. Click on "Import" in top-right corner
  3. Click on "Choose file", select the .km-file
