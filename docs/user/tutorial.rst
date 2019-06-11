@@ -18,6 +18,7 @@ Create a chapter
 ----------------
 
 Once you have created a new KM, it's time to fill it with chapters (i.e. sections, think of it as headers of your model).
+
  1. Write a name of the KM (e.g. 'My test KM')
  2. Press :red:`+ Add chapter`
  3. Write a **Title** (e.g. 'Introduction') and **Text** (e.g. 'Background information'). Note: The **Text** field is where you add a description of what the chapter will contain questions about.
