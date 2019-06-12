@@ -126,6 +126,12 @@ Configuration related to parts displayed in the client application.
 
    Info text for users that displays after login (if any).
 
+.. confval:: privacyUrl
+
+   :type: String (URL)
+
+   URL to page with privacy policy of the service.
+
 Database
 ~~~~~~~~
 
