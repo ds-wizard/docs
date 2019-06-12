@@ -92,6 +92,12 @@ Configuration related to general operations of the server application.
 
    If list questions require specific title per item or are just groups of subquestions.
 
+.. confval:: questionnaireAccessibilityEnabled
+
+   :type: Boolean
+
+   If questionnaires can be set private, public read-only, or public. When disabled (i.e. value is set to ``false``), all questionnaires are public.
+
 
 Client
 ~~~~~~

@@ -8,6 +8,7 @@ general:
   publicQuestionnaireEnabled: true
   levelsEnabled: true
   itemTitleEnabled: true
+  questionnaireAccessibilityEnabled: true
 
 client:
   appTitle:
