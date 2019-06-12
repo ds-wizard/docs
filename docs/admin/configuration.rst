@@ -380,7 +380,7 @@ Integrations in the DS Wizard are using external APIs and you might need some co
    :language: yaml
    :linenos:
 
-There can be multiple integrations configured in single file. These can be used then when setting up the integration in the Editor as ``${apiKey}``, ``${apiUrl}``, etc.
+There can be multiple integrations configured in single file. These can be used then when setting up the integration in the Editor as ``${apiKey}``, ``${apiUrl}``, etc. More about integrations can be found in separate :ref:`integrations` documentation.
 
 
 .. _config-client:
