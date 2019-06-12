@@ -25,9 +25,6 @@ database:
   username:
   password:
 
-messaging:
-  enabled: false
-
 jwt:
   secret: gVoYNuEJuGGAQMIaYw43BN3e
   version: 1
