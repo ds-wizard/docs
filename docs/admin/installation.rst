@@ -153,6 +153,28 @@ Registry
 
 When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-registry` configuration. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
 
+Compatibility
+=============
+
+The DS Wizard is compatible with all recent versions of web browsers Chrome, Opera, Firefox, and Edge. We do not recomment use of Internet Explorer. Internally, there are components between is are following compatibility of versions:
+
++------------------+--------------+-----------+
+| DS Wizard        | KM Metamodel | Registry  |
++==================+==============+===========+
+| 1.8.0            |            3 |     1.0.0 |
++------------------+--------------+-----------+
+| 1.7.0            |            2 |        -- |
++------------------+--------------+-----------+
+| 1.6.0            |            1 |        -- |
++------------------+--------------+-----------+
+| 1.5.0 (or lower) |           -- |        -- |
++------------------+--------------+-----------+
+
+
+.. Important::
+
+   DSW Client and Server should always use matching version (compatibility is assured)!
+
 Other "Setups"
 ==============
 
