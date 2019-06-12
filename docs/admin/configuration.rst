@@ -320,6 +320,17 @@ Configuration of analytic/informational emails for administrators, e.g., that a 
    Target email address where analytics to which will be sent.
 
 
+.. _config-registry:
+
+Registry
+~~~~~~~~
+
+.. confval:: token
+
+   :type: String
+
+   Your organization token aquired by registration within the `Registry service <https://registry.ds-wizard.org>`_. More information can be found in :ref:`installation-registry` section of installation documentation.
+
 Feedback
 ~~~~~~~~
 
