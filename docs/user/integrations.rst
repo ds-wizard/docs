@@ -20,8 +20,7 @@ You can create a new integration in the root of any KM by clicking on **Add inte
 -  Request
 
    -  **Request Method** = HTTP method used to request result from API (typically ``GET``)
-   -  **Request URL** = target of the request, you should use ``${q}`` variable that contains what the user fills in the field (to search), then you may use variables specified in **Props**
-      (e.g. ``${filter}``) and also variables from the configuration file
+   -  **Request URL** = target of the request, you should use ``${q}`` variable that contains what the user fills in the field (to search), then you may use variables specified in **Props** (e.g. ``${filter}``) and also variables from the configuration file
    -  **Request Headers** = various headers specified by API (usually ``Accept: application/json`` or some authentication header)
    -  **Request Body** = content of the request (for ``GET`` it should be empty)
 
@@ -30,6 +29,23 @@ You can create a new integration in the root of any KM by clicking on **Add inte
    -  **Response List Field** = path in the JSON response to list of results (dot notation can be used to navigate in complex structures)
    -  **Response Id Field** = name of an identifier field in the item of results list (dot notation allowed), used then in ``${id}`` variable
    -  **Response Name Field** = name of a name field in the item of results list (dot notation allowed), used as possible answer visible to the user
+
+Dot notation is used to navigate in more complex JSON structures when the list of items or attributes of items that needs to be extracted are hidden inside. For example you would use ``result.list`` together with ``attributes.id`` and ``attributes.data.name`` in case of:
+
+.. code-block:: js
+   
+   { 
+     "result": {
+       "list": [
+         { "attributes": { "id": "id01", 
+                           "data": { "name": "Foo", 
+                                     //... 
+                                   }
+                         }
+         }, //...
+       ], //...
+     }, //...
+   }
 
 Configuration file
 ==================
