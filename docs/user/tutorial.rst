@@ -4,24 +4,24 @@
 	  :class: green
 
 ==================
-Tutorial KM Editor
+KM Editor Tutorial
 ==================
 
 The KM (Knowledge Model) Editor is used for creating and updating knowledge models. This tutorial will go through the steps of creating a new KM from scratch.
 
  1. Click on "KM Editor" in the left-hand menu of the wizard
  2. Click "Create" on the top to the right
- 3. Fill the fields with appropriate **Name** (e.g. 'Test of KM Editor') and **Knowledge Model ID** (e.g. 'test-editor'). The ID can contain alphanumeric characters and dash but cannot start or end with dash. Leave Parent Knowledge model as is (--). Note: If you want to update or reuse an existing model, this is where you select which one.
+ 3. Fill the fields with appropriate **Name** (e.g. 'KM Editor Test Model') and **Knowledge Model ID** (e.g. 'test-model'). The ID can contain alphanumeric characters and dash but cannot start or end with dash. Leave Parent Knowledge model as is (--). *Note:* If you want to update or reuse an existing model, this is where you select which one.
  4. Click on "Save" button
  
 Create a chapter
 ----------------
 
-Once you have created a new KM, it's time to fill it with chapters (i.e. sections, think of it as headers of your model).
+Once you have created a new KM, it's time to fill it with chapters (i.e. sections; think of them as headers of your model).
 
  1. Write a name of the KM (e.g. 'My test KM')
  2. Press :red:`+ Add chapter`
- 3. Write a **Title** (e.g. 'Introduction') and **Text** (e.g. 'Background information'). Note: The **Text** field is where you add a description of what the chapter will contain questions about.
+ 3. Write a **Title** (e.g. 'Introduction') and **Text** (e.g. 'Background information') for the chapter. *Note:* The **Text** field is where you add a description of what the chapter will contain questions about.
  4. Press :red:`+Add question` in order to create a question
 
     
@@ -99,12 +99,12 @@ All question types have the possibility of adding references and experts, to be 
 
 Change order of questions
 -------------------------
-It is possible to rearrange the order of questions, if they are on the same 'level'(but not between levels at the moment of writing this how-to). Let's try:
+It is possible to rearrange the order of questions, if they are on the same 'level' (but not between levels at the moment of writing this tutorial). Let's try:
 
  1. Click on :green:`Introduction` and scroll down to **Questions**. The three questions created are all on the same level.
  2. Position the mouse on the grey area next to :red:`Research field`, hold down the left button of the mouse and drag-and-drop above :red:`Project title`
 
-If and when the need arise to move a question to another level/group of questions, there are currently to alternatives:
+If and when the need arise to move a question to another level/group of questions, there are currently two alternatives:
 
  * Rewrite the question in the new position, or
  * `Export`_ the knowledge model and edit the resulting json file in an appropriate editor, and then import it again
@@ -115,7 +115,7 @@ In order to see what the resulting questionnaire will look like, you can click o
 
 Tags
 ----
-Also on the top row if the wizard, is the "TAGS" viewer function. Tags can be used to mark questions as of interest to certain stakeholders, when only a subset of the questions are of interest. We have not defined any tags yet, so let's do that:
+Also on the top row of the wizard, is the "TAGS" viewer function. Tags can be used to mark questions of interest to certain stakeholders, when only a subset of the questions are of interest. We have not defined any tags yet, so let's do that:
 
  1. Click on :green:`'My test KM'` in the grey overview area, and scroll down to **Tags**
  2. Click on :red:`+ Add tag`
@@ -146,7 +146,7 @@ A knowledge model kan be exported into a json formatted file:
 
 Import
 ------
-A knowledge model can be imported:
+A knowledge model can also be imported:
 
  1. Click on "Knowledge Models" in the left hand menu
  2. Click on "Import" in top-right corner
