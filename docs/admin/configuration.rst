@@ -470,7 +470,7 @@ We provide currently basic ``root`` template but it is possible to get inpired a
 - ``templates/dmp/root.html.j2`` = main template file
 - ``templates/dmp/root.css`` = stylesheet file included in the main file
 
-Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Model/DataManagementPlan/DataManagementPlan.hs>`_.
+Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Api/Resource/DataManagementPlan/DataManagementPlanDTO.hs>`_.
 
 You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
 
