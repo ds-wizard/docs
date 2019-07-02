@@ -21,7 +21,7 @@ Once you have created a new KM, it's time to fill it with chapters (i.e. section
 
  1. Write a name of the KM (e.g. 'My test KM')
  2. Press :red:`+ Add chapter`
- 3. Write a **Title** (e.g. 'Introduction') and **Text** (e.g. 'Background information') for the chapter. *Note:* The **Text** field is where you add a description of what the chapter will contain questions about.
+ 3. Write a **Title** (e.g. 'Introduction') and **Text** (e.g. 'Background information') for the chapter. *Note:* The **Text** field is where you add a description of what the chapter will contain questions about. There are two tabs, 'Editor' and 'Preview', since you can use standard [Markdown](https://www.markdownguide.org/basic-syntax/) to format the text and check the result in 'Preview'.
  4. Press :red:`+Add question` in order to create a question
 
     
