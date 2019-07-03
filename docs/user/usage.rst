@@ -47,7 +47,7 @@ Knowledge Models
 
 Knowledge Models are collections of DS knowledge. Each package has own unique identifier consisting of organization ID and km ID (and then also version). It stores all the knowledge units = changes of "zero" knowledge (add, delete, edit - chapter, question, answer, reference, etc.).
 
-- :guilabel:`Import` = import new KM package or new version of KM package
+- :guilabel:`Import` = import new KM package or new version of KM package from file or from :ref:`installation-registry`
 - For each KM package:
 
   - :guilabel:`Delete`

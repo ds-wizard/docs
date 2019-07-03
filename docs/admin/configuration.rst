@@ -33,6 +33,8 @@ The mail configuration file that provide a lot of options and contains necessary
    :language: yaml
    :linenos:
 
+Section aside *General* and *JWT* may be omitted and default values will be used for whole sections (typically disabled, see below).
+
 General
 ~~~~~~~
 
@@ -41,56 +43,72 @@ Configuration related to general operations of the server application.
 .. confval:: environment
 
    :type: Enumeration [Production, Staging, Development, Test]
+   :default: ``Production``
 
    Environment that your deployment is using. This affects which migrations are used and other minor things can be different in various environments.
 
 .. confval:: serverPort
 
    :type: Integer [0-65535]
+   :default: ``3000``
 
    Port that will be the web server listening on.
 
 .. confval:: clientUrl
 
    :type: URI
+   :default: ``""`` (empty)
 
    Address of client application (e.g. ``https://localhost:8080``).
 
 .. confval:: serviceToken
 
    :type: String
+   :default: ``""`` (empty)
 
    Randomly generated string that matches configuration of :ref:`config-worker` component.
 
 .. confval:: integrationConfig
 
    :type: String
+   :default: ``"integration.yml"``
 
    Filename or whole path of integration configuration file (see :ref:`config-server-integration`). In case of path, it is relative to the ``config`` folder.
 
 .. confval:: registrationEnabled
 
    :type: Boolean
+   :default: ``true``
 
    If registrations within the DS Wizard instance are enabled or disabled.
 
 .. confval:: publicQuestionnaireEnabled
 
    :type: Boolean
+   :default: ``false``
 
    If public questionnaire (i.e. questionnaire demo without registration) functionality within the DS Wizard instance is enabled or disabled.
 
 .. confval:: levelsEnabled
 
    :type: Boolean
+   :default: ``true``
 
    If questions can be related to certain desirability levels/phases.
 
 .. confval:: itemTitleEnabled
 
    :type: Boolean
+   :default: ``false``
 
    If list questions require specific title per item or are just groups of subquestions.
+
+.. confval:: questionnaireAccessibilityEnabled
+
+   :type: Boolean
+   :default: ``true``
+
+   If questionnaires can be set private, public read-only, or public. When disabled (i.e. value is set to ``false``), all questionnaires are private.
 
 
 Client
@@ -101,12 +119,14 @@ Configuration related to parts displayed in the client application.
 .. confval:: appTitle
 
    :type: String
+   :default: (nothing)
 
    Full name of the DS Wizard instance (displayed, for example, in tab title or before login).
 
 .. confval:: appTitleShort
 
    :type: String
+   :default: (nothing)
 
    Short name of the DS Wizard instance (displayed, for example, on the top of the navigation bar)
 
@@ -117,14 +137,23 @@ Configuration related to parts displayed in the client application.
 .. confval:: welcomeWarning
 
    :type: String
+   :default: (nothing)
 
    Warning text for users that displays after login (if any).
 
 .. confval:: welcomeInfo
 
    :type: String
+   :default: (nothing)
 
    Info text for users that displays after login (if any).
+
+.. confval:: privacyUrl
+
+   :type: String (URL)
+   :default: ``"https://ds-wizard.org/privacy.html"``
+
+   URL to page with privacy policy of the service.
 
 Database
 ~~~~~~~~
@@ -134,49 +163,44 @@ Configuration of connection to MongoDB database.
 .. confval:: host
 
    :type: String
+   :default: ``"mongo"``
 
    Hostname or IP address of the server running MongoDB.
 
 .. confval:: port
 
    :type: Integer [0-65535]
+   :default: ``27017``
 
    Port that is used for MongoDB on the server (usually ``27017``).
 
 .. confval:: databaseName
 
    :type: String
+   :default: ``"dsw-server"``
 
    Name of the database for DS Wizard within MongoDB.
 
 .. confval:: authEnabled
 
    :type: Boolean
+   :default: ``false``
 
    Whether authentication is enabled on MongoDB server and is required to connect to the database.
 
 .. confval:: username
 
    :type: String
+   :default: ``""`` (empty)
 
-   Username for authentication to database connection (if :confval:`authEnabled` is ``true``)
+   Username for authentication to database connection (if :confval:`authEnabled` is ``true``).
 
 .. confval:: password
 
    :type: String
+   :default: ``""`` (empty)
 
-   Password for authentication to database connection (if :confval:`authEnabled` is ``true``)
-
-Messaging
-~~~~~~~~~
-
-Messaging is not yet currently used and we recommend to leave it disabled.
-
-.. confval:: enabled
-
-   :type: Boolean
-
-   If events should be reported to messaging queue.
+   Password for authentication to database connection (if :confval:`authEnabled` is ``true``).
 
 JWT
 ~~~
@@ -186,18 +210,21 @@ JWT
 .. confval:: secret
 
    :type: String
+   :default: ``""`` (empty)
 
    Secret string used for JWT signing and validation (we recommend to generate some randomly).
 
 .. confval:: version
 
    :type: Integer
+   :default: ``1``
 
    Our internal version of JWT Payload for DS Wizard (only ``1`` at the moment).
 
 .. confval:: expiration
 
    :type: Integer
+   :default: ``14``
 
    Number of days until a token expires.
 
@@ -209,24 +236,28 @@ Basic configuration of roles and privileges within the DS Wizard instance. All r
 .. confval:: defaultRole
 
    :type: Role (Enumeration [``RESEARCHER``, ``DATASTEWARD``, ``ADMIN``])
+   :default: `DATASTEWARD`
 
    Role that will be assigned to newly registered user.
 
 .. confval:: admin
 
    :type: Permissions
+   :default: ``[ UM_PERM, ORG_PERM, KM_PERM, KM_UPGRADE_PERM, KM_PUBLISH_PERM, PM_READ_PERM, PM_WRITE_PERM, QTN_PERM, DMP_PERM]``
 
    List of permissions for :ref:`usage-administrator`/``ADMIN``.
 
 .. confval:: dataSteward
 
    :type: Permissions
+   :default: ``[KM_PERM, KM_UPGRADE_PERM, KM_PUBLISH_PERM, PM_READ_PERM, PM_WRITE_PERM, QTN_PERM, DMP_PERM]``
 
    List of permissions for :ref:`usage-datasteward`/``DATASTEWARD``.
 
 .. confval:: researcher
 
    :type: Permissions
+   :default: ``[PM_READ_PERM, QTN_PERM, DMP_PERM]``
 
    List of permissions for :ref:`usage-researcher`/``RESEARCHER``.
 
@@ -243,6 +274,7 @@ Configuration for sending emails (such as registration activation or for forgott
 .. confval:: enabled
 
    :type: Boolean
+   :default: ``true``
 
    If emails will be sent and SMTP configured.
 
@@ -255,36 +287,42 @@ Configuration for sending emails (such as registration activation or for forgott
 .. confval:: email
 
    :type: String
+   :default: ``""`` (empty)
 
    Email address from which the emails will be sent.
 
 .. confval:: host
 
    :type: String
+   :default: ``""`` (empty)
 
    Hostname or IP address of SMTP server.
 
 .. confval:: port
 
    :type: Integer [0-65535]
+   :default: ``465``
 
    Port that is used for SMTP on the server (usually ``25`` for plain or ``465`` for SSL).
 
 .. confval:: ssl
 
    :type: Boolean
+   :default: ``true``
 
    If SMTP connection is encrypted via SSL (we highly recommend this).
 
 .. confval:: username
 
    :type: String
+   :default: ``""`` (empty)
 
    Username for the SMTP connection.
 
 .. confval:: password
 
    :type: String
+   :default: ``""`` (empty)
 
    Password for the SMTP connection.
 
@@ -298,14 +336,36 @@ Configuration of analytic/informational emails for administrators, e.g., that a 
 .. confval:: enabled
 
    :type: Boolean
+   :default: ``false``
 
    If analytic emails should be sent.
 
 .. confval:: email
 
    :type: String
+   :default: ``""`` (empty)
 
    Target email address where analytics to which will be sent.
+
+
+.. _config-registry:
+
+Registry
+~~~~~~~~
+
+.. confval:: enabled
+
+   :type: Boolean
+   :default: ``false``
+
+   If connection with Registry should be made.
+
+.. confval:: token
+
+   :type: String
+   :default: ``""`` (empty)
+
+   Your organization token aquired by registration within the `Registry service <https://registry.ds-wizard.org>`_. More information can be found in :ref:`installation-registry` section of installation documentation.
 
 
 Feedback
@@ -316,32 +376,37 @@ Configuration for feedback functionality within questionnaires via GitHub issues
 .. confval:: enabled
 
    :type: Boolean
+   :default: ``true``
 
    If feedback functionality will be used.
 
 .. confval:: token
 
    :type: String
+   :default: ``""`` (empty)
 
    `GitHub personal access token <https://github.blog/2013-05-16-personal-api-tokens/>`_ with permission to create issues in the selected repository.
 
 .. confval:: owner
 
    :type: String
+   :default: ``""`` (empty)
 
    GitHub username or organization under which is the repository for feedback created.
 
 .. confval:: repo
 
    :type: String
+   :default: ``""`` (empty)
 
    Name of the repository (without owner name).
 
 .. confval:: issueurl
 
    :type: URI
+   :default: ``"https://github.com/:owner/:repo/issues/:issueId"``
 
-   Template URL for feedback issue (e.g., ``https://github.com/:owner/:repo/issues/:issueId``)
+   Template URL for feedback issue.
 
 .. _config-server-integration:
 
@@ -357,7 +422,7 @@ Integrations in the DS Wizard are using external APIs and you might need some co
    :language: yaml
    :linenos:
 
-There can be multiple integrations configured in single file. These can be used then when setting up the integration in the Editor as ``${apiKey}``, ``${apiUrl}``, etc.
+There can be multiple integrations configured in single file. These can be used then when setting up the integration in the Editor as ``${apiKey}``, ``${apiUrl}``, etc. More about integrations can be found in separate :ref:`integrations` documentation.
 
 
 .. _config-client:
@@ -383,6 +448,8 @@ Client also provides wide variety of style customizations using `SASS <https://s
       - /path/to/customizations.scss:/customizations/variables.scss
       # mount other assets, you can then refere them from scss using '/assets/...'
       - /path/to/assets:/usr/share/nginx/html/assets
+      
+For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_.
 
 .. _config-worker:
 
@@ -408,11 +475,21 @@ Template files
 
 We provide currently basic ``root`` template but it is possible to get inpired and create more or edit it:
 
-- ``template/dmp/root.json`` = metadata about the template
+- ``templates/dmp/root.json`` = metadata about the template
 - ``templates/dmp/root.html.j2`` = main template file
 - ``templates/dmp/root.css`` = stylesheet file included in the main file
 
-Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Model/DataManagementPlan/DataManagementPlan.hs>`_. 
+Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Api/Resource/DataManagementPlan/DataManagementPlanDTO.hs>`_.
+
+You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
+
+.. code-block:: json
+
+   {
+     "uuid": "43a3fdd1-8535-42e0-81a7-5edbff296e65",
+     "name": "Common DSW Template",
+     "rootFile": "root.html.j2"
+   }
 
 Graphics and scripts
 --------------------
@@ -461,7 +538,8 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
       - 3000:3000
     volumes:
       - /dsw/app-config.cfg:/dsw/config/app-config.cfg
-      - /dsw/root.html.jinja:/dsw/templates/dmp/root.html.jinja
+      - /dsw/root.json:/dsw/templates/dmp/root.json
+      - /dsw/root.html.j2:/dsw/templates/dmp/root.html.j2
       - /dsw/root.css:/dsw/templates/dmp/root.css
     external_links:
       - mongo_mongo_1:mongo

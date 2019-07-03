@@ -8,12 +8,14 @@ general:
   publicQuestionnaireEnabled: true
   levelsEnabled: true
   itemTitleEnabled: true
+  questionnaireAccessibilityEnabled: true
 
 client:
   appTitle:
   appTitleShort:
   welcomeWarning:
   welcomeInfo:
+  privacyUrl:
 
 database:
   host: mongo
@@ -22,9 +24,6 @@ database:
   authEnabled: false
   username:
   password:
-
-messaging:
-  enabled: false
 
 jwt:
   secret: gVoYNuEJuGGAQMIaYw43BN3e
@@ -50,6 +49,10 @@ mail:
 analytics:
   enabled: false
   email:
+
+registry:
+  enabled: true
+  token: <token from registry.ds-wizard.org>
 
 feedback:
   enabled: false

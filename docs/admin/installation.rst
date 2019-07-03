@@ -12,8 +12,15 @@ Public Instance
 The application is currently deployed on a server provided by `FIT CTU <https://fit.cvut.cz/en>`_. Here are the addresses of running applications:
 
 - Landing: https://ds-wizard.org
-- Server: https://api.app.ds-wizard.org
-- Client: https://app.ds-wizard.org
+- Demo instance (free to use, for trying out all the features, unstable)
+
+  - Client: https://demo.ds-wizard.org
+  - Server: https://api.demo.ds-wizard.org
+
+- Researchers instance (free to use, to build own DMPs, prepared for serious work)
+
+  - Client: https://researchers.ds-wizard.org
+  - Server: https://api.researchers.ds-wizard.org
 
 .. Tip::
 
@@ -146,13 +153,42 @@ You can use those accounts for testing or to initially made your own account adm
 
    Having public instance with default accounts is a **security risk**. Delete or change default accounts (mainly Albert Einstein) if your DSW instance is public as soon as possible.
 
+.. _installation-registry:
+
+Registry
+========
+
+When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-registry` configuration. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
+
+Compatibility
+=============
+
+The DS Wizard is compatible with all recent versions of web browsers Chrome, Opera, Firefox, and Edge. We do not recomment use of Internet Explorer. Internally, there are components between is are following compatibility of versions:
+
++------------------+--------------+-----------+
+| DS Wizard        | KM Metamodel | Registry  |
++==================+==============+===========+
+| 1.8.0            |            3 |     1.0.0 |
++------------------+--------------+-----------+
+| 1.7.0            |            2 |        -- |
++------------------+--------------+-----------+
+| 1.6.0            |            1 |        -- |
++------------------+--------------+-----------+
+| 1.5.0 (or lower) |           -- |        -- |
++------------------+--------------+-----------+
+
+
+.. Important::
+
+   DSW Client and Server should always use matching version (compatibility is assured)!
+
 Other "Setups"
 ==============
 
 Initial Knowledge Model
 -----------------------
 
-When you have a fresh installation, there are just the default users and no knowledge models. You are free to create a new one from scratch if you want. Other option is to download ``elixir-root.km`` file from `ds-wizard/km-elixir-root <https://github.com/ds-wizard/km-elixir-root>`_ and import it (see :ref:`usage`). It is the core knowledge model for general data stewardship.
+When you have a fresh installation, there are just the default users and no knowledge models. You are free to create a new one from scratch if you want. Other option is to import existing KM ``dsw:root:X.Y.Z`` from the `Registry <https://registry.ds-wizard.org>`_. It is the core knowledge model for general data stewardship. The specific latest version (or other version that is the best for you) as well as other shared knowledge models can be found on the landing page of the `Registry service <https://registry.ds-wizard.org>`_. Other option is to import it from file if you have any (according to :ref:`usage`)
 
 Public Questionnaire
 --------------------
