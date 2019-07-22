@@ -308,7 +308,7 @@ Configuration for sending emails (such as registration activation or for forgott
 .. confval:: ssl
 
    :type: Boolean
-   :default: ``true``
+   :default: ``false``
 
    If SMTP connection is encrypted via SSL (we highly recommend this).
 
