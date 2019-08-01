@@ -348,6 +348,13 @@ Configuration for sending emails (such as registration activation or for forgott
 
    If SMTP connection is encrypted via SSL (we highly recommend this).
 
+.. confval:: authEnabled
+
+   :type: Boolean
+   :default: ``false``
+
+   If authentication using username and password should be used for SMTP.
+
 .. confval:: username
 
    :type: String
