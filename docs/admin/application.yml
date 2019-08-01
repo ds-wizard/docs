@@ -16,6 +16,7 @@ client:
   welcomeWarning:
   welcomeInfo:
   privacyUrl:
+  customMenuLinks:
 
 database:
   host: mongo
