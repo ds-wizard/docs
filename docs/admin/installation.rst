@@ -81,7 +81,6 @@ General Requirements
 - `The Haskell tool Stack <https://docs.haskellstack.org>`_ (for server side)
 - `NPM <https://www.npmjs.com/get-npm>`_ (for client side)
 - `MongoDB <https://www.mongodb.com>`_ (database, needs to be running)
-- `RabbitMQ <https://www.rabbitmq.com>`_ (optional, based on your :ref:`configuration`)
 - `wkhtmltopdf <https://github.com/wkhtmltopdf/wkhtmltopdf/releases>`_ (>= 0.12.5, for DMP exports in PDF)
 - `Pandoc <https://github.com/jgm/pandoc/releases>`_ (>= 2.6, for DMP exports in other formats aside HTML, PDF, and JSON)
 
@@ -100,7 +99,7 @@ Server
 
    ``stack build``
 
-4. Run (requires MongoDB and RabbitMQ according to configuration)
+4. Run (requires MongoDB according to configuration)
 
    ``stack exec dsw-server``
 
