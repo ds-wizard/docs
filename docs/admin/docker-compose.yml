@@ -9,7 +9,6 @@ services:
     volumes:
       - /dsw/app-config.cfg:/dsw/config/app-config.cfg
     links:
-      - rabbitmq
       - mongo
 
   dsw_client:
@@ -28,9 +27,6 @@ services:
       - /dsw/worker-config.json:/opt/crontab/config.json
     environment:
       - API_URL=http://localhost:3000
-
-  rabbitmq:
-    image: rabbitmq
 
   mongo:
     image: mongo:3.0.15
