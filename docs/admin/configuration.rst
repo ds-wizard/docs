@@ -571,6 +571,7 @@ Templates variables
 
 All templates are provided also with variables:
 
+- ``appTitle`` = from the configuration :confval:`appTitle`
 - ``clientAddress`` = from the configuration :confval:`clientUrl`
 - ``mailName`` = from the configuration :confval:`name`
 - ``user`` = user (subject of an email), structure with attributes accessible via . (dot, e.g. ``user.name``)
