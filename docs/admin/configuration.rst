@@ -96,13 +96,6 @@ Configuration related to general operations of the server application.
 
    If questions can be related to certain desirability levels/phases.
 
-.. confval:: itemTitleEnabled
-
-   :type: Boolean
-   :default: ``false``
-
-   If list questions require specific title per item or are just groups of subquestions.
-
 .. confval:: questionnaireAccessibilityEnabled
 
    :type: Boolean
