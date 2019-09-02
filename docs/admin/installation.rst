@@ -137,6 +137,8 @@ All you need to do is download or checkout new version from our repositories and
 
    $ git checkout vX.Y.Z
 
+If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.0/#upgrade-procedures>`_.
+
 Default Users
 =============
 

@@ -96,13 +96,6 @@ Configuration related to general operations of the server application.
 
    If questions can be related to certain desirability levels/phases.
 
-.. confval:: itemTitleEnabled
-
-   :type: Boolean
-   :default: ``false``
-
-   If list questions require specific title per item or are just groups of subquestions.
-
 .. confval:: questionnaireAccessibilityEnabled
 
    :type: Boolean
@@ -522,7 +515,7 @@ We provide currently basic ``root`` template but it is possible to get inpired a
 - ``templates/dmp/root.html.j2`` = main template file
 - ``templates/dmp/root.css`` = stylesheet file included in the main file
 
-Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/lib/Api/Resource/DataManagementPlan/DataManagementPlanDTO.hs>`_.
+Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``dmp`` is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/dsw-server/blob/develop/dsw-server/lib/Api/Resource/DataManagementPlan/DataManagementPlanDTO.hs>`_.
 
 You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
 
@@ -614,6 +607,7 @@ Templates variables
 
 All templates are provided also with variables:
 
+- ``appTitle`` = from the configuration :confval:`appTitle`
 - ``clientAddress`` = from the configuration :confval:`clientUrl`
 - ``mailName`` = from the configuration :confval:`name`
 - ``user`` = user (subject of an email), structure with attributes accessible via . (dot, e.g. ``user.name``)
