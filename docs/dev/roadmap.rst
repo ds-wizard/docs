@@ -5,12 +5,16 @@ Roadmap
 Planned
 =======
 
-1.8.0
------
+Released
+========
 
-- End of development: 11 June 2019
-- Release: 13 June 2019
-- `Jira issues 1.8.0 <https://ds-wizard.atlassian.net/browse/?jql=project%20%3D%2010001%20AND%20fixVersion%20%3D%201.8.0>`_
+1.10.0
+------
+
+- End of development: 27 August 2019
+- Release: 3 September 2019
+- `Jira issues 1.10.0 <https://ds-wizard.atlassian.net/browse/?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%20DSW-1.10.0C>`_
+
 
 1.9.0
 -----
@@ -20,8 +24,13 @@ Planned
 - `Jira issues 1.9.0 <https://ds-wizard.atlassian.net/browse/?jql=project%20%3D%2010001%20AND%20fixVersion%20%3D%201.9.0>`_
 
 
-Released
-========
+1.8.0
+-----
+
+- End of development: 11 June 2019
+- Release: 13 June 2019
+- `Jira issues 1.8.0 <https://ds-wizard.atlassian.net/browse/?jql=project%20%3D%2010001%20AND%20fixVersion%20%3D%201.8.0>`_
+
 
 1.7.0
 -----
