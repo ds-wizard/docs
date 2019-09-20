@@ -28,6 +28,7 @@ The `Data Stewardship Wizard <https://ds-wizard.org>`_ is an international proje
 
    admin/installation
    admin/configuration
+   admin/upgrade
 
 .. toctree::
    :caption: Development
