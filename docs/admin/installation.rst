@@ -52,24 +52,6 @@ The simplest way is to use `Docker Compose <https://docs.docker.com/compose/>`_.
 
    You can take a look at https://github.com/ds-wizard/dsw-deployment-example
 
-Upgrade
--------
-
-.. Warning::
-
-   Backup database and other imporant data (e.g., configuration) before upgrade!
-
-In case of using Docker, just use the tag in :ref:`docker-compose.yml` or pull the new Docker image and restart using down/up:
-
-.. code-block:: shell
-
-   $ docker pull datastewardshipwizard/server
-   $ docker pull datastewardshipwizard/client
-   $ docker pull datastewardshipwizard/crontab
-   $ docker-compose down
-   $ docker-compose up -d
-
-
 Locally without Docker
 ======================
 
@@ -104,6 +86,10 @@ Server
 
    ``stack exec dsw-server``
 
+.. NOTE::
+
+   Be aware that running dsw-server requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory.
+
 Client
 ------
 
@@ -125,20 +111,6 @@ Client
 
    ``npm run build``
 
-Upgrade
--------
-
-.. Warning::
-
-   Backup database and other imporant data (e.g., configuration) before upgrade!
-
-All you need to do is download or checkout new version from our repositories and rebuild the application (according to guidelines above):
-
-.. code-block:: shell
-
-   $ git checkout vX.Y.Z
-
-If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.0/#upgrade-procedures>`_.
 
 Default Users
 =============
@@ -161,28 +133,6 @@ Registry
 ========
 
 When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-registry` configuration. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
-
-Compatibility
-=============
-
-The DS Wizard is compatible with all recent versions of web browsers Chrome, Opera, Firefox, and Edge. We do not recomment use of Internet Explorer. Internally, there are components between is are following compatibility of versions:
-
-+------------------+--------------+-----------+
-| DS Wizard        | KM Metamodel | Registry  |
-+==================+==============+===========+
-| 1.8.0            |            3 |     1.0.0 |
-+------------------+--------------+-----------+
-| 1.7.0            |            2 |        -- |
-+------------------+--------------+-----------+
-| 1.6.0            |            1 |        -- |
-+------------------+--------------+-----------+
-| 1.5.0 (or lower) |           -- |        -- |
-+------------------+--------------+-----------+
-
-
-.. Important::
-
-   DSW Client and Server should always use matching version (compatibility is assured)!
 
 Other "Setups"
 ==============
