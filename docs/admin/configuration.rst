@@ -155,6 +155,42 @@ Configuration related to parts displayed in the client application.
 
    URL to page with privacy policy of the service.
 
+.. confval:: customMenuLinks
+
+   :type: List of objects ":ref:`config-customMenuLink`"
+   :default: (empty list)
+
+.. _config-customMenuLink:
+
+Custom menu link
+^^^^^^^^^^^^^^^^
+
+Configuration object for custom links shown as additional buttons in the main navigation menu.
+
+.. confval:: icon
+
+   :type: String (`Font Awesome <https://fontawesome.com/v4.7.0/icons/>`_ icon name)
+
+   Icon to be shown on the button (we recommend to find suitable icon that is not already in use in the menu to avoid confusion if the menu is collapsed).
+
+.. confval:: title
+
+   :type: String
+
+   Title to be shown on the button in menu.
+
+.. confval:: url
+
+   :type: String (URL)
+
+   Target URL that will be opened after clicking the button.
+
+.. confval:: newWindow
+
+   :type: Boolean
+
+   If the link should be opened in a new window.
+
 Database
 ~~~~~~~~
 
@@ -311,6 +347,13 @@ Configuration for sending emails (such as registration activation or for forgott
    :default: ``false``
 
    If SMTP connection is encrypted via SSL (we highly recommend this).
+
+.. confval:: authEnabled
+
+   :type: Boolean
+   :default: ``false``
+
+   If authentication using username and password should be used for SMTP.
 
 .. confval:: username
 

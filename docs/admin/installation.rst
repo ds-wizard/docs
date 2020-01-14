@@ -82,6 +82,10 @@ Server
 
    Be aware that running engine-wizard requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory or where configured, e.g, :confval:`templateFolder`.
 
+.. NOTE::
+
+   Be aware that running dsw-server requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory.
+
 Client
 ------
 
@@ -102,6 +106,9 @@ Client
 6. For minified production-ready version, use
 
    ``npm run build:wizard``
+
+
+If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.0/#upgrade-procedures>`_.
 
 
 Default Users

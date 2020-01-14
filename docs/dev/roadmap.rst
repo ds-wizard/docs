@@ -22,14 +22,12 @@ Released
 - Release: 14 January 2020
 - `Jira issues 2.0.0 <https://ds-wizard.atlassian.net/browse/DSW-1?jql=project%3D%22DSW%22%20AND%20fixVersion%3DDSW-2.0.0>`_
 
-
 1.10.1
 ------
 
 - End of development: 18 September 2019
 - Release: 18 September 2019
 - `Jira issues 1.10.1 <https://ds-wizard.atlassian.net/browse/DSW-1?jql=project%3D%22DSW%22%20AND%20fixVersion%3DDSW-1.10.1>`_
-
 
 1.10.0
 ------
@@ -38,7 +36,6 @@ Released
 - Release: 3 September 2019
 - `Jira issues 1.10.0 <https://ds-wizard.atlassian.net/browse/DSW-1?jql=project%3D%22DSW%22%20AND%20fixVersion%3DDSW-1.10.0>`_
 
-
 1.9.0
 -----
 
@@ -46,14 +43,12 @@ Released
 - Release: 30 June 2019
 - `Jira issues 1.9.0 <https://ds-wizard.atlassian.net/browse/DSW-1?jql=project%3D%22DSW%22%20AND%20fixVersion%3DDSW-1.9.0>`_
 
-
 1.8.0
 -----
 
 - End of development: 11 June 2019
 - Release: 13 June 2019
 - `Jira issues 1.8.0 <https://ds-wizard.atlassian.net/browse/DSW-1?jql=project%3D%22DSW%22%20AND%20fixVersion%3DDSW-1.8.0>`_
-
 
 1.7.0
 -----
