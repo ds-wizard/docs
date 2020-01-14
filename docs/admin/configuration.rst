@@ -455,7 +455,7 @@ Client also provides wide variety of style customizations using `SASS <https://s
 - ``_overrides.scss`` = This file is loaded after all other styles. You can use it to override existing styles.
 - ``_variables.scss`` = A lot of values related to styles are defined as variables. The easiest way to customize the style is to define new values for these variables using this file.
 
-For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_.
+For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_. The color of illustrations can be adjusted using ``$illustrations-color`` variable.
 
 .. _config-feedback-sync:
 

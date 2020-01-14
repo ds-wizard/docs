@@ -9,7 +9,7 @@ Installation
 Public Instance
 ===============
 
-The application is currently deployed on a server provided by `FIT CTU <https://fit.cvut.cz/en>`_. Here are the addresses of running applications:
+The application is currently deployed on a server provided by `CESNET <https://www.cesnet.cz/?lang=en>`_. Here are the addresses of running applications:
 
 - `Landing page <https://ds-wizard.org>`_ with additional information
 - `Demo instance <https://demo.ds-wizard.org>`_ (free to use, for trying out all the features, unstable)
