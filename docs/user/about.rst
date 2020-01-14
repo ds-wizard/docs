@@ -70,6 +70,140 @@ Modules
   KM Editor
     A tool for customization of a KM and its creation and publishing.
 
+Types
+=====
+
+The following diagram shows individual types in DSW and how they are connected.
+
+|dsw-types|
+
+.. |dsw-types| image:: domain.svg
+
+Operations
+==========
+
+The following diagram shows how the operations interact with the data
+types in the DSW.
+
+|dsw-operations|
+
+Create Knowledge Model
+----------------------
+
+It creates a new Knowledge Model Branch that contains no Knowledge Model
+Events.
+
+Edit Knowledge Model
+--------------------
+
+It creates a branch for a Knowledge Model Package that is owned by the
+organization of the current DSW instance. New versions can be published
+as the next version of the original Knowledge Model Package.
+
+Fork Knowledge Model
+--------------------
+
+It creates a branch for a Knowledge Model Package that is **not** owned
+by the organization of the current DSW instance. New versions are
+published as a new Knowledge Model Package.
+
+Publish Knowledge Model
+-----------------------
+
+It creates a new version of the Knowledge Model Package from the new
+events added to the Knowledge Model Branch.
+
+Import Knowledge Model
+----------------------
+
+Knowledge Model Bundle file from outside of the DSW instance can be
+imported. The Knowledge Model Packages contained in the bundle can be
+then used in DSW.
+
+Export Knowledge Model
+----------------------
+
+Knowledge Model Package can be exported out of the DSW instance in the
+form of Knowledge Model Bundle file (with all its dependencies
+included).
+
+Editor Action
+-------------
+
+Using the Knowledge Model editor, Knowledge Model can be extended, and
+events are generated.
+
+Save Branch
+-----------
+
+Saving the branch simply saves all the events generated while using the
+editor.
+
+Create Knowledge Model Migration
+--------------------------------
+
+User can select a new parent Knowledge Model for a Knowledge Model
+Branch that is outdated and create a Knowledge Model Migration.
+
+Process Knowledge Model Migration Change
+----------------------------------------
+
+During the Knowledge Model migration, each change form the parent
+Knowledge Model is reviewed and either applied or rejected to the
+localization Knowledge Model.
+
+Finalize Knowledge Model Migration
+----------------------------------
+
+After all the changes are applied or rejected, the migration can be
+finalized, and the new version of the Knowledge Model Package can be
+published.
+
+Preview Questionnaire
+---------------------
+
+Users can preview a Questionnaire while working in Knowledge Model
+Editor on a Knowledge Model Branch so that they can be sure with the
+result before publishing the version.
+
+Create Questionnaire
+--------------------
+
+A Questionnaire can be created from a specific version of a Knowledge
+Model Package.
+
+Fill Questionnaire
+------------------
+
+User can fill the answer in the Questionnaire and save them. These are
+saved in the form of Questionnaire Replies.
+
+Create Questionnaire Migration
+------------------------------
+
+Questionnaire Migration is created by choosing a new version of the
+Knowledge Model Package for a Questionnaire.
+
+Process Questionnaire Migration Change
+--------------------------------------
+
+Users go through each change affecting their answers in the
+Questionnaire.
+
+Finalize Questionnaire Migration
+--------------------------------
+
+Once all the changes are resolved, the migration can be finalized, and a
+new Questionnaire is created.
+
+Generate Document
+-----------------
+
+A Document output can be generated for each Questionnaire using a
+Document Template.
+
+.. |dsw-operations| image:: types-operations.svg
+
 Learn More
 ==========
 
@@ -78,10 +212,10 @@ Learn More
 - `Diagrams <https://github.com/ds-wizard/dsw-diagrams>`_
 - ELIXIR All Hands 2018
 
-  - `Poster <https://github.com/DataStewardshipWizard/dsw-common/raw/master/wiki-resources/DSW_AllHands18_Poster_v4.pdf>`_
+  - `Poster 2018 <https://github.com/DataStewardshipWizard/dsw-common/raw/master/wiki-resources/DSW_AllHands18_Poster_v4.pdf>`_
   - `Flask Talk <https://github.com/DataStewardshipWizard/dsw-common/raw/master/wiki-resources/DSW_AllHands18_FlashTalk.pdf>`_
 
 - ELIXIR All Hands 2019
 
-  - `Poster <https://f1000research.com/posters/8-1086>`_
+  - `Poster 2019 <https://f1000research.com/posters/8-1086>`_
   - `Workshop slides <https://f1000research.com/slides/8-1003>`_

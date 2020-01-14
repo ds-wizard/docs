@@ -1,36 +1,24 @@
 version: '3'
 services:
 
-  dsw_server:
-    image: datastewardshipwizard/server
+  server:
+    image: datastewardshipwizard/wizard-server
     restart: always
     ports:
       - 3000:3000
     volumes:
-      - /dsw/app-config.cfg:/dsw/config/app-config.cfg
+      - /dsw/application.yml:/application/engine-wizard/config/application.yml
+      - /dsw/integration.yml:/application/engine-wizard/config/integration.yml
     links:
-      - rabbitmq
       - mongo
 
-  dsw_client:
-    image: datastewardshipwizard/client
+  client:
+    image: datastewardshipwizard/wizard-client
     restart: always
     ports:
       - 80:80
     environment:
-      - API_URL=http://localhost:3000
-      
-  dsw_server_worker:
-    image: datastewardshipwizard/crontab
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /dsw/worker-config.json:/opt/crontab/config.json
-    environment:
-      - API_URL=http://localhost:3000
-
-  rabbitmq:
-    image: rabbitmq
+      API_URL: http://localhost:3000
 
   mongo:
     image: mongo:4.0.12

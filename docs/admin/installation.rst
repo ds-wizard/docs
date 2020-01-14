@@ -9,22 +9,15 @@ Installation
 Public Instance
 ===============
 
-The application is currently deployed on a server provided by `FIT CTU <https://fit.cvut.cz/en>`_. Here are the addresses of running applications:
+The application is currently deployed on a server provided by `CESNET <https://www.cesnet.cz/?lang=en>`_. Here are the addresses of running applications:
 
-- Landing: https://ds-wizard.org
-- Demo instance (free to use, for trying out all the features, unstable)
-
-  - Client: https://demo.ds-wizard.org
-  - Server: https://api.demo.ds-wizard.org
-
-- Researchers instance (free to use, to build own DMPs, prepared for serious work)
-
-  - Client: https://researchers.ds-wizard.org
-  - Server: https://api.researchers.ds-wizard.org
+- `Landing page <https://ds-wizard.org>`_ with additional information
+- `Demo instance <https://demo.ds-wizard.org>`_ (free to use, for trying out all the features, unstable)
+- `Researchers instance <https://researchers.ds-wizard.org>`_ (free to use, to build own DMPs, prepared for serious work)
 
 .. Tip::
 
-   You are free to register and test out the Wizard within the `ds-wizard.org <https://ds-wizard.org>`_. Then you can decide if you want a local instance for you or your organization.
+   You are free to register and test out the Wizard within the `ds-wizard.org <https://ds-wizard.org>`_. Then you can decide if you want a local instance for you or your organization. Eventually you can contact us about *DSW Cloud* service where we can host and maintain your DSW instance, see our `Get Started page <https://ds-wizard.org/get-started.html>`_.
 
 
 .. _installation-docker:
@@ -35,7 +28,7 @@ Via Docker
 The simplest way is to use `Docker Compose <https://docs.docker.com/compose/>`_. Requirements are just to have Docker installed, privileges for current user and the Docker daemon started.
 
 1. Create a folder (e.g.,  ``/dsw``, all commands in this manual are from this working directory)  
-2. Prepare all config files described in :ref:`Configuration` (especially, ``application.yml`` and ``worker-config.json``), paths are visible from the :ref:`docker-compose.yml`
+2. Prepare all config files described in :ref:`Configuration` (especially ``application.yml``), paths are visible from the :ref:`docker-compose.yml`
 3. Copy (and adjust) :ref:`docker-compose.yml` provided below
 4. Run the DSW with Docker compose ``docker-compose up -d``
 5. After starting up, you will be able to open the Wizard in your browser on http://localhost
@@ -63,7 +56,6 @@ General Requirements
 - `The Haskell tool Stack <https://docs.haskellstack.org>`_ (for server side)
 - `NPM <https://www.npmjs.com/get-npm>`_ (for client side)
 - `MongoDB <https://www.mongodb.com>`_ (database, needs to be running)
-- `RabbitMQ <https://www.rabbitmq.com>`_ (optional, based on your :ref:`configuration`)
 - `wkhtmltopdf <https://github.com/wkhtmltopdf/wkhtmltopdf/releases>`_ (>= 0.12.5, for DMP exports in PDF)
 - `Pandoc <https://github.com/jgm/pandoc/releases>`_ (>= 2.6, for DMP exports in other formats aside HTML, PDF, and JSON)
 
@@ -72,30 +64,30 @@ Server
 
 1. Get the server app (dsw-server)
 
-   ``git clone git@github.com:ds-wizard/dsw-server.git``
+   ``git clone https://github.com/ds-wizard/engine-backend.git``
 
 2. Copy and edit configuration (see :ref:`configuration`)
 
-   ``cp config/app-config.cfg.example config/app-config.cfg``
+   ``cp engine-wizard/config/application.yml.example engine-wizard/config/application.yml``
 
-3. Build (takes a lot of time, downloads & builds all dependencies)
+3. Build (may take some time to download & build dependencies)
 
-   ``stack build``
+   ``stack build engine-wizard``
 
-4. Run (requires MongoDB and RabbitMQ according to configuration)
+4. Run (requires MongoDB according to configuration)
 
-   ``stack exec dsw-server``
+   ``stack exec engine-wizard``
 
 .. NOTE::
 
-   Be aware that running dsw-server requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory.
+   Be aware that running engine-wizard requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory or where configured, e.g, :confval:`templateFolder`.
 
 Client
 ------
 
 1. Get the client app (dsw-client)
 
-   ``git clone git@github.com:ds-wizard/dsw-client.git``
+   ``git clone https://github.com/ds-wizard/engine-frontend.git``
 
 2. Install the app (dependencies)
 
@@ -104,12 +96,12 @@ Client
 3. Change configuration if the server is not running on http://localhost:3000 (see :ref:`configuration`)
 4. Run the app
 
-   ``npm start``
+   ``npm run start:wizard``
 
 5. Open app in your favorite browser
 6. For minified production-ready version, use
 
-   ``npm run build``
+   ``npm run build:wizard``
 
 
 Default Users
@@ -145,15 +137,15 @@ When you have a fresh installation, there are just the default users and no know
 Public Questionnaire
 --------------------
 
-If you also need to enable public questionnaire for :guilabel:`Questionnaire demo` functionality with this core knowledge model, you have to download `public-package-root-1.0.0.json` file below and import it directly to the database into `publicPackages` collection. Optionally, you can move some of your packages similarly.
+If you also need to enable public questionnaire for :guilabel:`Questionnaire demo` functionality with this core knowledge model, you have to download `public-package-root-2.0.0.json` file below and import it directly to the database into `publicPackages` collection. Optionally, you can move some of your packages similarly.
 
-:download:`public-package-root-1.0.0.json <public-package-root-1.0.0.json>`
+:download:`public-package-root-2.0.0.json <public-package-root-2.0.0.json>`
 
 .. code-block:: shell
 
    $ mongoimport --db dsw-server \ 
                  --collection publicPackages \
-                 --file public-package-root-1.0.0.json
+                 --file public-package-root-2.0.0.json
 
 (If using Docker, you will need `docker exec <https://docs.docker.com/engine/reference/commandline/exec/>`_.)
 
@@ -161,6 +153,7 @@ If you also need to enable public questionnaire for :guilabel:`Questionnaire dem
 .. Note::
 
    For public questionnaire correctly running, you need to import the related Knowledge Model in the Wizard otherwise you will end up with ``Entity does not exist`` error.
+
 
 Database Backup
 ---------------
