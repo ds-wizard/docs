@@ -7,6 +7,11 @@
 KM Editor Tutorial
 ==================
 
+.. NOTE::
+
+   This tutorial has been made for previous version of DSW and may differ in some details.
+
+
 The KM (Knowledge Model) Editor is used for creating and updating knowledge models. This tutorial will go through the steps of creating a new KM from scratch.
 
  1. Click on "KM Editor" in the left-hand menu of the wizard

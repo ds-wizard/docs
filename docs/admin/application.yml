@@ -3,7 +3,8 @@ general:
   serverPort: 3000
   clientUrl: http://localhost:8080
   serviceToken: NlQSNbGvh7EtcpinGnHE9g91
-  integrationConfig: integration.yml
+  integrationConfig: config/integration.yml
+  templateFolder: templates
   registrationEnabled: true
   publicQuestionnaireEnabled: true
   levelsEnabled: true

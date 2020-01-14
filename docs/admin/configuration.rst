@@ -66,14 +66,21 @@ Configuration related to general operations of the server application.
    :type: String
    :default: ``""`` (empty)
 
-   Randomly generated string that matches configuration of :ref:`config-worker` component.
+   Randomly generated string that matches configuration of :ref:`config-feedback-sync` component.
 
 .. confval:: integrationConfig
 
    :type: String
-   :default: ``"integration.yml"``
+   :default: ``"engine-wizard/config/integration.yml"``
 
-   Filename or whole path of integration configuration file (see :ref:`config-server-integration`). In case of path, it is relative to the ``config`` folder.
+   Filename or whole path of integration configuration file (see :ref:`config-server-integration`). The path is relative to the working directory from where the Wizard runs.
+
+.. confval:: templateFolder
+
+   :type: String
+   :default: ``"engine-wizard/templates"``
+
+   Path to the folder where DMP and mail template are stored. The path is relative to the working directory from where the Wizard runs.
 
 .. confval:: registrationEnabled
 
@@ -480,31 +487,42 @@ Client also provides wide variety of style customizations using `SASS <https://s
 .. code-block:: yaml
 
     volumes:
-      # mount variables.scss file
-      - /path/to/customizations.scss:/customizations/variables.scss
+      # mount SCSS file
+      - /path/to/extras.scss:/src/scss/customizations/_extras.scss
+      - /path/to/overrides.scss:/src/scss/customizations/_overrides.scss
+      - /path/to/variables.scss:/src/scss/customizations/_variables.scss
       # mount other assets, you can then refere them from scss using '/assets/...'
       - /path/to/assets:/usr/share/nginx/html/assets
-      
-For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_.
 
-.. _config-worker:
+- ``_extras.scss`` = This file is loaded before all other styles. You can use it, for example, to define new styles or import fonts.
+- ``_overrides.scss`` = This file is loaded after all other styles. You can use it to override existing styles.
+- ``_variables.scss`` = A lot of values related to styles are defined as variables. The easiest way to customize the style is to define new values for these variables using this file.
 
-Worker
-======
+For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_. The color of illustrations can be adjusted using ``$illustrations-color`` variable.
 
-For running scheduled service tasks, there is a (optional) server worker component. Its configuration is done with ``API_URL`` which is the same as when configuring :ref:`config-client` but also ``SERVICE_TOKEN`` that must correspond with server configuration :confval:`serviceToken`.
+.. _config-feedback-sync:
 
-.. code-block:: bash
+Feedback synchronization
+========================
 
-   API_URL=https://api.dsw.example.org
-   SERVICE_TOKEN=<secret_token>
+Because our feedback functionality is based on GitHub issues, it requires synchronization. If you are using our Docker image, all you have to do is define environment variables for the server image:
+
+::
+
+   API_URL: "..." 
+   SERVICE_TOKEN: "..."
+   ENABLE_CRON: "1"
+   ENABLE_CRON_FEEDBACK_SYNC: "1"
+
+
+Locally, you need to set up cron job on your machine similarly. See `our script <https://github.com/ds-wizard/engine-backend/blob/develop/engine-wizard/scripts/docker-run.sh>`_ for setting up the cron job.
 
 .. _config-dmptemplates:
 
 DMP Templates
 =============
 
-You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_) is useful.
+You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_) is useful. The location of templates root folder is configurable via :confval:`templateFolder`.
 
 Template files
 --------------
@@ -524,8 +542,18 @@ You can have multiple DMP templates and users will be able to pick one of them w
    {
      "uuid": "43a3fdd1-8535-42e0-81a7-5edbff296e65",
      "name": "Common DSW Template",
-     "rootFile": "root.html.j2"
+     "rootFile": "root.html.j2",
+     "allowedKMs": [
+        {
+          "orgId": null,
+          "kmId": null,
+          "minVersion": null,
+          "maxVersion": null
+        }
+     ]
    }
+
+For ``allowedKMs``, you can specify a list of knowledge models that the template can be used with (for example, when it is bound to its questions). You can even bound minimal and maximal version or let it unbound using ``null`` value.
 
 Graphics and scripts
 --------------------
@@ -567,26 +595,20 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
 
 .. code-block:: yaml
 
-    dsw_server:
-    image: datastewardshipwizard/server
-    restart: always
-    ports:
-      - 3000:3000
-    volumes:
-      - /dsw/app-config.cfg:/dsw/config/app-config.cfg
-      - /dsw/root.json:/dsw/templates/dmp/root.json
-      - /dsw/root.html.j2:/dsw/templates/dmp/root.html.j2
-      - /dsw/root.css:/dsw/templates/dmp/root.css
-    external_links:
-      - mongo_mongo_1:mongo
-    networks:
-      - default
-      - mongo_default
+   server:
+     image: datastewardshipwizard/wizard-server
+     restart: always
+     ports:
+       - 3000:3000
+     volumes:
+       - /dsw/application.yml:/application/engine-wizard/config/application.yml
+       - /dsw/staging/templates/dmp:/application/engine-wizard/templates/dmp:ro
+     # ... (continued)
 
 Email Templates
 ===============
 
-Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_. And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename).
+Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_. And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename). The location of templates root folder is configurable via :confval:`templateFolder`.
 
 Templates structure
 -------------------
@@ -629,12 +651,12 @@ Including own email templates while using dockerized Wizard is practically the s
 
 .. code-block:: yaml
 
-   dsw_server:
-     image: datastewardshipwizard/server
+   server:
+     image: datastewardshipwizard/wizard-server
      restart: always
      ports:
        - 3000:3000
      volumes:
-       - /dsw/app-config.cfg:/dsw/config/app-config.cfg
-       - /dsw/templates/mail:/dsw/templates/mail
+       - /dsw/application.yml:/application/engine-wizard/config/application.yml
+       - /dsw/staging/templates/mail:/application/engine-wizard/templates/mail:ro
    # ... (continued)
