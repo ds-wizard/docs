@@ -493,8 +493,18 @@ You can have multiple DMP templates and users will be able to pick one of them w
    {
      "uuid": "43a3fdd1-8535-42e0-81a7-5edbff296e65",
      "name": "Common DSW Template",
-     "rootFile": "root.html.j2"
+     "rootFile": "root.html.j2",
+     "allowedKMs": [
+        {
+          "orgId": null,
+          "kmId": null,
+          "minVersion": null,
+          "maxVersion": null
+        }
+     ]
    }
+
+For ``allowedKMs``, you can specify a list of knowledge models that the template can be used with (for example, when it is bound to its questions). You can even bound minimal and maximal version or let it unbound using ``null`` value.
 
 Graphics and scripts
 --------------------
