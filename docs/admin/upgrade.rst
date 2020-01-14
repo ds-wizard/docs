@@ -45,6 +45,8 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 ---------------
 
 - Changing the major version actually does not mean any problem in migration, it has been made due to significant internal changes (restructuring, new repositories, etc.)
+- If you are using Docker for running DSW, you need to change it according to new documentation of :ref:`docker-compose.yml` and :ref:`configuration`.
+- Crontab image is no longer needed, see :ref:`config-feedback-sync`.
 
 1.9.X to 1.10.0
 ---------------
@@ -65,7 +67,7 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+-----------+
 | DS Wizard        | KM Metamodel | Registry  |
 +==================+==============+===========+
-| 2.0.0            |            5 |     1.3.0 |
+| 2.0.0            |            5 |     2.0.0 |
 +------------------+--------------+-----------+
 | 1.10.0           |            4 |     1.2.0 |
 +------------------+--------------+-----------+

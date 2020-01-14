@@ -444,11 +444,17 @@ Client also provides wide variety of style customizations using `SASS <https://s
 .. code-block:: yaml
 
     volumes:
-      # mount variables.scss file
-      - /path/to/customizations.scss:/customizations/variables.scss
+      # mount SCSS file
+      - /path/to/extras.scss:/src/scss/customizations/_extras.scss
+      - /path/to/overrides.scss:/src/scss/customizations/_overrides.scss
+      - /path/to/variables.scss:/src/scss/customizations/_variables.scss
       # mount other assets, you can then refere them from scss using '/assets/...'
       - /path/to/assets:/usr/share/nginx/html/assets
-      
+
+- ``_extras.scss`` = This file is loaded before all other styles. You can use it, for example, to define new styles or import fonts.
+- ``_overrides.scss`` = This file is loaded after all other styles. You can use it to override existing styles.
+- ``_variables.scss`` = A lot of values related to styles are defined as variables. The easiest way to customize the style is to define new values for these variables using this file.
+
 For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_.
 
 .. _config-feedback-sync:
@@ -546,21 +552,15 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
 
 .. code-block:: yaml
 
-    dsw_server:
-    image: datastewardshipwizard/server
-    restart: always
-    ports:
-      - 3000:3000
-    volumes:
-      - /dsw/app-config.cfg:/dsw/config/app-config.cfg
-      - /dsw/root.json:/dsw/templates/dmp/root.json
-      - /dsw/root.html.j2:/dsw/templates/dmp/root.html.j2
-      - /dsw/root.css:/dsw/templates/dmp/root.css
-    external_links:
-      - mongo_mongo_1:mongo
-    networks:
-      - default
-      - mongo_default
+   server:
+     image: datastewardshipwizard/wizard-server
+     restart: always
+     ports:
+       - 3000:3000
+     volumes:
+       - /dsw/application.yml:/application/engine-wizard/config/application.yml
+       - /dsw/staging/templates/dmp:/application/engine-wizard/templates/dmp:ro
+     # ... (continued)
 
 Email Templates
 ===============
@@ -608,12 +608,12 @@ Including own email templates while using dockerized Wizard is practically the s
 
 .. code-block:: yaml
 
-   dsw_server:
-     image: datastewardshipwizard/server
+   server:
+     image: datastewardshipwizard/wizard-server
      restart: always
      ports:
        - 3000:3000
      volumes:
-       - /dsw/app-config.cfg:/dsw/config/app-config.cfg
-       - /dsw/templates/mail:/dsw/templates/mail
+       - /dsw/application.yml:/application/engine-wizard/config/application.yml
+       - /dsw/staging/templates/mail:/application/engine-wizard/templates/mail:ro
    # ... (continued)
