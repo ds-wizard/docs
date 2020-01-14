@@ -13,8 +13,8 @@ Development
 Our projects are open source and you can contribute via GitHub (fork and pull request):
 
 - https://github.com/ds-wizard
-- https://github.com/ds-wizard/dsw-server
-- https://github.com/ds-wizard/dsw-client
+- https://github.com/ds-wizard/engine-backend
+- https://github.com/ds-wizard/engine-frontend
 
 .. Tip::
 

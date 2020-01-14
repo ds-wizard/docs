@@ -16,8 +16,8 @@ In case of using Docker, just use the tag in :ref:`docker-compose.yml` or pull t
 
 .. code-block:: shell
 
-   $ docker pull datastewardshipwizard/server
-   $ docker pull datastewardshipwizard/client
+   $ docker pull datastewardshipwizard/wizard-server
+   $ docker pull datastewardshipwizard/wizard-client
    $ docker pull datastewardshipwizard/crontab
    $ docker-compose down
    $ docker-compose up -d
@@ -42,7 +42,12 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
-1.9.0 to 1.10.0
+1.10.X to 2.0.0
+---------------
+
+- Changing the major version actually does not mean any problem in migration, it has been made due to significant internal changes (restructuring, new repositories, etc.)
+
+1.9.X to 1.10.0
 ---------------
 
 - Custom DMP templates needs to be upgraded to a new structure (see the default *root* template).
@@ -61,6 +66,8 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+-----------+
 | DS Wizard        | KM Metamodel | Registry  |
 +==================+==============+===========+
+| 2.0.0            |            5 |     1.3.0 |
++------------------+--------------+-----------+
 | 1.10.0           |            4 |     1.2.0 |
 +------------------+--------------+-----------+
 | 1.9.0            |            3 |     1.1.0 |

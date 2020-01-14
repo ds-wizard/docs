@@ -8,6 +8,14 @@ Planned
 Released
 ========
 
+2.0.0
+------
+
+- End of development: 27 August 2019
+- Release: 20 January 2019
+- `Jira issues 2.0.0 <https://ds-wizard.atlassian.net/browse/?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%20DSW-2.0.0C>`_
+
+
 1.10.0
 ------
 
