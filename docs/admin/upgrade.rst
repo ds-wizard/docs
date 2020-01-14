@@ -18,7 +18,6 @@ In case of using Docker, just use the tag in :ref:`docker-compose.yml` or pull t
 
    $ docker pull datastewardshipwizard/wizard-server
    $ docker pull datastewardshipwizard/wizard-client
-   $ docker pull datastewardshipwizard/crontab
    $ docker-compose down
    $ docker-compose up -d
 

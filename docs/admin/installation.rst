@@ -28,7 +28,7 @@ Via Docker
 The simplest way is to use `Docker Compose <https://docs.docker.com/compose/>`_. Requirements are just to have Docker installed, privileges for current user and the Docker daemon started.
 
 1. Create a folder (e.g.,  ``/dsw``, all commands in this manual are from this working directory)  
-2. Prepare all config files described in :ref:`Configuration` (especially, ``application.yml`` and ``worker-config.json``), paths are visible from the :ref:`docker-compose.yml`
+2. Prepare all config files described in :ref:`Configuration` (especially ``application.yml``), paths are visible from the :ref:`docker-compose.yml`
 3. Copy (and adjust) :ref:`docker-compose.yml` provided below
 4. Run the DSW with Docker compose ``docker-compose up -d``
 5. After starting up, you will be able to open the Wizard in your browser on http://localhost

@@ -66,7 +66,7 @@ Configuration related to general operations of the server application.
    :type: String
    :default: ``""`` (empty)
 
-   Randomly generated string that matches configuration of :ref:`config-worker` component.
+   Randomly generated string that matches configuration of :ref:`config-feedback-sync` component.
 
 .. confval:: integrationConfig
 
@@ -444,17 +444,22 @@ Client also provides wide variety of style customizations using `SASS <https://s
       
 For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_.
 
-.. _config-worker:
+.. _config-feedback-sync:
 
-Worker
-======
+Feedback synchronization
+========================
 
-For running scheduled service tasks, there is a (optional) server worker component. Its configuration is done with ``API_URL`` which is the same as when configuring :ref:`config-client` but also ``SERVICE_TOKEN`` that must correspond with server configuration :confval:`serviceToken`.
+Because our feedback functionality is based on GitHub issues, it requires synchronization. If you are using our Docker image, all you have to do is define environment variables for the server image:
 
-.. code-block:: bash
+::
 
-   API_URL=https://api.dsw.example.org
-   SERVICE_TOKEN=<secret_token>
+   API_URL: "..." 
+   SERVICE_TOKEN: "..."
+   ENABLE_CRON: "1"
+   ENABLE_CRON_FEEDBACK_SYNC: "1"
+
+
+Locally, you need to set up cron job on your machine similarly. See `our script <https://github.com/ds-wizard/engine-backend/blob/develop/engine-wizard/scripts/docker-run.sh>`_ for setting up the cron job.
 
 .. _config-dmptemplates:
 
