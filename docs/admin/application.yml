@@ -26,6 +26,13 @@ database:
   username:
   password:
 
+messaging:
+  host: rabbitmq
+  port: 5672
+  username: rabbit
+  password: password
+  vhost: /
+
 jwt:
   secret: gVoYNuEJuGGAQMIaYw43BN3e
   version: 1

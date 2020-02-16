@@ -238,6 +238,47 @@ Configuration of connection to MongoDB database.
 
    Password for authentication to database connection (if :confval:`authEnabled` is ``true``).
 
+
+RabbitMQ
+~~~~~~~~
+
+Configuration of connection to RabbitMQ.
+
+.. confval:: host
+
+   :type: String
+   :default: ``"rabbitmq"``
+
+   Hostname or IP address of the server running RabbitMQ.
+
+.. confval:: port
+
+   :type: Integer [0-65535]
+   :default: ``5672``
+
+   Port that is used for RabbitMQ on the server (usually ``5672``).
+
+.. confval:: username
+
+   :type: String
+   :default: ``"guest"``
+
+   Username for authentication to RabbitMQ connection.
+
+.. confval:: password
+
+   :type: String
+   :default: ``"guest"``
+
+   Password for authentication to RabbitMQ connection.
+
+.. confval:: vhost
+
+   :type: String
+   :default: ``"/"``
+
+   Virtual host on RabbitMQ server (see `RabbitMQ docs <https://www.rabbitmq.com/vhosts.html>`_).
+
 JWT
 ~~~
 
@@ -500,6 +541,186 @@ Client also provides wide variety of style customizations using `SASS <https://s
 
 For more information about variables and assets, visit `Theming Bootstrap <https://getbootstrap.com/docs/4.0/getting-started/theming/>`_. The color of illustrations can be adjusted using ``$illustrations-color`` variable.
 
+
+.. _config-docworker:
+
+Document Worker
+===============
+
+Configuration of document worker must match with server configuration.
+
+.. _config-docworker-example:
+
+.. literalinclude:: docworker.cfg
+   :caption: docworker.cfg
+   :language: ini
+   :linenos:
+
+mongo
+-----
+
+.. confval:: host
+
+   :type: String
+   :default: ``"localhost"``
+
+   Hostname or IP address of the server running MongoDB.
+
+.. confval:: port
+
+   :type: Integer [0-65535]
+   :default: ``27017``
+
+   Port that is used for MongoDB on the server (usually ``27017``).
+
+.. confval:: username
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Username for authentication to database connection (will be used if set).
+
+.. confval:: password
+
+   :type: String
+   :default: ``""`` (optional)
+
+   Password for authentication to database connection (will be used if set).
+
+.. confval:: database
+
+   :type: String
+
+   Name of the database for DS Wizard within MongoDB.
+
+.. confval:: collection
+
+   :type: String
+
+   Name of the collection for documents (typically ``documents``).
+
+.. confval:: fs_collection
+
+   :type: String
+
+   Name of the collection for files (typically ``documentFs``).
+
+.. confval:: auth_database
+
+   :type: String
+   :default: ``<database>`` (optional)
+
+   Authentication database used for MongoDB, defaults to the same value provided in ``database`` option.
+
+.. confval:: fs_collection
+
+   :type: auth_mechanism
+   :default: ``"SCRAM-SHA-256"`` (optional)
+
+   Authentication mechanism used for MongoDB.
+
+mq
+---
+
+.. confval:: host
+
+   :type: String
+   :default: ``"localhost"``
+
+   Hostname or IP address of the server running RabbitMQ.
+
+.. confval:: port
+
+   :type: Integer [0-65535]
+   :default: ``5672``
+
+   Port that is used for RabbitMQ on the server (usually ``5672``).
+
+.. confval:: vhost
+
+   :type: String
+   :default: ``"/"``
+
+   Virtual host on RabbitMQ server (see `RabbitMQ docs <https://www.rabbitmq.com/vhosts.html>`_).
+
+.. confval:: username
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Username for authentication to RabbitMQ connection (if any).
+
+.. confval:: password
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Password for authentication to RabbitMQ connection (if any).
+
+.. confval:: queue
+
+   :type: String
+
+   Name of queue used for passing document jobs (typically ``document.generation``).
+
+logging
+-------
+
+.. confval:: level
+
+   :type: String
+   :default: ``"WARNING"``
+
+   Name of logging level (use names of `Python logging levels <https://docs.python.org/3/library/logging.html#levels>`_).
+
+pandoc
+------
+
+.. confval:: executable
+
+   :type: String
+   :default: ``"pandoc"``
+
+   Executable command for running Pandoc (can be aliased or defined with absolute path).
+
+.. confval:: args
+
+   :type: String
+   :default: ``"--standalone"``
+
+   Default arguments used for all Pandoc calls.
+
+.. confval:: timeout
+
+   :type: Float
+   :default: ``None`` (optional)
+
+   Timeout for Pandoc subprocess call.
+
+wkhtmltopdf
+-----------
+
+.. confval:: executable
+
+   :type: String
+   :default: ``"pandoc"``
+
+   Executable command for running WkHtmlToPdf (can be aliased or defined with absolute path).
+
+.. confval:: args
+
+   :type: String
+   :default: ``""`` (empty)
+
+   Default arguments used for all WkHtmlToPdf calls.
+
+.. confval:: timeout
+
+   :type: Float
+   :default: ``None`` (optional)
+
+   Timeout for WkHtmlToPdf subprocess call.
+
 .. _config-feedback-sync:
 
 Feedback synchronization
@@ -522,7 +743,7 @@ Locally, you need to set up cron job on your machine similarly. See `our script 
 DMP Templates
 =============
 
-You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_) is useful. The location of templates root folder is configurable via :confval:`templateFolder`.
+You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (pure Python implementation) is useful. The location of templates root folder is configurable via :confval:`templateFolder`.
 
 Template files
 --------------
@@ -550,10 +771,12 @@ You can have multiple DMP templates and users will be able to pick one of them w
           "minVersion": null,
           "maxVersion": null
         }
-     ]
+     ],
+     "wkhtmltopdf": "...",
+     "pandoc": "..."
    }
 
-For ``allowedKMs``, you can specify a list of knowledge models that the template can be used with (for example, when it is bound to its questions). You can even bound minimal and maximal version or let it unbound using ``null`` value.
+For ``allowedKMs``, you can specify a list of knowledge models that the template can be used with (for example, when it is bound to its questions). You can even bound minimal and maximal version or let it unbound using ``null`` value. Using ``wkhtmltopdf`` and ``pandoc``, you can specify template-related extra arguments for calls of those commands in case of document conversion.
 
 Graphics and scripts
 --------------------
@@ -601,14 +824,20 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
      ports:
        - 3000:3000
      volumes:
-       - /dsw/application.yml:/application/engine-wizard/config/application.yml
-       - /dsw/staging/templates/dmp:/application/engine-wizard/templates/dmp:ro
+       - /dsw/server/application.yml:/application/engine-wizard/config/application.yml
+       - /dsw/templates/dmp:/application/engine-wizard/templates/dmp:ro
      # ... (continued)
+
+   docworker:
+     # ...
+     volumes:
+      - /dsw/docworker/config.cfg:/app/config.cfg:ro
+      - /dsw/templates/dmp:/app/templates:ro
 
 Email Templates
 ===============
 
-Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_. And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename). The location of templates root folder is configurable via :confval:`templateFolder`.
+Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_ (for email templates we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_). And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename). The location of templates root folder is configurable via :confval:`templateFolder`.
 
 Templates structure
 -------------------
