@@ -18,6 +18,7 @@ In case of using Docker, just use the tag in :ref:`docker-compose.yml` or pull t
 
    $ docker pull datastewardshipwizard/wizard-server
    $ docker pull datastewardshipwizard/wizard-client
+   $ docker pull datastewardshipwizard/document-worker
    $ docker-compose down
    $ docker-compose up -d
 
@@ -40,6 +41,11 @@ Upgrade process
 ===============
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
+
+2.0.X to 2.1.0
+--------------
+
+- There is a significant change related to new *Document Worker* that handles generation of documents from templates and filled questionnaires. You need to run RabbitMQ and document-worker with correct configuration according to server, see :ref:`docker-compose.yml` and :ref:`configuration` for details.
 
 1.10.X to 2.0.0
 ---------------
