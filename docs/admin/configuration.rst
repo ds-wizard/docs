@@ -508,6 +508,9 @@ Integrations in the DS Wizard are using external APIs and you might need some co
 
 There can be multiple integrations configured in single file. These can be used then when setting up the integration in the Editor as ``${apiKey}``, ``${apiUrl}``, etc. More about integrations can be found in separate :ref:`integrations` documentation.
 
+.. NOTE::
+
+   Different knowledge models may use different variable naming, please read the information in README to find out what is required. We recommend authors to stick with ``apiKey`` and ``apiUrl`` variables as our convention.
 
 .. _config-client:
 
