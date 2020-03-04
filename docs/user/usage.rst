@@ -25,15 +25,23 @@ Researcher is a user who works on a scientific project and has the knowledge abo
 Questionnaire
 -------------
 
-Data Stewardship Planner provides simple way to create questionnaire from KM package and fill it in smart way - only relevant questions for your case will be shown.
+Data Stewardship Wizard provides simple way to create questionnaire from KM package and fill it in smart way - only relevant questions for your case will be shown.
 
 - :guilabel:`Create` = create new questionnaire from certain version of certain KM package
 - For each questionnaire:
 
   - :guilabel:`Fill questionnaire` = starts interactive questionnaire that guides you through answering relevant questions for specific project
-  - :guilabel:`Export` = export plan in selected format and template
-  - :guilabel:`Edit`
+  - :guilabel:`Edit` = edit questionnaire details such as name or privacy
+  - :guilabel:`Create Document` = create a DMP in selected format and template
+  - :guilabel:`View Documents` = view created DMPs for the questionnaire
+  - :guilabel:`Clone` = create a duplicate quetionnaire
+  - :guilabel:`Create Migration` = migrate questionnaire to a different version of KM
   - :guilabel:`Delete`
+
+Documents
+---------
+
+This section displays all documents (or DMPs) that the user is allowed to see. You can download the document, delete it, or navigate to questionnaire used for the DMP.
 
 .. _usage-datasteward:
 
@@ -54,9 +62,9 @@ Knowledge Models are collections of DS knowledge. Each package has own unique id
   - :guilabel:`View detail` = shows detail with versions and basic information about the KM and for each version:
 
     - :guilabel:`Export` = export specific version of KM, that can be then imported (e.g. in different instance of DSW)
-    - :guilabel:`Delete`
-    - :guilabel:`Fork Knowledge Model` = shortcut to create editor from specific version of KM
+    - :guilabel:`Create KM Eitor` = shortcut to create editor from specific version of KM
     - :guilabel:`Create Questionnaire` = shortcut to create planner from specific version of KM
+    - :guilabel:`Delete`
 
 KM Editor
 ---------

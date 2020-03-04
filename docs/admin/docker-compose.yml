@@ -7,10 +7,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /dsw/application.yml:/application/engine-wizard/config/application.yml
-      - /dsw/integration.yml:/application/engine-wizard/config/integration.yml
-    links:
-      - mongo
+      - /dsw/server/application.yml:/application/engine-wizard/config/application.yml:ro
+      - /dsw/server/integration.yml:/application/engine-wizard/config/integration.yml:ro
+      - /dsw/templates/dmp:/application/engine-wizard/templates/dmp:ro
 
   client:
     image: datastewardshipwizard/wizard-client
@@ -19,6 +18,20 @@ services:
       - 80:80
     environment:
       API_URL: http://localhost:3000
+
+  docworker:
+    image: datastewardshipwizard/document-worker
+    restart: always
+    volumes:
+      - /dsw/docworker/config.cfg:/app/config.cfg:ro
+      - /dsw/templates/dmp:/app/templates:ro
+
+  rabbitmq:
+    image: rabbitmq:3.8.2-management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: password
 
   mongo:
     image: mongo:4.0.12

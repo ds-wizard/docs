@@ -1,4 +1,4 @@
 dbase:
   apiKey: topSecretDBaseApiKey
-  baseUrl: https://api.dbase.example:10666
+  apiUrl: https://api.dbase.example:10666
   someConfig: someValue4Integration

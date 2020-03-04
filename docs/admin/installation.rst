@@ -56,6 +56,8 @@ General Requirements
 - `The Haskell tool Stack <https://docs.haskellstack.org>`_ (for server side)
 - `NPM <https://www.npmjs.com/get-npm>`_ (for client side)
 - `MongoDB <https://www.mongodb.com>`_ (database, needs to be running)
+- `RabbitMQ <https://www.rabbitmq.com>`_ (messaging, needs to be running)
+- `Python  <https://www.python.org>`_ (>= 3.7, document worker)
 - `wkhtmltopdf <https://github.com/wkhtmltopdf/wkhtmltopdf/releases>`_ (>= 0.12.5, for DMP exports in PDF)
 - `Pandoc <https://github.com/jgm/pandoc/releases>`_ (>= 2.6, for DMP exports in other formats aside HTML, PDF, and JSON)
 
@@ -107,6 +109,23 @@ Client
 
    ``npm run build:wizard``
 
+
+Document Worker
+---------------
+
+1. Get the document-worker
+
+   ``git clone https://github.com/ds-wizard/document-worker.git``
+
+2. Install it using ``pip`` (or using ``setup.py``)
+
+   ``pip install .``
+
+3. Adjust configuration for your setup (see :ref:`configuration`)
+
+4. Run the app
+
+   ``docworker config.cfg /path/to/templates``
 
 If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.0/#upgrade-procedures>`_.
 
