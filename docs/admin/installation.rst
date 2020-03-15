@@ -127,7 +127,7 @@ Document Worker
 
    ``docworker config.cfg /path/to/templates``
 
-If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.0/#upgrade-procedures>`_.
+If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.2/#upgrade-procedures>`_.
 
 
 Default Users
