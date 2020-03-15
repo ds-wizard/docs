@@ -139,14 +139,21 @@ Configuration related to parts displayed in the client application.
    :type: String
    :default: (nothing)
 
-   Warning text for users that displays after login (if any).
+   Warning text for users that displays after login (if any). May use Markdown markup.
 
 .. confval:: welcomeInfo
 
    :type: String
    :default: (nothing)
 
-   Info text for users that displays after login (if any).
+   Info text for users that displays after login (if any). May use Markdown markup.
+
+.. confval:: loginInfo
+
+   :type: String
+   :default: (nothing)
+
+   Info text for users that displays on login page (if any). May use Markdown markup.
 
 .. confval:: privacyUrl
 
