@@ -95,11 +95,11 @@ All question types have the possibility of adding references and experts, to be 
 
  1. Click on the arrow at :green:`Research field` in the grey overview area, and scroll down to **References**
  2. Click on :red:`+Add reference`
- 3. Write 'https://en.wikipedia.org/wiki/List_of_life_sciences' as **URL**
- 4. Write 'List of Life sciences' as **Label**
+ 3. Write "https://en.wikipedia.org/wiki/List_of_life_sciences" as **URL**
+ 4. Write "List of Life sciences" as **Label**
  5. Click on :green:`Research field` again and then click on :red:`+Add reference`
- 6. Write 'My science for life guru' as **Name**
- 7. Write 'help@scilifeguru.com' as (the fake) **Email**
+ 6. Write "My science for life guru" as **Name**
+ 7. Write "help@scilifeguru.com" as (the fake) **Email**
  8. Click on "Save" in top right corner, position the mouse on your KM ('Test of KM Editor'), and click on :red:`Open Editor`
 
 Change order of questions
