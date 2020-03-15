@@ -45,6 +45,7 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 2.1.X to 2.2.0
 --------------
 
+- Configuration option ``issueUrl`` is replaced by ``webUrl`` for feedback in application.yml (see :ref:`config-feedback` configuration).
 - Recommended version of MongoDB is updated to 4.2.3.
 
 2.0.X to 2.1.0

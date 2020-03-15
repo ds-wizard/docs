@@ -458,6 +458,7 @@ Registry
 
    Your organization token aquired by registration within the `Registry service <https://registry.ds-wizard.org>`_. More information can be found in :ref:`installation-registry` section of installation documentation.
 
+.. _config-feedback:
 
 Feedback
 ~~~~~~~~
@@ -492,12 +493,19 @@ Configuration for feedback functionality within questionnaires via GitHub issues
 
    Name of the repository (without owner name).
 
-.. confval:: issueurl
+.. confval:: apiUrl
 
    :type: URI
-   :default: ``"https://github.com/:owner/:repo/issues/:issueId"``
+   :default: ``"https://api.github.com/"``
 
-   Template URL for feedback issue.
+   Base API URL for feedback.
+
+.. confval:: weburl
+
+   :type: URI
+   :default: ``"https://github.com/"``
+
+   Base web URL for feedback.
 
 .. _config-server-integration:
 
