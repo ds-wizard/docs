@@ -14,10 +14,23 @@ Settings
 It allows to configure (among others):
 
 - toggle optional DSW features including registration
+- external authentication using `OpenID standard <https://openid.net>`_
 - set up information texts and dashboard shown in the client (before login, after login, etc.)
 - connection to `registry <https://registry.ds-wizard.org>`_
 - feedback and support links and repository
 - organization details (such as name, ID, and pre-configured affiliations)
+
+.. _config-openid:
+
+OpenID
+======
+
+To configure OpenID service for external authentication, you need to have the following
+
+- *Client ID* and *Client secret* for the service
+- Root URL of the service (you can verify it that this returns valid JSON: ``<URL>/.well-known/openid-configuration``
+
+You can test the OpenID service using official `OpenID Connect Playground <https://openidconnect.net>`_
 
 Configuration files
 *******************

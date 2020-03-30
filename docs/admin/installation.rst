@@ -6,8 +6,8 @@ Installation
 
    If you've deployed a local instance of the Wizard (Docker or build from source), we kindly request you to fill out this `DS Wizard instance registration <https://goo.gl/forms/9U4qoX25t1i6dcCo1>`_.
 
-Public Instance
-===============
+Public Instances
+================
 
 The application is currently deployed on a server provided by `CESNET <https://www.cesnet.cz/?lang=en>`_. Here are the addresses of running applications:
 
@@ -84,10 +84,6 @@ Server
 
    Be aware that running engine-wizard requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory or where configured, e.g, :confval:`templateFolder`.
 
-.. NOTE::
-
-   Be aware that running dsw-server requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory.
-
 Client
 ------
 
@@ -150,7 +146,7 @@ You can use those accounts for testing or to initially made your own account adm
 Registry
 ========
 
-When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-registry` configuration. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
+When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-settings`. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
 
 Other "Setups"
 ==============
