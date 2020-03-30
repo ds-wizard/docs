@@ -15,6 +15,8 @@ It allows to configure (among others):
 
 - toggle optional DSW features including registration
 - set up information texts and dashboard shown in the client (before login, after login, etc.)
+- connection to `registry <https://registry.ds-wizard.org>`_
+- feedback and support links and repository
 - organization details (such as name, ID, and pre-configured affiliations)
 
 Configuration files
@@ -50,7 +52,7 @@ The mail configuration file that provide a lot of options and contains necessary
    :language: yaml
    :linenos:
 
-Section aside *General* and *JWT* may be omitted and default values will be used for whole sections (typically disabled, see below).
+Section aside *General* may be omitted and default values will be used for whole sections (typically disabled, see below).
 
 General
 ~~~~~~~
@@ -70,6 +72,12 @@ Configuration related to general operations of the server application.
    :default: ``3000``
 
    Port that will be the web server listening on.
+
+.. confval:: secret
+
+   :type: String
+
+   Secret string of 32 characters for encrypting configuration in database and JWT tokens.
 
 .. confval:: clientUrl
 
@@ -146,7 +154,6 @@ Configuration of connection to MongoDB database.
 
    Password for authentication to database connection (if :confval:`authEnabled` is ``true``).
 
-
 RabbitMQ
 ~~~~~~~~
 
@@ -186,65 +193,6 @@ Configuration of connection to RabbitMQ.
    :default: ``"/"``
 
    Virtual host on RabbitMQ server (see `RabbitMQ docs <https://www.rabbitmq.com/vhosts.html>`_).
-
-JWT
-~~~
-
-`JSON Web Token <https://jwt.io>`_ configuration for communication.
-
-.. confval:: secret
-
-   :type: String
-   :default: ``""`` (empty)
-
-   Secret string used for JWT signing and validation (we recommend to generate some randomly).
-
-.. confval:: version
-
-   :type: Integer
-   :default: ``1``
-
-   Our internal version of JWT Payload for DS Wizard (only ``1`` at the moment).
-
-.. confval:: expiration
-
-   :type: Integer
-   :default: ``14``
-
-   Number of days until a token expires.
-
-Roles
-~~~~~
-
-Basic configuration of roles and privileges within the DS Wizard instance. All roles and permission use capitalized names. There are three roles: :ref:`usage-researcher`, :ref:`usage-datasteward`, and :ref:`usage-administrator`. We recommend to leave the permission as in example :ref:`config-server-application-example`, otherwise our :ref:`usage` documentation may not match your configuration.
-
-.. confval:: defaultRole
-
-   :type: Role (Enumeration [``RESEARCHER``, ``DATASTEWARD``, ``ADMIN``])
-   :default: `DATASTEWARD`
-
-   Role that will be assigned to newly registered user.
-
-.. confval:: admin
-
-   :type: Permissions
-   :default: ``[ UM_PERM, ORG_PERM, KM_PERM, KM_UPGRADE_PERM, KM_PUBLISH_PERM, PM_READ_PERM, PM_WRITE_PERM, QTN_PERM, DMP_PERM]``
-
-   List of permissions for :ref:`usage-administrator`/``ADMIN``.
-
-.. confval:: dataSteward
-
-   :type: Permissions
-   :default: ``[KM_PERM, KM_UPGRADE_PERM, KM_PUBLISH_PERM, PM_READ_PERM, PM_WRITE_PERM, QTN_PERM, DMP_PERM]``
-
-   List of permissions for :ref:`usage-datasteward`/``DATASTEWARD``.
-
-.. confval:: researcher
-
-   :type: Permissions
-   :default: ``[PM_READ_PERM, QTN_PERM, DMP_PERM]``
-
-   List of permissions for :ref:`usage-researcher`/``RESEARCHER``.
 
 
 Mail
@@ -338,75 +286,6 @@ Configuration of analytic/informational emails for administrators, e.g., that a 
    :default: ``""`` (empty)
 
    Target email address where analytics to which will be sent.
-
-
-.. _config-registry:
-
-Registry
-~~~~~~~~
-
-.. confval:: enabled
-
-   :type: Boolean
-   :default: ``false``
-
-   If connection with Registry should be made.
-
-.. confval:: token
-
-   :type: String
-   :default: ``""`` (empty)
-
-   Your organization token aquired by registration within the `Registry service <https://registry.ds-wizard.org>`_. More information can be found in :ref:`installation-registry` section of installation documentation.
-
-.. _config-feedback:
-
-Feedback
-~~~~~~~~
-
-Configuration for feedback functionality within questionnaires via GitHub issues.
-
-.. confval:: enabled
-
-   :type: Boolean
-   :default: ``true``
-
-   If feedback functionality will be used.
-
-.. confval:: token
-
-   :type: String
-   :default: ``""`` (empty)
-
-   `GitHub personal access token <https://github.blog/2013-05-16-personal-api-tokens/>`_ with permission to create issues in the selected repository.
-
-.. confval:: owner
-
-   :type: String
-   :default: ``""`` (empty)
-
-   GitHub username or organization under which is the repository for feedback created.
-
-.. confval:: repo
-
-   :type: String
-   :default: ``""`` (empty)
-
-   Name of the repository (without owner name).
-
-.. confval:: apiUrl
-
-   :type: URI
-   :default: ``"https://api.github.com/"``
-
-   Base API URL for feedback.
-
-.. confval:: weburl
-
-   :type: URI
-   :default: ``"https://github.com/"``
-
-   Base web URL for feedback.
 
 .. _config-server-integration:
 

@@ -46,7 +46,7 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 --------------
 
 - Configuration option ``issueUrl`` is replaced by ``webUrl`` for feedback in application.yml (see :ref:`config-feedback` configuration).
-- Configuration of client and several features is now moved from ``application.yml`` file to in-app :ref:`config-settings`; therefore, it must be reconfigured during upgrade process.
+- Configuration of client and several features is now moved from ``application.yml`` file to in-app :ref:`config-settings`; therefore, it must be reconfigured during upgrade process. Additional ``secret`` must be configured in ``application.yml`` for encryption and JWT tokens (*JWT.secret* section has been removed), see :ref:`config-server` configuration.
 - Recommended version of MongoDB is updated to 4.2.3.
 
 2.0.X to 2.1.0

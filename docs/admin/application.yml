@@ -1,6 +1,7 @@
 general:
   environment: Production
   serverPort: 3000
+  secret: TteM1a0QkGe6ED5OvihPkA82LmwkWU6f
   clientUrl: http://localhost:8080
   serviceToken: NlQSNbGvh7EtcpinGnHE9g91
   integrationConfig: config/integration.yml
@@ -22,15 +23,8 @@ messaging:
   vhost: /
 
 jwt:
-  secret: gVoYNuEJuGGAQMIaYw43BN3e
   version: 1
   expiration: 14
-
-roles:
-  defaultRole: DATASTEWARD
-  admin: [UM_PERM, ORG_PERM, KM_PERM, KM_UPGRADE_PERM, KM_PUBLISH_PERM, PM_READ_PERM, PM_WRITE_PERM, QTN_PERM, DMP_PERM]
-  dataSteward: [KM_PERM, KM_UPGRADE_PERM, KM_PUBLISH_PERM, PM_READ_PERM, PM_WRITE_PERM, QTN_PERM, DMP_PERM]
-  researcher: [PM_READ_PERM, QTN_PERM, DMP_PERM]
 
 mail:
   enabled: false
@@ -46,14 +40,3 @@ mail:
 analytics:
   enabled: false
   email:
-
-registry:
-  enabled: true
-  token: <token from registry.ds-wizard.org>
-
-feedback:
-  enabled: false
-  token:
-  owner:
-  repo:
-  issueurl:
