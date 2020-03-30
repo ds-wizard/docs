@@ -4,13 +4,30 @@
 Configuration
 *************
 
+.. _config-settings:
+
+Settings
+********
+
+**Settings** are in-app administration interface for changing various behavior and look. An adminitrator can navigate to settings from the main (left) menu. *(since 2.2.0)*
+
+It allows to configure (among others):
+
+- toggle optional DSW features including registration
+- set up information texts and dashboard shown in the client (before login, after login, etc.)
+- organization details (such as name, ID, and pre-configured affiliations)
+
+Configuration files
+*******************
+
+Files are used for setting the server-side configuration.
 
 .. _config-server:
 
 Server
 ======
 
-Server configuration is done using `YAML <https://en.wikipedia.org/wiki/YAML>`_ format. We provide examples directly in ``config`` folder of the repository `<https://github.com/ds-wizard/dsw-server>`_. For tests there exist special versions suffixed by ``-test``.
+Server configuration is done using `YAML <https://en.wikipedia.org/wiki/YAML>`_ format. We provide examples directly in ``config`` folder of the repository `<https://github.com/ds-wizard/engine-backend>`_. For tests there exist special versions suffixed by ``-test``.
 
 Build Info
 ----------
@@ -81,122 +98,6 @@ Configuration related to general operations of the server application.
    :default: ``"engine-wizard/templates"``
 
    Path to the folder where DMP and mail template are stored. The path is relative to the working directory from where the Wizard runs.
-
-.. confval:: registrationEnabled
-
-   :type: Boolean
-   :default: ``true``
-
-   If registrations within the DS Wizard instance are enabled or disabled.
-
-.. confval:: publicQuestionnaireEnabled
-
-   :type: Boolean
-   :default: ``false``
-
-   If public questionnaire (i.e. questionnaire demo without registration) functionality within the DS Wizard instance is enabled or disabled.
-
-.. confval:: levelsEnabled
-
-   :type: Boolean
-   :default: ``true``
-
-   If questions can be related to certain desirability levels/phases.
-
-.. confval:: questionnaireAccessibilityEnabled
-
-   :type: Boolean
-   :default: ``true``
-
-   If questionnaires can be set private, public read-only, or public. When disabled (i.e. value is set to ``false``), all questionnaires are private.
-
-
-Client
-~~~~~~
-
-Configuration related to parts displayed in the client application.
-
-.. confval:: appTitle
-
-   :type: String
-   :default: (nothing)
-
-   Full name of the DS Wizard instance (displayed, for example, in tab title or before login).
-
-.. confval:: appTitleShort
-
-   :type: String
-   :default: (nothing)
-
-   Short name of the DS Wizard instance (displayed, for example, on the top of the navigation bar)
-
-   .. Tip::
-
-      Use consistent :confval:`appTitle` and :confval:`appTitleShort`.
-
-.. confval:: welcomeWarning
-
-   :type: String
-   :default: (nothing)
-
-   Warning text for users that displays after login (if any). May use Markdown markup.
-
-.. confval:: welcomeInfo
-
-   :type: String
-   :default: (nothing)
-
-   Info text for users that displays after login (if any). May use Markdown markup.
-
-.. confval:: loginInfo
-
-   :type: String
-   :default: (nothing)
-
-   Info text for users that displays on login page (if any). May use Markdown markup.
-
-.. confval:: privacyUrl
-
-   :type: String (URL)
-   :default: ``"https://ds-wizard.org/privacy.html"``
-
-   URL to page with privacy policy of the service.
-
-.. confval:: customMenuLinks
-
-   :type: List of objects ":ref:`config-customMenuLink`"
-   :default: (empty list)
-
-.. _config-customMenuLink:
-
-Custom menu link
-^^^^^^^^^^^^^^^^
-
-Configuration object for custom links shown as additional buttons in the main navigation menu.
-
-.. confval:: icon
-
-   :type: String (`Font Awesome <https://fontawesome.com/v4.7.0/icons/>`_ icon name)
-
-   Icon to be shown on the button (we recommend to find suitable icon that is not already in use in the menu to avoid confusion if the menu is collapsed).
-
-.. confval:: title
-
-   :type: String
-
-   Title to be shown on the button in menu.
-
-.. confval:: url
-
-   :type: String (URL)
-
-   Target URL that will be opened after clicking the button.
-
-.. confval:: newWindow
-
-   :type: Boolean
-
-   If the link should be opened in a new window.
 
 Database
 ~~~~~~~~
@@ -742,7 +643,7 @@ wkhtmltopdf
 .. _config-feedback-sync:
 
 Feedback synchronization
-========================
+************************
 
 Because our feedback functionality is based on GitHub issues, it requires synchronization. If you are using our Docker image, all you have to do is define environment variables for the server image:
 
@@ -758,13 +659,13 @@ Locally, you need to set up cron job on your machine similarly. See `our script 
 
 .. _config-dmptemplates:
 
-DMP Templates
-=============
+DMP templates
+*************
 
 You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (pure Python implementation) is useful. The location of templates root folder is configurable via :confval:`templateFolder`.
 
 Template files
---------------
+==============
 
 We provide currently basic ``default`` template (see `here <https://github.com/ds-wizard/engine-backend/tree/develop/engine-wizard/templates/dmp/default>`_) but it is possible to get inpired and create more or edit it. The basic structure is following:
 
@@ -791,7 +692,7 @@ Each template has information what formats and how are provided. A format has it
 
 
 Graphics and scripts
---------------------
+====================
 
 If you want to include some graphics or JavaScript, we recommend you to put it directly into the HTML template file. In case of graphics, use base64 encoded content (suitable for smaller images like icons and logos):
 
@@ -824,7 +725,7 @@ You can split your template code into multiple files and the use include directi
    </head>
 
 Docker deployment
------------------
+=================
 
 If you deploy the DS Wizard using Docker, you can mount custom files to templates/dmp folder and overwrite default template within :ref:`docker-compose.yml`:
 
@@ -846,13 +747,13 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
       - /dsw/docworker/config.cfg:/app/config.cfg:ro
       - /dsw/templates/dmp:/app/templates:ro
 
-Email Templates
-===============
+Email templates
+***************
 
 Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_ (for email templates we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_). And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename). The location of templates root folder is configurable via :confval:`templateFolder`.
 
 Templates structure
--------------------
+===================
 
 The structure is following:
 
@@ -866,7 +767,7 @@ The structure is following:
 All attachments are loaded from the template-specific and common folders and included to email with detected `MIME type <https://en.wikipedia.org/wiki/Media_type>`_. It similarly works for inline images but those are not displayed as attachments just as `related part <https://en.wikipedia.org/wiki/MIME#Related>`_ to HTML part (if present). We highly recommend to use ASCII-only names without whitespaces and with standard extensions. Also, sending minimum amount of data via email is suggested.
 
 Templates variables
--------------------
+===================
 
 All templates are provided also with variables:
 
@@ -876,7 +777,7 @@ All templates are provided also with variables:
 - ``user`` = user (subject of an email), structure with attributes accessible via . (dot, e.g. ``user.name``)
 
 Email types
------------
+===========
 
 Currently, there are following types of mail:
 
@@ -886,7 +787,7 @@ Currently, there are following types of mail:
 
 
 Docker deployment
------------------
+=================
 
 Including own email templates while using dockerized Wizard is practically the same as for DMP templates. You can also bind whole ``templates/mail`` folder (or even ``templates`` if want to change both):
 
