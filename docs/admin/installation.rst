@@ -165,13 +165,13 @@ Public Questionnaire
 
 If you also need to enable public questionnaire for :guilabel:`Questionnaire demo` functionality with this core knowledge model, you have to download `public-package-root-2.0.0.json` file below and import it directly to the database into `publicPackages` collection. Optionally, you can move some of your packages similarly.
 
-:download:`public-package-root-2.0.0.json <public-package-root-2.0.0.json>`
+:download:`public-package-root-2.0.1.json <public-package-root-2.0.1.json>`
 
 .. code-block:: shell
 
    $ mongoimport --db dsw-server \ 
                  --collection publicPackages \
-                 --file public-package-root-2.0.0.json
+                 --file public-package-root-2.0.1.json
 
 (If using Docker, you will need `docker exec <https://docs.docker.com/engine/reference/commandline/exec/>`_.)
 
