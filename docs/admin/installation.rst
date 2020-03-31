@@ -4,7 +4,7 @@ Installation
 
 .. Attention::
 
-   If you've deployed a local instance of the Wizard (Docker or build from source), we kindly request you to fill out this `DS Wizard instance registration <https://goo.gl/forms/9U4qoX25t1i6dcCo1>`_.
+   If you've deployed a local instance of the Wizard (Docker or build from source), we kindly request you to fill out this `DS Wizard instance registration <https://airtable.com/shrku49AYPem5afBq>`_.
 
 Public Instances
 ================
