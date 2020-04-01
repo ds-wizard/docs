@@ -47,6 +47,7 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 
 - Configuration option ``issueUrl`` is replaced by ``webUrl`` for feedback in application.yml.
 - Configuration of client and several features is now moved from ``application.yml`` file to in-app :ref:`config-settings`; therefore, it must be reconfigured during upgrade process. Additional ``secret`` must be configured in ``application.yml`` for encryption and JWT tokens (*JWT.secret* section has been removed), see :ref:`config-server` configuration.
+- User fiels ``name`` and ``surname`` has been renamed to ``firstName`` and ``lastName`` - it needs be updated if used in **custom** mail or document templates.
 - Recommended version of MongoDB is updated to 4.2.3.
 
 2.0.X to 2.1.0
@@ -73,7 +74,7 @@ Compatibility
 
 .. Important::
 
-   DSW Client and Server should always use matching version (compatibility is assured)!
+   DS Wizard components (server, client, document worker, registry) should always use matching version (compatibility is assured)!
 
 
 The DS Wizard is compatible with all recent versions of web browsers Chrome, Opera, Firefox, and Edge. We do not recomment use of Internet Explorer. Internally, there are components between is are following compatibility of versions:
@@ -81,6 +82,10 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+-----------+
 | DS Wizard        | KM Metamodel | Registry  |
 +==================+==============+===========+
+| 2.2.0            |            5 |     2.2.0 |
++------------------+--------------+-----------+
+| 2.1.0            |            5 |     2.1.0 |
++------------------+--------------+-----------+
 | 2.0.0            |            5 |     2.0.0 |
 +------------------+--------------+-----------+
 | 1.10.0           |            4 |     1.2.0 |

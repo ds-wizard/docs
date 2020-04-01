@@ -22,10 +22,6 @@ messaging:
   password: password
   vhost: /
 
-jwt:
-  version: 1
-  expiration: 14
-
 mail:
   enabled: false
   name:

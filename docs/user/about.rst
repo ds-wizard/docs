@@ -208,14 +208,7 @@ Learn More
 ==========
 
 - `DS Wizard (landing page) <https://ds-wizard.org>`_
+- `DS Wizard Resources <https://ds-wizard.org/resources.html>`_
+- `DS Wizard Media Kit <https://ds-wizard.org/media.html>`_
 - `Leaflet <https://github.com/ds-wizard/dsw-leaflet>`_
 - `Diagrams <https://github.com/ds-wizard/dsw-diagrams>`_
-- ELIXIR All Hands 2018
-
-  - `Poster 2018 <https://github.com/DataStewardshipWizard/dsw-common/raw/master/wiki-resources/DSW_AllHands18_Poster_v4.pdf>`_
-  - `Flask Talk <https://github.com/DataStewardshipWizard/dsw-common/raw/master/wiki-resources/DSW_AllHands18_FlashTalk.pdf>`_
-
-- ELIXIR All Hands 2019
-
-  - `Poster 2019 <https://f1000research.com/posters/8-1086>`_
-  - `Workshop slides <https://f1000research.com/slides/8-1003>`_
