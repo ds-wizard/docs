@@ -34,7 +34,7 @@ services:
       RABBITMQ_DEFAULT_PASS: password
 
   mongo:
-    image: mongo:4.0.12
+    image: mongo:4.2.3
     restart: always
     ports:
       - 27017:27017

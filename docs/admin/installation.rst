@@ -4,10 +4,10 @@ Installation
 
 .. Attention::
 
-   If you've deployed a local instance of the Wizard (Docker or build from source), we kindly request you to fill out this `DS Wizard instance registration <https://goo.gl/forms/9U4qoX25t1i6dcCo1>`_.
+   If you've deployed a local instance of the Wizard (Docker or build from source), we kindly request you to fill out this `DS Wizard instance registration <https://airtable.com/shrku49AYPem5afBq>`_.
 
-Public Instance
-===============
+Public Instances
+================
 
 The application is currently deployed on a server provided by `CESNET <https://www.cesnet.cz/?lang=en>`_. Here are the addresses of running applications:
 
@@ -84,10 +84,6 @@ Server
 
    Be aware that running engine-wizard requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory or where configured, e.g, :confval:`templateFolder`.
 
-.. NOTE::
-
-   Be aware that running dsw-server requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory.
-
 Client
 ------
 
@@ -127,7 +123,7 @@ Document Worker
 
    ``docworker config.cfg /path/to/templates``
 
-If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.0/#upgrade-procedures>`_.
+If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.2/#upgrade-procedures>`_.
 
 
 Default Users
@@ -150,7 +146,7 @@ You can use those accounts for testing or to initially made your own account adm
 Registry
 ========
 
-When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-registry` configuration. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
+When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-settings`. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models. 
 
 Other "Setups"
 ==============
@@ -165,13 +161,13 @@ Public Questionnaire
 
 If you also need to enable public questionnaire for :guilabel:`Questionnaire demo` functionality with this core knowledge model, you have to download `public-package-root-2.0.0.json` file below and import it directly to the database into `publicPackages` collection. Optionally, you can move some of your packages similarly.
 
-:download:`public-package-root-2.0.0.json <public-package-root-2.0.0.json>`
+:download:`public-package-root-2.0.1.json <public-package-root-2.0.1.json>`
 
 .. code-block:: shell
 
    $ mongoimport --db dsw-server \ 
                  --collection publicPackages \
-                 --file public-package-root-2.0.0.json
+                 --file public-package-root-2.0.1.json
 
 (If using Docker, you will need `docker exec <https://docs.docker.com/engine/reference/commandline/exec/>`_.)
 

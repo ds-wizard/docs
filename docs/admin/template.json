@@ -1,0 +1,83 @@
+{
+  "uuid": "43a3fdd1-8535-42e0-81a7-5edbff296e65",
+  "name": "Common DSW Template",
+  "allowedKMs": [
+      {
+        "orgId": null,
+        "kmId": null,
+        "minVersion": null,
+        "maxVersion": null
+      }
+  ],
+  "formats": [
+    {
+      "uuid": "d3e98eb6-344d-481f-8e37-6a67b6cd1ad2",
+      "name": "JSON Data",
+      "icon": "far fa-file",
+      "steps": [
+        {
+          "name": "json",
+          "options": {}
+        }
+      ]
+    },
+    {
+      "uuid": "a9293d08-59a4-4e6b-ae62-7a6a570b031c",
+      "name": "HTML Document",
+      "icon": "far fa-file-code",
+      "steps": [
+        {
+          "name": "jinja",
+          "options": {
+            "template": "default.html.j2",
+            "content-type": "text/html",
+            "extension": "html"
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "68c26e34-5e77-4e15-9bf7-06ff92582257",
+      "name": "PDF Document",
+      "icon": "far fa-file-pdf",
+      "steps": [
+        {
+          "name": "jinja",
+          "options": {
+            "template": "default.html.j2",
+            "content-type": "text/html",
+            "extension": "html"
+          }
+        },
+        {
+          "name": "wkhtmltopdf",
+          "options": {
+            "args": ""
+          }
+        }
+      ]
+    },
+    {
+      "uuid": "f4bd941a-dfbe-4226-a1fc-200fb5269311",
+      "name": "MS Word Document",
+      "icon": "far fa-file-word",
+      "steps": [
+        {
+          "name": "jinja",
+          "options": {
+            "template": "default.html.j2",
+            "content-type": "text/html",
+            "extension": "html"
+          }
+        },
+        {
+          "name": "pandoc",
+          "options": {
+            "from": "html",
+            "to": "docx"
+          }
+        }
+      ]
+    }
+  ]
+}
