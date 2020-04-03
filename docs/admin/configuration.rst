@@ -423,9 +423,9 @@ mongo
 
    Authentication database used for MongoDB, defaults to the same value provided in ``database`` option.
 
-.. confval:: fs_collection
+.. confval:: auth_mechanism
 
-   :type: auth_mechanism
+   :type: String
    :default: ``"SCRAM-SHA-256"`` (optional)
 
    Authentication mechanism used for MongoDB.
