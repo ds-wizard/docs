@@ -4,7 +4,7 @@ Roadmap
 
 .. NOTE::
 
-   DSW is currently being actively developed with montly releases. Backlog is being highly affected by provided feedback, community needs, and discussion with our key users.
+   DSW is currently being actively developed with monthly releases. Backlog is being highly affected by provided feedback, community needs, and discussion with our key users.
 
 Planned
 =======
