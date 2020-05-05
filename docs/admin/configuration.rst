@@ -247,7 +247,7 @@ Configuration for sending emails (such as registration activation or for forgott
 .. confval:: port
 
    :type: Integer [0-65535]
-   :default: ``465``
+   :default: ``465`` (or ``25`` based on ``ssl`` option)
 
    Port that is used for SMTP on the server (usually ``25`` for plain or ``465`` for SSL).
 
