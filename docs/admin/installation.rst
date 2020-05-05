@@ -156,27 +156,6 @@ Initial Knowledge Model
 
 When you have a fresh installation, there are just the default users and no knowledge models. You are free to create a new one from scratch if you want. Other option is to import existing KM ``dsw:root:X.Y.Z`` from the `Registry <https://registry.ds-wizard.org>`_. It is the core knowledge model for general data stewardship. The specific latest version (or other version that is the best for you) as well as other shared knowledge models can be found on the landing page of the `Registry service <https://registry.ds-wizard.org>`_. Other option is to import it from file if you have any (according to :ref:`usage`)
 
-Public Questionnaire
---------------------
-
-If you also need to enable public questionnaire for :guilabel:`Questionnaire demo` functionality with this core knowledge model, you have to download `public-package-root-2.0.0.json` file below and import it directly to the database into `publicPackages` collection. Optionally, you can move some of your packages similarly.
-
-:download:`public-package-root-2.0.1.json <public-package-root-2.0.1.json>`
-
-.. code-block:: shell
-
-   $ mongoimport --db dsw-server \ 
-                 --collection publicPackages \
-                 --file public-package-root-2.0.1.json
-
-(If using Docker, you will need `docker exec <https://docs.docker.com/engine/reference/commandline/exec/>`_.)
-
-
-.. Note::
-
-   For public questionnaire correctly running, you need to import the related Knowledge Model in the Wizard otherwise you will end up with ``Entity does not exist`` error.
-
-
 Database Backup
 ---------------
 
