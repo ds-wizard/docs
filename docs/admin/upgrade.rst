@@ -42,6 +42,11 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+2.2.X to 2.3.0
+--------------
+
+- It is required to update `template.json` file(s) of DMP templates. The attribute ``allowedKMs`` is renamed to ``allowedPackages``. There are also new attributes ``description`` and recommendedPackageId`` on template, and ``shortName`` and ``color`` on formats (for UI purposes). See our `default template <https://github.com/ds-wizard/engine-backend/blob/004e7f890043182315c0377c732bddbadaa99087/engine-wizard/templates/dmp/default/template.json>`_.
+
 2.1.X to 2.2.0
 --------------
 
