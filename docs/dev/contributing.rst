@@ -15,6 +15,7 @@ Our projects are open source and you can contribute via GitHub (fork and pull re
 - https://github.com/ds-wizard
 - https://github.com/ds-wizard/engine-backend
 - https://github.com/ds-wizard/engine-frontend
+- https://github.com/ds-wizard/document-worker
 
 .. Tip::
 

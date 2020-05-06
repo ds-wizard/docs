@@ -42,6 +42,11 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+2.2.X to 2.3.0
+--------------
+
+(nothing)
+
 2.1.X to 2.2.0
 --------------
 
@@ -81,6 +86,8 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+-----------+
 | DS Wizard        | KM Metamodel | Registry  |
 +==================+==============+===========+
+| 2.3.0            |            5 |     2.3.0 |
++------------------+--------------+-----------+
 | 2.2.0            |            5 |     2.2.0 |
 +------------------+--------------+-----------+
 | 2.1.0            |            5 |     2.1.0 |
