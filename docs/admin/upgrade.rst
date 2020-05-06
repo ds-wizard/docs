@@ -45,7 +45,7 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 2.2.X to 2.3.0
 --------------
 
-- It is required to update `template.json` file(s) of DMP templates. The attribute ``allowedKMs`` is renamed to ``allowedPackages``. There are also new attributes ``description`` and recommendedPackageId`` on template, and ``shortName`` and ``color`` on formats (for UI purposes). See our `default template <https://github.com/ds-wizard/engine-backend/blob/004e7f890043182315c0377c732bddbadaa99087/engine-wizard/templates/dmp/default/template.json>`_.
+(nothing)
 
 2.1.X to 2.2.0
 --------------
@@ -86,6 +86,8 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+-----------+
 | DS Wizard        | KM Metamodel | Registry  |
 +==================+==============+===========+
+| 2.3.0            |            5 |     2.3.0 |
++------------------+--------------+-----------+
 | 2.2.0            |            5 |     2.2.0 |
 +------------------+--------------+-----------+
 | 2.1.0            |            5 |     2.1.0 |
