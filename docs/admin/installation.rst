@@ -121,7 +121,7 @@ Document Worker
 
 4. Run the app
 
-   ``docworker config.cfg /path/to/templates``
+   ``docworker config.yml /path/to/templates``
 
 If you need to upgrade MongoDB version, follow the official instructions in their `documentation <https://docs.mongodb.com/manual/release-notes/4.2/#upgrade-procedures>`_.
 

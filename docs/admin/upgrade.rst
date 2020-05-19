@@ -42,6 +42,12 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+2.3.X to 2.4.0
+--------------
+
+- To unify configuration, document-worker now supports and prefers YAML configuration files.
+
+
 2.2.X to 2.3.0
 --------------
 

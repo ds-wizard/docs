@@ -362,8 +362,8 @@ Configuration of document worker must match with server configuration.
 
 .. _config-docworker-example:
 
-.. literalinclude:: docworker.cfg
-   :caption: docworker.cfg
+.. literalinclude:: docworker.yml
+   :caption: docworker.yml
    :language: ini
    :linenos:
 
@@ -384,20 +384,6 @@ mongo
 
    Port that is used for MongoDB on the server (usually ``27017``).
 
-.. confval:: username
-
-   :type: String
-   :default: ``None`` (optional)
-
-   Username for authentication to database connection (will be used if set).
-
-.. confval:: password
-
-   :type: String
-   :default: ``""`` (optional)
-
-   Password for authentication to database connection (will be used if set).
-
 .. confval:: database
 
    :type: String
@@ -407,23 +393,39 @@ mongo
 .. confval:: collection
 
    :type: String
+   :default: ``documents`` (optional)
 
-   Name of the collection for documents (typically ``documents``).
+   Name of the collection for documents.
 
 .. confval:: fs_collection
 
    :type: String
+   :default: ``documentFs`` (optional)
 
-   Name of the collection for files (typically ``documentFs``).
+   Name of the collection for files.
 
-.. confval:: auth_database
+.. confval:: auth.username
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Username for authentication to database connection (will be used if set).
+
+.. confval:: auth.password
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Password for authentication to database connection (will be used if set).
+
+.. confval:: auth.database
 
    :type: String
    :default: ``<database>`` (optional)
 
    Authentication database used for MongoDB, defaults to the same value provided in ``database`` option.
 
-.. confval:: auth_mechanism
+.. confval:: auth.mechanism
 
    :type: String
    :default: ``"SCRAM-SHA-256"`` (optional)
@@ -454,25 +456,26 @@ mq
 
    Virtual host on RabbitMQ server (see `RabbitMQ docs <https://www.rabbitmq.com/vhosts.html>`_).
 
-.. confval:: username
+.. confval:: queue
+
+   :type: String
+
+   Name of queue used for passing document jobs (typically ``document.generation``).
+
+.. confval:: auth.username
 
    :type: String
    :default: ``None`` (optional)
 
    Username for authentication to RabbitMQ connection (if any).
 
-.. confval:: password
+.. confval:: auth.password
 
    :type: String
    :default: ``None`` (optional)
 
    Password for authentication to RabbitMQ connection (if any).
 
-.. confval:: queue
-
-   :type: String
-
-   Name of queue used for passing document jobs (typically ``document.generation``).
 
 logging
 -------
@@ -636,7 +639,7 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
    docworker:
      # ...
      volumes:
-      - /dsw/docworker/config.cfg:/app/config.cfg:ro
+      - /dsw/docworker/config.yml:/app/config.yml:ro
       - /dsw/templates/dmp:/app/templates:ro
 
 Email templates
