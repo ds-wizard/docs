@@ -584,7 +584,7 @@ Each template has information what formats and how are provided. A format has it
 - ``jinja`` = uses Jinja2 templates to produce a document starting by root file specified in ``options.template`` (full `Jinja2 <https://jinja.palletsprojects.com/en/2.11.x/templates/>`_ can be used), ``options.content-type`` and ``options.extension`` must be used to specify type of the output; must be first step
 - ``wkhtmltopdf`` - runs `wkhtmltopdf <https://wkhtmltopdf.org>`_; ``options.args`` can be used for additional arguments and options to run it; must be after step producing a HTML document; produces a PDF document
 - ``pandoc`` - runs `Pandoc <https://pandoc.org>`_; ``options.from`` and ``options.to`` define from which and to which type the transformation is used (use names according to `docs <https://pandoc.org/MANUAL.html#options>`_), additionally ``options.args`` can be used for additional arguments and options to run it; must be used after step producing a document conforming ``options.from``; produces a document according to ``options.to``
-
+- ``rdflib-convert`` - uses `rdflib <https://rdflib.readthedocs.io/en/stable/>`_ to load graph from format specified by ``options.from`` and then serialize it to format specified by ``options.to``; supported formats are: ``ttl``, ``n3``, ``rdf`` (RDF/XML), ``nt``, ``trig``, and ``jsonld``
 
 Graphics and scripts
 ====================
