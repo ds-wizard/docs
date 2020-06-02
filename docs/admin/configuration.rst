@@ -571,6 +571,8 @@ Templates allow you to iterate through questions and answers and find what you n
 
 You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
 
+.. _config-dmptemplates-json:
+
 .. literalinclude:: template.json
    :caption: template.json
    :language: json

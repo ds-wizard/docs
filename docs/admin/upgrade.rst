@@ -46,6 +46,7 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 --------------
 
 - To unify configuration, document-worker now supports and prefers YAML configuration files.
+- Local/custom ``template.json`` files must be updated (renamed `allowedKMs` to `allowedPackages`, and several new attributes: ``description`` for template and ``shortName`` + ``color`` for each format) - see the example :ref:`config-dmptemplates-json`.
 
 
 2.2.X to 2.3.0
