@@ -13,7 +13,7 @@ Settings
 
 It allows to configure (among others):
 
-- toggle optional DSW features including registration
+- toggle optional DSW features including registration or configurable questionnaire visibility by users
 - external authentication using `OpenID standard <https://openid.net>`_
 - set up information texts and dashboard shown in the client (before login, after login, etc.)
 - connection to `registry <https://registry.ds-wizard.org>`_
