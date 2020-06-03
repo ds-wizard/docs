@@ -23,7 +23,7 @@ services:
     image: datastewardshipwizard/document-worker
     restart: always
     volumes:
-      - /dsw/docworker/config.cfg:/app/config.cfg:ro
+      - /dsw/docworker/config.yml:/app/config.yml:ro
       - /dsw/templates/dmp:/app/templates:ro
 
   rabbitmq:

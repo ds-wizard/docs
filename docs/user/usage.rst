@@ -13,8 +13,6 @@ Anonymous
 
 User of DSW that is not logged in yet is able to register, log in, or recover forgotten password via confirmed email address.
 
-If configured, anonymous user can test out :guilabel:`Questionnaire Demo` (next to :guilabel:`Log In` and :guilabel:`Sign Up` buttons in the navigation bar. That is an example of our **Questionnaire** without any ability to save or export the answers, only to try out and learn. This functionality is always accessible in our public instance.
-
 .. _usage-researcher:
 
 Researcher
@@ -28,10 +26,11 @@ Questionnaire
 Data Stewardship Wizard provides simple way to create questionnaire from KM package and fill it in smart way - only relevant questions for your case will be shown.
 
 - :guilabel:`Create` = create new questionnaire from certain version of certain KM package
+
 - For each questionnaire:
 
   - :guilabel:`Fill questionnaire` = starts interactive questionnaire that guides you through answering relevant questions for specific project
-  - :guilabel:`Edit` = edit questionnaire details such as name or privacy
+  - :guilabel:`Edit` = edit questionnaire details such as name or visibility
   - :guilabel:`Create Document` = create a DMP in selected format and template
   - :guilabel:`View Documents` = view created DMPs for the questionnaire
   - :guilabel:`Clone` = create a duplicate quetionnaire

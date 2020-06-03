@@ -13,7 +13,7 @@ Settings
 
 It allows to configure (among others):
 
-- toggle optional DSW features including registration
+- toggle optional DSW features including registration or configurable questionnaire visibility by users
 - external authentication using `OpenID standard <https://openid.net>`_
 - set up information texts and dashboard shown in the client (before login, after login, etc.)
 - connection to `registry <https://registry.ds-wizard.org>`_
@@ -362,8 +362,8 @@ Configuration of document worker must match with server configuration.
 
 .. _config-docworker-example:
 
-.. literalinclude:: docworker.cfg
-   :caption: docworker.cfg
+.. literalinclude:: docworker.yml
+   :caption: docworker.yml
    :language: ini
    :linenos:
 
@@ -384,20 +384,6 @@ mongo
 
    Port that is used for MongoDB on the server (usually ``27017``).
 
-.. confval:: username
-
-   :type: String
-   :default: ``None`` (optional)
-
-   Username for authentication to database connection (will be used if set).
-
-.. confval:: password
-
-   :type: String
-   :default: ``""`` (optional)
-
-   Password for authentication to database connection (will be used if set).
-
 .. confval:: database
 
    :type: String
@@ -407,23 +393,39 @@ mongo
 .. confval:: collection
 
    :type: String
+   :default: ``documents`` (optional)
 
-   Name of the collection for documents (typically ``documents``).
+   Name of the collection for documents.
 
 .. confval:: fs_collection
 
    :type: String
+   :default: ``documentFs`` (optional)
 
-   Name of the collection for files (typically ``documentFs``).
+   Name of the collection for files.
 
-.. confval:: auth_database
+.. confval:: auth.username
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Username for authentication to database connection (will be used if set).
+
+.. confval:: auth.password
+
+   :type: String
+   :default: ``None`` (optional)
+
+   Password for authentication to database connection (will be used if set).
+
+.. confval:: auth.database
 
    :type: String
    :default: ``<database>`` (optional)
 
    Authentication database used for MongoDB, defaults to the same value provided in ``database`` option.
 
-.. confval:: auth_mechanism
+.. confval:: auth.mechanism
 
    :type: String
    :default: ``"SCRAM-SHA-256"`` (optional)
@@ -454,25 +456,26 @@ mq
 
    Virtual host on RabbitMQ server (see `RabbitMQ docs <https://www.rabbitmq.com/vhosts.html>`_).
 
-.. confval:: username
+.. confval:: queue
+
+   :type: String
+
+   Name of queue used for passing document jobs (typically ``document.generation``).
+
+.. confval:: auth.username
 
    :type: String
    :default: ``None`` (optional)
 
    Username for authentication to RabbitMQ connection (if any).
 
-.. confval:: password
+.. confval:: auth.password
 
    :type: String
    :default: ``None`` (optional)
 
    Password for authentication to RabbitMQ connection (if any).
 
-.. confval:: queue
-
-   :type: String
-
-   Name of queue used for passing document jobs (typically ``document.generation``).
 
 logging
 -------
@@ -568,6 +571,8 @@ Templates allow you to iterate through questions and answers and find what you n
 
 You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
 
+.. _config-dmptemplates-json:
+
 .. literalinclude:: template.json
    :caption: template.json
    :language: json
@@ -581,7 +586,7 @@ Each template has information what formats and how are provided. A format has it
 - ``jinja`` = uses Jinja2 templates to produce a document starting by root file specified in ``options.template`` (full `Jinja2 <https://jinja.palletsprojects.com/en/2.11.x/templates/>`_ can be used), ``options.content-type`` and ``options.extension`` must be used to specify type of the output; must be first step
 - ``wkhtmltopdf`` - runs `wkhtmltopdf <https://wkhtmltopdf.org>`_; ``options.args`` can be used for additional arguments and options to run it; must be after step producing a HTML document; produces a PDF document
 - ``pandoc`` - runs `Pandoc <https://pandoc.org>`_; ``options.from`` and ``options.to`` define from which and to which type the transformation is used (use names according to `docs <https://pandoc.org/MANUAL.html#options>`_), additionally ``options.args`` can be used for additional arguments and options to run it; must be used after step producing a document conforming ``options.from``; produces a document according to ``options.to``
-
+- ``rdflib-convert`` - uses `rdflib <https://rdflib.readthedocs.io/en/stable/>`_ to load graph from format specified by ``options.from`` and then serialize it to format specified by ``options.to``; supported formats are: ``ttl``, ``n3``, ``rdf`` (RDF/XML), ``nt``, ``trig``, and ``jsonld``
 
 Graphics and scripts
 ====================
@@ -636,7 +641,7 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
    docworker:
      # ...
      volumes:
-      - /dsw/docworker/config.cfg:/app/config.cfg:ro
+      - /dsw/docworker/config.yml:/app/config.yml:ro
       - /dsw/templates/dmp:/app/templates:ro
 
 Email templates
