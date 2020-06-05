@@ -157,13 +157,13 @@ Released
 1.1.0
 -----
 
-- End of development: 9 December 2019
-- Release: 16 December 2019
+- End of development: 9 December 2018
+- Release: 16 December 2018
 - `Jira issues 1.1.0 <https://ds-wizard.atlassian.net/browse/DSW-85?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%20DSW-1.1.0%20ORDER%20BY%20priority%20DESC>`_
 
 1.0.0
 -----
 
-- End of development: 24 October 2019
-- Release: 30 October 2019
+- End of development: 24 October 2018
+- Release: 30 October 2018
 
