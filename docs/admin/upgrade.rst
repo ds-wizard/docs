@@ -71,7 +71,7 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 
 - Changing the major version actually does not mean any problem in migration, it has been made due to significant internal changes (restructuring, new repositories, etc.)
 - If you are using Docker for running DSW, you need to change it according to new documentation of :ref:`docker-compose.yml` and :ref:`configuration`.
-- Crontab image is no longer needed, see :ref:`config-feedback-sync`.
+- Crontab image is no longer needed.
 - A DMP template configuration file must contain list of ``allowedKMs`` (see the default *root* template).
 
 1.9.X to 1.10.0

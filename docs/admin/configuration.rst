@@ -104,7 +104,7 @@ Configuration related to general operations of the server application.
    :type: String
    :default: ``""`` (empty)
 
-   Randomly generated string that matches configuration of :ref:`config-feedback-sync` component.
+   Randomly generated string for API authentication of service endpoints.
 
 .. confval:: integrationConfig
 
@@ -534,23 +534,6 @@ wkhtmltopdf
    :default: ``None`` (optional)
 
    Timeout for WkHtmlToPdf subprocess call.
-
-.. _config-feedback-sync:
-
-Feedback synchronization
-************************
-
-Because our feedback functionality is based on GitHub issues, it requires synchronization. If you are using our Docker image, all you have to do is define environment variables for the server image:
-
-::
-
-   API_URL: "..." 
-   SERVICE_TOKEN: "..."
-   ENABLE_CRON: "1"
-   ENABLE_CRON_FEEDBACK_SYNC: "1"
-
-
-Locally, you need to set up cron job on your machine similarly. See `our script <https://github.com/ds-wizard/engine-backend/blob/develop/engine-wizard/scripts/docker-run.sh>`_ for setting up the cron job.
 
 .. _config-dmptemplates:
 
