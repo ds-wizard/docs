@@ -1,8 +1,13 @@
 {
-  "uuid": "43a3fdd1-8535-42e0-81a7-5edbff296e65",
+  "id": "dsw:default:1.0.0",
+  "organizationId": "dsw",
+  "templateId": "default",
+  "version": "1.0.0",
   "name": "Common DSW Template",
   "description": "This is a default template",
-  "recommendedPackageId": "dsw:root:2.0.1",
+  "readme": "# Default template",
+  "license": "Apache-2.0",
+  "recommendedPackageId": "dsw:root:2.2.0",
   "allowedPackages": [
       {
         "orgId": null,

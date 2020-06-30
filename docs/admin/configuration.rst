@@ -358,13 +358,13 @@ For more information about variables and assets, visit `Theming Bootstrap <https
 Document Worker
 ===============
 
-Configuration of document worker must match with server configuration.
+Configuration of document worker must match with server configuration. In docker, the default moint point is set to ``/app/config.yml`` but it can be overriden using environment variable ``DOCWORKER_CONFIG``. Similarly, working directory can be changed from the default ``/tmp/docworker`` using ``DOCWORKER_WORKDIR``.
 
 .. _config-docworker-example:
 
 .. literalinclude:: docworker.yml
    :caption: docworker.yml
-   :language: ini
+   :language: yaml
    :linenos:
 
 mongo
@@ -403,6 +403,20 @@ mongo
    :default: ``documentFs`` (optional)
 
    Name of the collection for files.
+
+.. confval:: templates_collection
+
+   :type: String
+   :default: ``templates`` (optional)
+
+   Name of the collection for templates.
+
+.. confval:: assets_fs_collection
+
+   :type: String
+   :default: ``templateAssetFs`` (optional)
+
+   Name of the collection for template assets.
 
 .. confval:: auth.username
 
@@ -540,19 +554,21 @@ wkhtmltopdf
 DMP templates
 *************
 
-You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (pure Python implementation) is useful. The location of templates root folder is configurable via :confval:`templateFolder`.
+You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (pure Python implementation) is useful. On startup, DSW in Docker can load templates to database from ``/application/engine-wizard/templates``.
+
+To load custom templates from the file system, Docker container must have set environment variables ``ENABLE_TEMPLATE_LOAD `` to ``1`` and ``SERVICE_TOKEN`` according to the configuration.
 
 Template files
 ==============
 
-We provide currently basic ``default`` template (see `here <https://github.com/ds-wizard/engine-backend/tree/develop/engine-wizard/templates/dmp/default>`_) but it is possible to get inpired and create more or edit it. The basic structure is following:
+The basic structure is following:
 
 - ``templates/dmp/my-template/template.json`` = metadata about the template (must be named ``template.json``)
 - ``templates/dmp/my-template/...`` = other template files (and sub-directories)
 
 Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``ctx`` (document context) is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/engine-backend/blob/develop/engine-wizard/src/Wizard/Api/Resource/Document/DocumentContextDTO.hs>`_.
 
-You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain random and unique UUID, name to be displayed when picking a template, and relative path to root file of the template:
+You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain ``id`` (composed of ``organizationId``, ``templateId``, and ``version``), ``name`` to be displayed when picking a template, ``description``, ``readme``, and ``license``:
 
 .. _config-dmptemplates-json:
 
@@ -621,12 +637,6 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
        - /dsw/templates/dmp:/application/engine-wizard/templates/dmp:ro
      # ... (continued)
 
-   docworker:
-     # ...
-     volumes:
-      - /dsw/docworker/config.yml:/app/config.yml:ro
-      - /dsw/templates/dmp:/app/templates:ro
-
 Email templates
 ***************
 
@@ -680,5 +690,5 @@ Including own email templates while using dockerized Wizard is practically the s
        - 3000:3000
      volumes:
        - /dsw/application.yml:/application/engine-wizard/config/application.yml
-       - /dsw/staging/templates/mail:/application/engine-wizard/templates/mail:ro
+       - /dsw/templates/mail:/application/engine-wizard/templates/mail:ro
    # ... (continued)
