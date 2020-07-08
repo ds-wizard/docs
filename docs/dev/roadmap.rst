@@ -9,15 +9,23 @@ Roadmap
 Planned
 =======
 
+2.6.0
+-----
+
+- End of development: 25 August 2020
+- Release: 1 September 2020
+- `Jira issues 2.6.0 <https://ds-wizard.atlassian.net/browse/DSW-726?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.6.0%20ORDER%20BY%20priority%20DESC>`_
+
+
+Released
+========
+
 2.5.0
 -----
 
 - End of development: 24 June 2020
-- Release: 1 July 2020
-- `Jira issues 2.5.0 <https://ds-wizard.atlassian.net/browse/DSW-726?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.5.0%20ORDER%20BY%20priority%20DESC>`_
-
-Released
-========
+- Release: 8 July 2020
+- `Jira issues 2.5.0 <https://ds-wizard.atlassian.net/browse/DSW-882?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.5.0%20ORDER%20BY%20priority%20DESC>`_
 
 2.4.0
 -----
@@ -157,13 +165,13 @@ Released
 1.1.0
 -----
 
-- End of development: 9 December 2019
-- Release: 16 December 2019
+- End of development: 9 December 2018
+- Release: 16 December 2018
 - `Jira issues 1.1.0 <https://ds-wizard.atlassian.net/browse/DSW-85?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%20DSW-1.1.0%20ORDER%20BY%20priority%20DESC>`_
 
 1.0.0
 -----
 
-- End of development: 24 October 2019
-- Release: 30 October 2019
+- End of development: 24 October 2018
+- Release: 30 October 2018
 
