@@ -54,7 +54,7 @@ There is a special configuration file for integrations (typically ``integrations
 
 .. DANGER::
 
-   We highly recommend to store sensitive data such as API keys in the configuration file raher than directly as text in the knowledge model that can be exported to file and distributed easily by mistake.
+   We highly recommend to store sensitive data such as API keys in the configuration file rather than directly as text in the knowledge model that can be exported to file and distributed easily by mistake.
 
 Integration question
 ====================
