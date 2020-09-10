@@ -56,20 +56,20 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 
 .. code-block:: nginx
 
-server { 
-    # ...
+   server { 
+      # ...
 
-    location / {
-        # ...
-        
-        # required for websockets
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_read_timeout 86400;
-        proxy_send_timeout 86400;
-    }
-}
+      location / {
+         # ...
+         
+         # required for websockets
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "upgrade";
+         proxy_read_timeout 86400;
+         proxy_send_timeout 86400;
+      }
+   }
 
 
 2.4.X to 2.5.0
