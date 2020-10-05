@@ -113,12 +113,6 @@ Configuration related to general operations of the server application.
 
    Filename or whole path of integration configuration file (see :ref:`config-server-integration`). The path is relative to the working directory from where the Wizard runs.
 
-.. confval:: templateFolder
-
-   :type: String
-   :default: ``"engine-wizard/templates"``
-
-   Path to the folder where DMP and mail template are stored. The path is relative to the working directory from where the Wizard runs.
 
 Database
 ~~~~~~~~
@@ -640,7 +634,7 @@ If you deploy the DS Wizard using Docker, you can mount custom files to template
 Email templates
 ***************
 
-Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_ (for email templates we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_). And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename). The location of templates root folder is configurable via :confval:`templateFolder`.
+Similarly to :ref:`config-dmptemplates`, you can customize templates for emails sent by the Wizard located in ``templates/mail`` folder. It also uses `Jinja templating language <http://jinja.pocoo.org/>`_ (for email templates we use its implementation called `Ginger <https://ginger.tobiasdammers.nl/guide/>`_). And you can create HTML template, Plain Text template, add attachments, and add inline images (which can be used inside the HTML using `Content-ID <https://en.wikipedia.org/wiki/MIME#Related>`_ equal to the filename).
 
 Templates structure
 ===================
