@@ -5,7 +5,6 @@ general:
   clientUrl: http://localhost:8080
   serviceToken: NlQSNbGvh7EtcpinGnHE9g91
   integrationConfig: config/integration.yml
-  templateFolder: engine-wizard/templates
 
 database:
   host: mongo

@@ -82,7 +82,7 @@ Server
 
 .. NOTE::
 
-   Be aware that running engine-wizard requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory or where configured, e.g, :confval:`templateFolder`.
+   Be aware that running engine-wizard requires its assets (e.g. ``templates/`` and ``config/``) to be present in the working directory or where configured.
 
 Client
 ------
