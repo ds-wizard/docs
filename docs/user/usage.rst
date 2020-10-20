@@ -20,27 +20,40 @@ Researcher
 
 Researcher is a user who works on a scientific project and has the knowledge about the specific project. His/her goal is to get high-quality FAIR Data Management Plan and learn how to work with data in the project.
 
-Questionnaire
--------------
+Projects
+--------
 
-Data Stewardship Wizard provides simple way to create questionnaire from KM package and fill it in smart way - only relevant questions for your case will be shown.
+Data Stewardship Wizard provides simple way to create project using a KM package and fill the questionnaire in smart way - only relevant questions for your case will be shown.
 
-- :guilabel:`Create` = create new questionnaire from certain version of certain KM package
+- :guilabel:`Create` = create new project using a certain version of certain KM package
 
-- For each questionnaire:
+- For each project:
 
-  - :guilabel:`Fill questionnaire` = starts interactive questionnaire that guides you through answering relevant questions for specific project
-  - :guilabel:`Edit` = edit questionnaire details such as name or visibility
-  - :guilabel:`Create Document` = create a DMP in selected format and template
-  - :guilabel:`View Documents` = view created DMPs for the questionnaire
-  - :guilabel:`Clone` = create a duplicate quetionnaire
-  - :guilabel:`Create Migration` = migrate questionnaire to a different version of KM
+  - :guilabel:`Open project` = starts interactive questionnaire that guides you through answering relevant questions for specific project
+  - :guilabel:`Clone` = create a duplicate project
+  - :guilabel:`Create Migration` = migrate project to a different version of KM
   - :guilabel:`Delete`
 
-Documents
----------
+- When you open a project, you can use:
 
-This section displays all documents (or DMPs) that the user is allowed to see. You can download the document, delete it, or navigate to questionnaire used for the DMP.
+  - :guilabel:`Share` = permissions for other registered and anonymous users with the project links (read-only or edit)
+  - :guilabel:`Questionnaire` = questionnaire based on the selected KM, auto-saving, you can switch the current phase
+  - :guilabel:`TODOs` = list of questions marked as TODO in questionnaire
+  - :guilabel:`Metrics` = visualization of metrics
+  - :guilabel:`Preview` = preview of a document (default template must be set in :guilabel:`Settings`)
+  - :guilabel:`Documents` = list of all generated documents for this project
+  - :guilabel:`Settings` = change name, set default template, or delete project
+
+Documents
+~~~~~~~~~
+
+This section displays all documents (or DMPs) for the project. You can download the document, delete it, or navigate to questionnaire used for the DMP.
+If there is a submission service configured for the template, you may submit such documents.
+
+Settings
+~~~~~~~~
+
+You can change name of a project, the default document template and format, or delete the project entirely.
 
 .. _usage-datasteward:
 
@@ -101,3 +114,7 @@ Users
 -----
 
 User management is also quite simple. Administrator can see table with registered users, :guilabel:`Delete` or :guilabel:`Edit` single one of them, or :guilabel:`Create User` directly. When editing the user, it is possible to change all the attributes from registration and also manually change the "Active" status.
+
+Settings
+--------
+
