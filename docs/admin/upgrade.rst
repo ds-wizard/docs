@@ -131,7 +131,7 @@ Compatibility
 
 The DS Wizard is compatible with all recent versions of web browsers Chrome, Opera, Firefox, and Edge. We do not recommend use of Internet Explorer. Internally, there are components between is are following compatibility of versions:
 
-+------------------+--------------|--------------------+-----------+
++------------------+--------------+--------------------+-----------+
 | DS Wizard        | KM Metamodel | Template Metamodel | Registry  | 
 +==================+==============+====================+===========+
 | 2.7.0            |            5 |                  2 |     2.7.0 |
