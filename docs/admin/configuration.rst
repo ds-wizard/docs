@@ -548,88 +548,10 @@ wkhtmltopdf
 DMP templates
 *************
 
-You can freely customize and style templates of DMPs (filled questionnaires). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (pure Python implementation) is useful. On startup, DSW in Docker can load templates to database from ``/application/engine-wizard/templates``.
+You can freely customize and style templates of documents (DMPs). HTML and CSS knowledge is required and for doing more complex templates that use some conditions, loops, or macros, knowledge of `Jinja templating language <http://jinja.pocoo.org/>`_ (pure Python implementation) is useful. 
 
-To load custom templates from the file system, Docker container must have set environment variables ``ENABLE_TEMPLATE_LOAD `` to ``1`` and ``SERVICE_TOKEN`` according to the configuration.
+For further information, read :ref:`template-development`. 
 
-Template files
-==============
-
-The basic structure is following:
-
-- ``templates/dmp/my-template/template.json`` = metadata about the template (must be named ``template.json``)
-- ``templates/dmp/my-template/...`` = other template files (and sub-directories)
-
-Templates allow you to iterate through questions and answers and find what you need to compose some output. For example, you can generate longer text based on answers of various questions by knowing its texts or UUIDs. To the template, object ``ctx`` (document context) is injected and can be used as variable - for information about its structure, browse current default template or `visit source code <https://github.com/ds-wizard/engine-backend/blob/develop/engine-wizard/src/Wizard/Api/Resource/Document/DocumentContextDTO.hs>`_.
-
-You can have multiple DMP templates and users will be able to pick one of them when exporting a filled questionnaire. Each template must have its metadata JSON file that contain ``id`` (composed of ``organizationId``, ``templateId``, and ``version``), ``name`` to be displayed when picking a template, ``description``, ``readme``, and ``license``:
-
-.. _config-dmptemplates-json:
-
-.. literalinclude:: template.json
-   :caption: template.json
-   :language: json
-   :linenos:
-
-For ``allowedKMs``, you can specify a list of knowledge models that the template can be used with (for example, when it is bound to its questions). You can even bound minimal and maximal version or let it unbound using ``null`` value. Using ``wkhtmltopdf`` and ``pandoc``, you can specify template-related extra arguments for calls of those commands in case of document conversion.
-
-Each template has information what formats and how are provided. A format has its own ``uuid``, ``name``, and ``icon`` for UI. Then there is a list of steps how to produce the output. Types of steps:
-
-- ``json`` = only dumps document context as JSON; no ``options``; must be first step; produces a JSON document
-- ``jinja`` = uses Jinja2 templates to produce a document starting by root file specified in ``options.template`` (full `Jinja2 <https://jinja.palletsprojects.com/en/2.11.x/templates/>`_ can be used), ``options.content-type`` and ``options.extension`` must be used to specify type of the output; must be first step
-- ``wkhtmltopdf`` - runs `wkhtmltopdf <https://wkhtmltopdf.org>`_; ``options.args`` can be used for additional arguments and options to run it; must be after step producing a HTML document; produces a PDF document
-- ``pandoc`` - runs `Pandoc <https://pandoc.org>`_; ``options.from`` and ``options.to`` define from which and to which type the transformation is used (use names according to `docs <https://pandoc.org/MANUAL.html#options>`_), additionally ``options.args`` can be used for additional arguments and options to run it; must be used after step producing a document conforming ``options.from``; produces a document according to ``options.to``
-- ``rdflib-convert`` - uses `rdflib <https://rdflib.readthedocs.io/en/stable/>`_ to load graph from format specified by ``options.from`` and then serialize it to format specified by ``options.to``; supported formats are: ``ttl``, ``n3``, ``rdf`` (RDF/XML), ``nt``, ``trig``, and ``jsonld``
-
-Graphics and scripts
-====================
-
-If you want to include some graphics or JavaScript, we recommend you to put it directly into the HTML template file. In case of graphics, use base64 encoded content (suitable for smaller images like icons and logos):
-
-.. code-block:: HTML
-
-   <img src="data:image/png;base64, iVBORw0KGgoAAAANSU
-    hEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GI
-    AXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" 
-    alt="Red dot" />
-
-Alternatively, you can of course reference picture that is accessible online. For JavaScript, again you can put there directly some script or reference it, for example, from some CDN:
-
-.. code-block:: none
-
-   <style type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></style>
-   <style type="text/javascript">
-     jQuery(".btn").click(function(){
-       jQuery(this).toggleClass(".clicked");
-     });
-   </style>
-
-You can split your template code into multiple files and the use include directive that opens the file and inserts its content where the directive is placed - like we do for including CSS style in HTML template (only one complex HTML file is generated in the end):
-
-.. code-block:: jinja
-
-   <head>
-     <title>Data Management Plan</title>
-     <meta charset="utf-8">
-     <style>{% include "root.css" %}</style>
-   </head>
-
-Docker deployment
-=================
-
-If you deploy the DS Wizard using Docker, you can mount custom files to templates/dmp folder and overwrite default template within :ref:`docker-compose.yml`:
-
-.. code-block:: yaml
-
-   server:
-     image: datastewardshipwizard/wizard-server
-     restart: always
-     ports:
-       - 3000:3000
-     volumes:
-       - /dsw/server/application.yml:/application/engine-wizard/config/application.yml
-       - /dsw/templates/dmp:/application/engine-wizard/templates/dmp:ro
-     # ... (continued)
 
 Email templates
 ***************
