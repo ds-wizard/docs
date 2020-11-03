@@ -253,16 +253,16 @@ You can split your template code into multiple files and the use include directi
 Template Metamodels
 ===================
 
-Version 2
----------
+Version 2 (since 2.6.0)
+-----------------------
 
 - Changed ``questionnaireReplies`` to use path-reply map and removed then redundant ``questionnaireRepliesMap`` from document context.
 - Replies for list question represented as list of UUIDs instead of size used for numeric indexing.
 
-Version 1
----------
+Version 1 (since 2.5.0)
+-----------------------
 
-- Initial version of metamodel, introduced in DSW 2.5.0.
+- Initial version of metamodel, introduced in DSW 2.5.0 as start of versioning.
 
 Further Reading
 ===============
