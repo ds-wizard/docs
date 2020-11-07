@@ -1,0 +1,2691 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$comment": "This schema describes KM import/export with KM metamodel 5",
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "title": "UUID",
+      "description": "UUID version 4 according to `RFC4122 <https://tools.ietf.org/html/rfc4122>`_",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+    },
+    "optionalString": {
+      "title": "Optional String",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stringMap": {
+      "type": "object",
+      "title": "String Map",
+      "description": "Representation of simple map where both keys and values are strings",
+      "patternProperties": {
+        ".*": { "type": "string" }
+      }
+    },
+    "valueType": {
+      "type": "string",
+      "title": "Value Type",
+      "enum": [
+        "StringQuestionValueType",
+        "NumberQuestionValueType",
+        "DateQuestionValueType",
+        "TextQuestionValueType"
+      ]
+    },
+    "desirabilityLevel": {
+      "title": "Desirability Level",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "semver": {
+      "type": "string",
+      "title": "SemVer",
+      "description": "Simple semantic version tag, e.g., ``1.0.45``",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "kmId": {
+      "type": "string",
+      "title": "Knowledge Model ID",
+      "description": "ID of knowledge model",
+      "pattern": "^[a-zA-Z0-9\\-]+$"
+    },
+    "orgId": {
+      "type": "string",
+      "title": "Organization ID",
+      "description": "ID of organization",
+      "pattern": "^[a-zA-Z0-9\\.]+$"
+    },
+    "id": {
+      "type": "string",
+      "title": "Package ID",
+      "description": "Unique composed ID for a package",
+      "pattern": "^[a-zA-Z0-9\\.]+:^[a-zA-Z0-9\\-]+:^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "title": "Timestamp",
+      "description": "Standard ISO timestamp format, e.g., ``2019-06-09T14:25:58.438Z``",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "metricMeasure": {
+      "type": "object",
+      "title": "Metric Measure",
+      "description": "Entity capturing how certain metric is affected",
+      "properties": {
+        "metricUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "measure": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      },
+      "required": [
+        "metricUuid",
+        "measure",
+        "weight"
+      ],
+      "additionalProperties": false  
+    },
+    "packageBundle": {
+      "type": "object",
+      "title": "Package Bundle",
+      "description": "Collection of potentially multiple linked Knowledge Model packages that is commonly used for import and export in DSW.",
+      "properties": {
+        "metamodelVersion": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 5
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizationId": {
+          "$ref": "#/definitions/orgId"
+        },
+        "kmId": {
+          "$ref": "#/definitions/kmId"
+        },
+        "version": {
+          "$ref": "#/definitions/semver"
+        },
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/package"
+          }
+        }
+      },
+      "required": [
+        "metamodelVersion",
+        "name",
+        "organizationId",
+        "kmId",
+        "version",
+        "id",
+        "packages"
+      ]
+    },
+    "package": {
+      "type": "object",
+      "title": "Package",
+      "description": "A single KM package that holds changes (or more precisely events) for the specific version.",
+      "properties": {
+        "metamodelVersion": {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 5
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizationId": {
+          "$ref": "#/definitions/orgId"
+        },
+        "kmId": {
+          "$ref": "#/definitions/kmId"
+        },
+        "version": {
+          "$ref": "#/definitions/semver"
+        },
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "description": {
+          "type": "string"
+        },
+        "readme": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "forkOfPackageId": {
+          "$ref": "#/definitions/id"
+        },
+        "mergeCheckpointPackageId": {
+          "$ref": "#/definitions/id"
+        },
+        "previousPackageId": {
+          "$ref": "#/definitions/id"
+        },
+        "createdAt": {
+          "$ref": "#/definitions/timestamp"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/event"
+          }
+        }
+      }
+    },
+    "event": {
+      "title": "Event",
+      "description": "An event represents a single change in a KM. There are events for each entity type and usually three types of changes: **Add**, **Edit**, and **Delete**. In some cases, also **Move** event is possible.",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/AddKnowledgeModelEvent"
+        },
+        {
+          "$ref": "#/definitions/EditKnowledgeModelEvent"
+        },
+        {
+          "$ref": "#/definitions/AddChapterEvent"
+        },
+        {
+          "$ref": "#/definitions/EditChapterEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteChapterEvent"
+        },
+        {
+          "$ref": "#/definitions/AddOptionsQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/AddListQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/AddValueQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/AddIntegrationQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/EditOptionsQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/EditListQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/EditValueQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/EditIntegrationQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/AddAnswerEvent"
+        },
+        {
+          "$ref": "#/definitions/EditAnswerEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteAnswerEvent"
+        },
+        {
+          "$ref": "#/definitions/AddExpertEvent"
+        },
+        {
+          "$ref": "#/definitions/EditExpertEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteExpertEvent"
+        },
+        {
+          "$ref": "#/definitions/AddResourcePageReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/AddURLReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/AddCrossReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/EditResourcePageReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/EditURLReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/EditCrossReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteReferenceEvent"
+        },
+        {
+          "$ref": "#/definitions/AddTagEvent"
+        },
+        {
+          "$ref": "#/definitions/EditTagEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteTagEvent"
+        },
+        {
+          "$ref": "#/definitions/AddIntegrationEvent"
+        },
+        {
+          "$ref": "#/definitions/EditIntegrationEvent"
+        },
+        {
+          "$ref": "#/definitions/DeleteIntegrationEvent"
+        },
+        {
+          "$ref": "#/definitions/MoveQuestionEvent"
+        },
+        {
+          "$ref": "#/definitions/MoveAnswerEvent"
+        },
+        {
+          "$ref": "#/definitions/MoveExpertEvent"
+        },
+        {
+          "$ref": "#/definitions/MoveReferenceEvent"
+        }
+      ]
+    },
+    "AddKnowledgeModelEvent": {
+      "type": "object",
+      "title": "Add Knowledge Model Event",
+      "description": "Add a new Knowledge Model (typically only once and the very first event) as the top-level entity",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddKnowledgeModelEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "EditKnowledgeModelEvent": {
+      "type": "object",
+      "title": "Edit Knowledge Model Event",
+      "description": "Edit properties of the top-level entity",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditKnowledgeModelEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "chapterUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "tagUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "integrationUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "name",
+        "chapterUuids",
+        "tagUuids",
+        "integrationUuids"
+      ],
+      "additionalProperties": false
+    },
+    "AddChapterEvent": {
+      "type": "object",
+      "title": "Add Chapter Event",
+      "description": "Add a new chapter to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddChapterEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "title",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "EditChapterEvent": {
+      "type": "object",
+      "title": "Edit Chapter Event",
+      "description": "Edit an existing chapter in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditChapterEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "questionUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "title",
+        "text",
+        "questionUuids"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteChapterEvent": {
+      "type": "object",
+      "title": "Delete Chapter Event",
+      "description": "Delete an existing chapter from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteChapterEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddOptionsQuestionEvent": {
+      "type": "object",
+      "title": "Add Options Question Event",
+      "description": "Add a new options question to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["OptionsQuestion"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "requiredLevel": {
+          "$ref": "#/definitions/desirabilityLevel"
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids"
+      ],
+      "additionalProperties": false
+    },
+    "AddListQuestionEvent": {
+      "type": "object",
+      "title": "Add List Question Event",
+      "description": "Add a new list question to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["ListQuestion"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "requiredLevel": {
+          "$ref": "#/definitions/desirabilityLevel"
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids"
+      ],
+      "additionalProperties": false
+    },
+    "AddValueQuestionEvent": {
+      "type": "object",
+      "title": "Add Value Question Event",
+      "description": "Add a new value question to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["ValueQuestion"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "requiredLevel": {
+          "$ref": "#/definitions/desirabilityLevel"
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "valueType": {
+          "$ref": "#/definitions/valueType"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids",
+        "valueType"
+      ],
+      "additionalProperties": false
+    },
+    "AddIntegrationQuestionEvent": {
+      "type": "object",
+      "title": "Add Integration Question Event",
+      "description": "Add a new integration question to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["IntegrationQuestion"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "requiredLevel": {
+          "$ref": "#/definitions/desirabilityLevel"
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "integrationUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "props": {
+          "$ref": "#/definitions/stringMap"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids",
+        "integrationUuid",
+        "props"
+      ],
+      "additionalProperties": false
+    },
+    "EditOptionsQuestionEvent": {
+      "type": "object",
+      "title": "Edit Options Question Event",
+      "description": "Edit an existing options question in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["OptionsQuestion"]
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requiredLevel": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/desirabilityLevel"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "tagUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "expertUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "referenceUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "answerUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids",
+        "expertUuids",
+        "referenceUuids",
+        "answerUuids"
+      ],
+      "additionalProperties": false
+    },
+    "EditListQuestionEvent": {
+      "type": "object",
+      "title": "Edit List Question Event",
+      "description": "Edit an existing list question in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["ListQuestion"]
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requiredLevel": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/desirabilityLevel"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "tagUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "expertUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "referenceUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "itemTemplateQuestionUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagsUuids",
+        "expertUuids",
+        "referenceUuids",
+        "itemTemplateQuestionUuids"
+      ],
+      "additionalProperties": false
+    },
+    "EditValueQuestionEvent": {
+      "type": "object",
+      "title": "Edit Value Question Event",
+      "description": "Edit an existing value question in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["ValueQuestion"]
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requiredLevel": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/desirabilityLevel"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "tagUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "expertUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "referenceUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "valueType": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/valueType"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids",
+        "expertUuids",
+        "referenceUuids",
+        "valueType"
+      ],
+      "additionalProperties": false
+    },
+    "EditIntegrationQuestionEvent": {
+      "type": "object",
+      "title": "Edit Integration Question Event",
+      "description": "Edit an existing integration question in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": ["IntegrationQuestion"]
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "text": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requiredLevel": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/desirabilityLevel"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "tagUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "expertUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "referenceUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/uuid"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "integrationUuid": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/uuid"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/stringMap"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "questionType",
+        "title",
+        "text",
+        "requiredLevel",
+        "tagUuids",
+        "expertUuids",
+        "referenceUuids",
+        "integrationUuid",
+        "props"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteQuestionEvent": {
+      "type": "object",
+      "title": "Delete Question Event",
+      "description": "Delete an existing question from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddAnswerEvent": {
+      "type": "object",
+      "title": "Add Answer Event",
+      "description": "Add a new answer to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddAnswerEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "label": {
+          "type": "string"
+        },
+        "advice": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "metricMeasures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metricMeasure"
+          }
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "label",
+        "advice",
+        "metricMeasures"
+      ],
+      "additionalProperties": false
+    },
+    "EditAnswerEvent": {
+      "type": "object",
+      "title": "Edit Answer Event",
+      "description": "Edit an existing answer in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditAnswerEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "label": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "advice": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "followUpUuids": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/uuid"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "metricMeasures": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/metricMeasure"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "label",
+        "advice",
+        "followUpUuids",
+        "metricMeasures"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteAnswerEvent": {
+      "type": "object",
+      "title": "DeleteAnswerEvent",
+      "description": "Delete an existing answer from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteAnswerEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddExpertEvent": {
+      "type": "object",
+      "title": "Add Expert Event",
+      "description": "Add a new expert to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddExpertEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "name",
+        "email"
+      ],
+      "additionalProperties": false
+    },
+    "EditExpertEvent": {
+      "type": "object",
+      "title": "Edit Expert Event",
+      "description": "Edit an existing expert in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditExpertEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "email": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "name",
+        "email"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteExpertEvent": {
+      "type": "object",
+      "title": "Delete Expert Event",
+      "description": "Delete an existing expert from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteExpertEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddResourcePageReferenceEvent": {
+      "type": "object",
+      "title": "Add Resource Page Reference Event",
+      "description": "Add a new resource page reference to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "ResourcePageReference"
+          ]
+        },
+        "shortUuid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "shortUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddURLReferenceEvent": {
+      "type": "object",
+      "title": "Add URL Reference Event",
+      "description": "Add a new URL reference to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "URLReference"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "url"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "url",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "AddCrossReferenceEvent": {
+      "type": "object",
+      "title": "Add Cross-Reference Event",
+      "description": "Add a new cross-reference to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "CrossReference"
+          ]
+        },
+        "targetUuid": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "referenceType",
+        "targetUuid",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "EditResourcePageReferenceEvent": {
+      "type": "object",
+      "title": "Edit Resource Page Reference Event",
+      "description": "Edit an existing resource page reference in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "ResourcePageReference"
+          ]
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "referenceType",
+        "shortUuid"
+      ],
+      "additionalProperties": false
+    },
+    "EditURLReferenceEvent": {
+      "type": "object",
+      "title": "Edit URL Reference Event",
+      "description": "Edit an existing URL reference in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "URLReference"
+          ]
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string",
+              "format": "url"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "label": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "referenceType",
+        "url",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "EditCrossReferenceEvent": {
+      "type": "object",
+      "title": "Edit Cross-Reference Event",
+      "description": "Edit an existing cross-reference in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "CrossReference"
+          ]
+        },
+        "targetUuid": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/uuid"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "referenceType",
+        "targetUuid",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteReferenceEvent": {
+      "type": "object",
+      "title": "Delete Reference Event",
+      "description": "Delete an existing reference from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddTagEvent": {
+      "type": "object",
+      "title": "Add Tag Event",
+      "description": "Add a new tag to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddTagEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "name",
+        "description",
+        "color"
+      ],
+      "additionalProperties": false
+    },
+    "EditTagEvent": {
+      "type": "object",
+      "title": "Edit Tag Event",
+      "description": "Edit an existing tag in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditTagEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "$ref": "#/definitions/optionalString"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "color": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "name",
+        "description",
+        "color"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteTagEvent": {
+      "type": "object",
+      "title": "Delete Tag Event",
+      "description": "Delete an existing tag from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteTagEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "AddIntegrationEvent": {
+      "type": "object",
+      "title": "Add Integration Event",
+      "description": "Add a new integration to the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "AddIntegrationEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requestMethod": {
+          "type": "string"
+        },
+        "requestUrl": {
+          "type": "string"
+        },
+        "requestHeaders": {
+          "type": "object"
+        },
+        "requestBody": {
+          "type": "string"
+        },
+        "responseListField": {
+          "type": "string"
+        },
+        "responseIdField": {
+          "type": "string"
+        },
+        "responseNameField": {
+          "type": "string"
+        },
+        "itemUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "id",
+        "name",
+        "logo",
+        "props",
+        "requestMethod",
+        "requestUrl",
+        "requestHeaders",
+        "requestBody",
+        "responseListField",
+        "responseIdField",
+        "responseNameField",
+        "itemUrl"
+      ],
+      "additionalProperties": false
+    },
+    "EditIntegrationEvent": {
+      "type": "object",
+      "title": "Edit Integration Event",
+      "description": "Edit an existing integration entity",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "EditIntegrationEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "id": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "logo": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requestMethod": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requestUrl": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requestHeaders": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "requestBody": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "responseListField": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "responseIdField": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "responseNameField": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        },
+        "itemUrl": {
+          "type": "object",
+          "properties": {
+            "changed": {
+              "type": "boolean"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "changed"
+          ]
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "id",
+        "name",
+        "logo",
+        "props",
+        "requestMethod",
+        "requestUrl",
+        "requestHeaders",
+        "requestBody",
+        "responseListField",
+        "responseIdField",
+        "responseNameField",
+        "itemUrl"
+      ],
+      "additionalProperties": false
+    },
+    "DeleteIntegrationEvent": {
+      "type": "object",
+      "title": "Delete Integration Event",
+      "description": "Delete an existing integration from the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "DeleteIntegrationEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid"
+      ],
+      "additionalProperties": false
+    },
+    "MoveQuestionEvent": {
+      "type": "object",
+      "title": "Move Question Event",
+      "description": "Move an existing question to a different location in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "MoveQuestionEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "targetUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "targetUuid"
+      ],
+      "additionalProperties": false
+    },
+    "MoveAnswerEvent": {
+      "type": "object",
+      "title": "Move Answer Event",
+      "description": "Move an existing answer to a different location in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "MoveAnswerEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "targetUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "targetUuid"
+      ],
+      "additionalProperties": false
+    },
+    "MoveExpertEvent": {
+      "type": "object",
+      "title": "Move Expert Event",
+      "description": "Move an existing expert to a different location in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "MoveExpertEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "targetUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "targetUuid"
+      ],
+      "additionalProperties": false
+    },
+    "MoveReferenceEvent": {
+      "type": "object",
+      "title": "Move Reference Event",
+      "description": "Move an existing reference to a different location in the KM",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "MoveReferenceEvent"
+          ]
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "parentUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "entityUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "targetUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "required": [
+        "eventType",
+        "uuid",
+        "parentUuid",
+        "entityUuid",
+        "targetUuid"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "title": "Package Bundle JSON",
+  "description": "The JSON file used for import and export of KMs uses packages (event containers) bundled in a single object:",
+  "$ref": "#/definitions/packageBundle"
+}

@@ -9,3 +9,7 @@ li > p {
 .green {
     color: #2E8B57;
 }
+
+.wy-table-responsive table td:first-of-type {
+    white-space: normal;
+}
