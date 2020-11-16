@@ -7,12 +7,13 @@ Upgrading DSW
 
 .. Warning::
 
-   Backup database and other imporant data (e.g., configuration) before upgrade!
+   Backup database and other important data (e.g., configuration) before upgrade!
+
 
 Using Docker
 ------------
 
-In case of using Docker, just use the tag in :ref:`docker-compose.yml` or pull the new Docker image and restart using down/up:
+In case of using Docker, just use the tag in ``docker-compose.yml`` or pull the new Docker image and restart using down/up:
 
 .. code-block:: shell
 
@@ -85,15 +86,14 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 2.4.X to 2.5.0
 --------------
 
-- Document templates have been moved from FS to database. To simplify the transition for custom templates, we added to the Docker image a script that loads templates from FS to the database via DSW API. But there are several new information that you need to provide in ``template.json`` file: ``id`` (instead of ``uuid``), ``templateId``, ``organizationId``, ``version`` (semver), ``license``, ``readme`` (Markdown). The ``id`` should be in format ``organizationId:templateId:version`` - see :ref:`config-dmptemplates-json`. Please note that this applies only for custom templates, default template can be removed from FS as it is added to the database automatically. The script must be enabled by setting envvar ``ENABLE_TEMPLATE_LOAD `` to ``1`` and ``SERVICE_TOKEN`` according to the configuration.
+- Document templates have been moved from FS to database. To simplify the transition for custom templates, we added to the Docker image a script that loads templates from FS to the database via DSW API. But there are several new information that you need to provide in ``template.json`` file: ``id`` (instead of ``uuid``), ``templateId``, ``organizationId``, ``version`` (semver), ``license``, ``readme`` (Markdown). The ``id`` should be in format ``organizationId:templateId:version``. Please note that this applies only for custom templates, default template can be removed from FS as it is added to the database automatically. The script must be enabled by setting envvar ``ENABLE_TEMPLATE_LOAD `` to ``1`` and ``SERVICE_TOKEN`` according to the configuration.
 - Cron is no longer needed for the feedback synchronization (environment variables in ``docker-compose.yml``) as DSW schedules synchronization internally.
 
 2.3.X to 2.4.0
 --------------
 
 - To unify configuration, document-worker now supports and prefers YAML configuration files.
-- Local/custom ``template.json`` files must be updated (renamed ``allowedKMs`` to ``allowedPackages``, and several new attributes: ``description`` for template and ``shortName`` + ``color`` for each format) - see the example :ref:`config-dmptemplates-json`.
-
+- Local/custom ``template.json`` files must be updated (renamed ``allowedKMs`` to ``allowedPackages``, and several new attributes: ``description`` for template and ``shortName`` + ``color`` for each format).
 
 2.2.X to 2.3.0
 --------------
@@ -110,13 +110,13 @@ Usually, nothing special is required for upgrade. Internal structure changes are
 2.0.X to 2.1.0
 --------------
 
-- There is a significant change related to new *Document Worker* that handles generation of documents from templates and filled questionnaires. You need to run RabbitMQ and document-worker with correct configuration according to server, see :ref:`docker-compose.yml` and :ref:`configuration` for details.
+- There is a significant change related to new *Document Worker* that handles generation of documents from templates and filled questionnaires. You need to run RabbitMQ and document-worker with correct configuration according to server, see :ref:`installation-docker` and :ref:`configuration` for details.
 
 1.10.X to 2.0.0
 ---------------
 
 - Changing the major version actually does not mean any problem in migration, it has been made due to significant internal changes (restructuring, new repositories, etc.)
-- If you are using Docker for running DSW, you need to change it according to new documentation of :ref:`docker-compose.yml` and :ref:`configuration`.
+- If you are using Docker for running DSW, you need to change it according to new documentation of :ref:`installation-docker` and :ref:`configuration`.
 - Crontab image is no longer needed.
 - A DMP template configuration file must contain list of ``allowedKMs`` (see the default *root* template).
 
