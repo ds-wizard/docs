@@ -22,12 +22,22 @@ The application is currently deployed on a server provided by `CESNET <https://w
    You are free to register and test out the Wizard within the `ds-wizard.org <https://ds-wizard.org>`_. Then you can decide if you want a local instance for you or your organization. Eventually you can contact us about *DSW Cloud* service where we can host and maintain your DSW instance, see our `Get Started page <https://ds-wizard.org/get-started.html>`_.
 
 
+.. _installation-registry:
+
+Registry
+========
+
+When you have your own self-hosted instance, it is essential for you to register within the `DSW Registry <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-settings`. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models and document templates.
+
+
 Own Instance
 ============
 
 .. WARNING::
 
-   For production use, consult deployment and other operations with your sysadmin or contact us for `professional services <https://ds-wizard.org/services.html>`_. These instructions are starter hints for local deployment and testing of DSW.
+   For production use, consult deployment and other operations with your sysadmin or contact us for `professional services <https://ds-wizard.org/services.html>`_.
+   
+   The following instructions are recommended **only** for local deployment and trying it out. It does not include any safety measures that are required for production deployment and are handled differently based on specific requirements and deployment site.
 
 
 .. _installation-docker:
@@ -42,10 +52,6 @@ The simplest way is to use `Docker Compose <https://docs.docker.com/compose/>`_.
 3. Run the DSW with Docker compose ``docker-compose up -d``
 4. After starting up, you will be able to open the Wizard in your browser on http://localhost:8080
 5. You can use ``docker-compose logs`` to see the logs and ``docker-compose down`` to stop all the services
-
-.. WARNING::
-
-   The provided example is **not intended for production** use!
 
 
 Without Docker
@@ -76,18 +82,10 @@ You can use those accounts for testing or to initially made your own account adm
    Having public instance with default accounts is a **security risk**. Delete or change default accounts (mainly Albert Einstein) if your DSW instance is public as soon as possible.
 
 
-.. _installation-registry:
-
-Registry
---------
-
-When you have your own self-hosted instance, it is essential for you to register within the `Registry service <https://registry.ds-wizard.org>`_. It is source of shared knowledge models and can support your deployment. After registration of your organization with unique ID and email verification, you will get your **token**. This token is then used in :ref:`config-settings`. Then your instance is connected automatically to the Registry service for specific functionality such as accessing shared knowledge models.
-
-
 Initial Knowledge Model
 -----------------------
 
-When you have a fresh installation, there are just the default users and no knowledge models. You are free to create a new one from scratch if you want. Other option is to import existing KM ``dsw:root:X.Y.Z`` from the `Registry <https://registry.ds-wizard.org>`_. It is the core knowledge model for general data stewardship. The specific latest version (or other version that is the best for you) as well as other shared knowledge models can be found on the landing page of the `Registry service <https://registry.ds-wizard.org>`_. Other option is to import it from file if you have any (according to :ref:`usage`). Same principle works for document templates (if you need to update them or get other).
+When you have a fresh installation, there are just the default users and no knowledge models. You are free to create a new one from scratch if you want. Other option is to import existing KM ``dsw:root:X.Y.Z`` from the `Registry <https://registry.ds-wizard.org>`_. It is the core knowledge model for general data stewardship. The specific latest version (or other version that is the best for you) as well as other shared knowledge models can be found on the landing page of the `Registry service <https://registry.ds-wizard.org>`_. Other option is to import it from file if you have any (according to :ref:`usage`). 
 
 
 Database Backup

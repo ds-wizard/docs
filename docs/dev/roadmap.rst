@@ -19,6 +19,13 @@ Planned
 Released
 ========
 
+2.8.1
+-----
+
+- End of development: 24 November 2020
+- Release: 24 November 2020
+- `Jira issues 2.8.1 <https://ds-wizard.atlassian.net/browse/DSW-980?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.8.1%20ORDER%20BY%20priority%20DESC>`_
+
 2.8.0
 -----
 
