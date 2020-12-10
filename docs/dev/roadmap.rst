@@ -4,20 +4,20 @@ Roadmap
 
 .. NOTE::
 
-   DSW is currently being actively developed with monthly releases. Backlog is being highly affected by provided feedback, community needs, and discussion with our key users.
+   Backlog is being highly affected by provided feedback, community needs, and discussion with our key users. You can visit our `Ideas <https://ideas.ds-wizard.org>`_ or `JIRA <https://ds-wizard.atlassian.net/jira/software/c/projects/DSW/issues/?filter=allopenissues>`_.
 
 Planned
 =======
+
+Released
+========
 
 2.9.0
 -----
 
 - End of development: 30 November 2020
-- Release: 7 December 2020
-- `Jira issues 2.9.0 <https://ds-wizard.atlassian.net/browse/DSW-927?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.9.0%20ORDER%20BY%20priority%20DESC>`_
-
-Released
-========
+- Release: 9 December 2020
+- `Jira issues 2.9.0 <https://ds-wizard.atlassian.net/browse/DSW-943?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.9.0%20ORDER%20BY%20priority%20DESC>`_
 
 2.8.1
 -----
