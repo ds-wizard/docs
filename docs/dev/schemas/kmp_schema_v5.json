@@ -39,6 +39,7 @@
     },
     "desirabilityLevel": {
       "title": "Desirability Level",
+      "description": "Level to indicate if a question is desirable in certain phase of a questionnaire",
       "anyOf": [
         {
           "type": "integer"
@@ -106,7 +107,7 @@
     },
     "packageBundle": {
       "type": "object",
-      "title": "Package Bundle",
+      "title": "Package Bundle (object)",
       "description": "Collection of potentially multiple linked Knowledge Model packages that is commonly used for import and export in DSW.",
       "properties": {
         "metamodelVersion": {
@@ -1595,7 +1596,7 @@
     },
     "DeleteAnswerEvent": {
       "type": "object",
-      "title": "DeleteAnswerEvent",
+      "title": "Delete Answer Event",
       "description": "Delete an existing answer from the KM",
       "properties": {
         "eventType": {
@@ -2685,7 +2686,7 @@
       "additionalProperties": false
     }
   },
-  "title": "Package Bundle JSON",
-  "description": "The JSON file used for import and export of KMs uses packages (event containers) bundled in a single object:",
+  "title": "Package Bundle",
+  "description": "The JSON representation used for import and export of KMs uses packages (event containers) bundled in a single object.",
   "$ref": "#/definitions/packageBundle"
 }
