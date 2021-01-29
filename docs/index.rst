@@ -38,4 +38,5 @@ The `Data Stewardship Wizard <https://ds-wizard.org>`_ is an international proje
    dev/schemas
    dev/contributing
    dev/roadmap
+   dev/changelog
 
