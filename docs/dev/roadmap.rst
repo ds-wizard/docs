@@ -9,8 +9,25 @@ Roadmap
 Planned
 =======
 
+2.11.0
+------
+
+- End of development: 29 January 2021
+- Release: 1 February 2021
+- `Jira issues 2.11.0 <https://ds-wizard.atlassian.net/browse/DSW-397?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.11.0%20ORDER%20BY%20priority%20DESC>`_
+
 Released
 ========
+
+2.10.0
+------
+
+- End of development: 11 January 2021
+- Release: 12 January 2021
+- `Jira issues 2.10.0 <https://ds-wizard.atlassian.net/browse/DSW-988?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.10.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Possibility to add specific users to the questionnaire as collaborators
 
 2.9.0
 -----
@@ -18,6 +35,10 @@ Released
 - End of development: 30 November 2020
 - Release: 9 December 2020
 - `Jira issues 2.9.0 <https://ds-wizard.atlassian.net/browse/DSW-943?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.9.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Refactored error messages
+   - Several bugfixes
 
 2.8.1
 -----
@@ -32,6 +53,11 @@ Released
 - End of development: 27 October 2020
 - Release: 3 November 2020
 - `Jira issues 2.8.0 <https://ds-wizard.atlassian.net/browse/DSW-1?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.8.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Pagination & sorting in table views
+   - Introduced DSW Template Development Kit
+   - Minor UX improvements
 
 2.7.0
 -----
@@ -39,6 +65,10 @@ Released
 - End of development: 29 September 2020
 - Release: 5 October 2020
 - `Jira issues 2.7.0 <https://ds-wizard.atlassian.net/browse/DSW-915?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.7.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Improved caching for speed optimization
+   - Reworked questionnaire detail
 
 2.6.0
 -----
@@ -46,6 +76,12 @@ Released
 - End of development: 5 September 2020
 - Release: 9 September 2020
 - `Jira issues 2.6.0 <https://ds-wizard.atlassian.net/browse/DSW-904?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.6.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Added questionnaire live collaboration
+   - Introduced Projects to relate questionnaire, TODOs, documents, and settings
+   - Several UI/UX improvements
+   - Improved design of email templates
 
 2.5.0
 -----
@@ -53,6 +89,12 @@ Released
 - End of development: 24 June 2020
 - Release: 8 July 2020
 - `Jira issues 2.5.0 <https://ds-wizard.atlassian.net/browse/DSW-882?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.5.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Added templates management
+   - Several UI/UX improvements
+   - Introduced backend workers for scheduled/async tasks
+   - Added option to disable questionnaire summary report
 
 2.4.0
 -----
@@ -60,6 +102,12 @@ Released
 - End of development: 27 May 2020
 - Release: 3 June 2020
 - `Jira issues 2.4.0 <https://ds-wizard.atlassian.net/browse/DSW-719?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.4.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Added RDF support step in document worker
+   - Improved default naming of new documents
+   - Minor UI/UX improvements
+   - Several bugfixes
 
 2.3.0
 -----
@@ -67,6 +115,13 @@ Released
 - End of development: 29 April 2020
 - Release: 6 May 2020
 - `Jira issues 2.3.0 <https://ds-wizard.atlassian.net/browse/DSW-727?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.3.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Enhanced backend logging for ELK
+   - Added document submission
+   - Improved integration with Registry for simpler Sign Up
+   - Added user avatars
+   - Several bugfixes and optimizations
 
 2.2.0
 -----
@@ -74,7 +129,14 @@ Released
 - End of development: 25 March 2020
 - Release: 1 April 2020
 - `Jira issues 2.2.0 <https://ds-wizard.atlassian.net/browse/DSW-667?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.2.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
 
+   - Added support for OpenID
+   - Added affiliations in user profiles
+   - Introduced settings to change configurations directly in DSW interface
+   - Added API documentation using Swagger
+   - UI/UX improvements
+   - Several bugfixes and optimizations
 
 2.1.0
 -----
@@ -82,7 +144,12 @@ Released
 - End of development: 25 February 2020
 - Release: 3 March 2020
 - `Jira issues 2.1.0 <https://ds-wizard.atlassian.net/browse/DSW-613?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.1.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
 
+   - Introduced document worker for better scalability
+   - Migrated backend to new framework
+   - Added dropdown actions to list views
+   - Several bugfixes
 
 2.0.0
 -----
@@ -90,6 +157,15 @@ Released
 - End of development: 14 January 2020
 - Release: 14 January 2020
 - `Jira issues 2.0.0 <https://ds-wizard.atlassian.net/browse/DSW-127?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.0.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Added move functionality for knowledge models
+   - Added possibility to assign template to KMs
+   - Added questionnaire cloning
+   - Added expand/collapse all in KM Editor
+   - Internal refactoring and structure enhancements
+   - Several bugfixes
+
 
 1.10.1
 ------
