@@ -9,15 +9,26 @@ Roadmap
 Planned
 =======
 
+2.12.0
+------
+
+- End of development: 23 February 2021
+- Release: 2 March 2021
+- `Jira issues 2.12.0 <https://ds-wizard.atlassian.net/browse/DSW-995?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.12.0%20ORDER%20BY%20priority%20DESC>`_
+
+Released
+========
+
 2.11.0
 ------
 
 - End of development: 29 January 2021
-- Release: 1 February 2021
+- Release: 2 February 2021
 - `Jira issues 2.11.0 <https://ds-wizard.atlassian.net/browse/DSW-397?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.11.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
 
-Released
-========
+   - Add multiple choice question
+   - Show tags in the questionnaire
 
 2.10.0
 ------
