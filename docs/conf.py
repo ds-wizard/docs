@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Data Stewardship Wizard'
-copyright = '2020, DSW Team'
+copyright = '2021, DSW Team'
 author = 'DSW Team'
 
 # The full version, including alpha/beta/rc tags
-release = '2.10.0'
+release = '2.11.0'
 
 
 # -- General configuration ---------------------------------------------------

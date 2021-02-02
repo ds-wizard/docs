@@ -43,6 +43,17 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+
+2.10.X to 2.11.X
+----------------
+
+- If you are using the ``questionnaire-report`` template, it is recommended to upgrade it to version 1.2.0 (from `Registry <https://registry.ds-wizard.org/templates/dsw:questionnaire-report:1.2.0>`_ or `GitHub Release <https://github.com/ds-wizard/questionnaire-report-template/releases/tag/v1.2.0>`_) so it displays also new Multi-Choice questions. Otherwise the choices won't appear in the exported document if there are any.
+
+2.9.X to 2.10.X
+---------------
+
+*(nothing)*
+
 2.8.X to 2.9.X
 --------------
 
