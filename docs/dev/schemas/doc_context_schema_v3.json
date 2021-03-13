@@ -1,0 +1,1342 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$comment": "This schema describes KM import/export with KM metamodel 5",
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "title": "UUID",
+      "description": "UUID version 4 according to `RFC4122 <https://tools.ietf.org/html/rfc4122>`_",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+    },
+    "optionalString": {
+      "title": "Optional String",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "optionalUuid": {
+      "title": "Optional UUID",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stringMap": {
+      "type": "object",
+      "title": "String Map",
+      "description": "Representation of simple map where both keys and values are strings",
+      "patternProperties": {
+        ".*": { "type": "string" }
+      }
+    },
+    "valueType": {
+      "type": "string",
+      "title": "Value Type",
+      "enum": [
+        "StringQuestionValueType",
+        "NumberQuestionValueType",
+        "DateQuestionValueType",
+        "TextQuestionValueType"
+      ]
+    },
+    "desirabilityLevel": {
+      "title": "Desirability Level",
+      "description": "Level to indicate if a question is desirable in certain phase of a questionnaire",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "semver": {
+      "type": "string",
+      "title": "SemVer",
+      "description": "Simple semantic version tag, e.g., ``1.0.45``",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "kmId": {
+      "type": "string",
+      "title": "Knowledge Model ID",
+      "description": "ID of knowledge model",
+      "pattern": "^[a-zA-Z0-9\\-]+$"
+    },
+    "orgId": {
+      "type": "string",
+      "title": "Organization ID",
+      "description": "ID of organization",
+      "pattern": "^[a-zA-Z0-9\\.]+$"
+    },
+    "id": {
+      "type": "string",
+      "title": "Package ID",
+      "description": "Unique composed ID for a package",
+      "pattern": "^[a-zA-Z0-9\\.]+:^[a-zA-Z0-9\\-]+:^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "title": "Timestamp",
+      "description": "Standard ISO timestamp format, e.g., ``2019-06-09T14:25:58.438Z``",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "metricMeasure": {
+      "type": "object",
+      "title": "Metric Measure",
+      "description": "Entity capturing how certain metric is affected",
+      "properties": {
+        "metricUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "measure": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      },
+      "required": [
+        "metricUuid",
+        "measure",
+        "weight"
+      ],
+      "additionalProperties": false  
+    },
+    "config": {
+      "type": "object",
+      "title": "Config",
+      "description": "Configuration values useful for generating documents",
+      "properties": {
+        "clientUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "levelsEnabled": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "level": {
+      "type": "object",
+      "title": "Desirability Level (object)",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "title": "Metric",
+      "properties": {
+        "abbreviation": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "organization": {
+      "type": "object",
+      "title": "Organization",
+      "properties": {
+        "affiliations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizationId": {
+          "$ref": "#/definitions/orgId"
+        }
+      },
+      "additionalProperties": false
+    },
+    "package": {
+      "type": "object",
+      "title": "Package Metadata",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "kmId": {
+          "$ref": "#/definitions/kmId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organization": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/organization"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "organizationId": {
+          "$ref": "#/definitions/orgId"
+        },
+        "state": {
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/definitions/semver"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/semver"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "indicationReport": {
+      "type": "object",
+      "title": "Indication Report",
+      "properties": {
+        "answeredQuestions": {
+          "type": "integer"
+        },
+        "indicationType": {
+          "type": "string",
+          "enum": [
+            "LevelsAnsweredIndication",
+            "AnsweredIndication"
+          ]
+        },
+        "unansweredQuestions": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metricReport": {
+      "type": "object",
+      "title": "Metric Report",
+      "properties": {
+        "measure": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "metricUuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "chapterReport": {
+      "type": "object",
+      "title": "Chapter Report",
+      "properties": {
+        "chapterUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "indications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/indicationReport"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metricReport"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "totalReport": {
+      "type": "object",
+      "title": "Total (Summary) Report",
+      "properties": {
+        "indications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/indicationReport"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metricReport"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "report": {
+      "type": "object",
+      "title": "Report",
+      "properties": {
+        "chapterReports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/chapterReport"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "totalReport": {
+          "$ref": "#/definitions/totalReport"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "user": {
+      "type": "object",
+      "title": "User",
+      "description": "Information about a user",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "affiliation": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array"
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "researcher",
+            "data_steward",
+            "admin"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "knowledgeModel": {
+      "type": "object",
+      "title": "Knowledge Model",
+      "properties": {
+        "chapterUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "entities": {
+          "type": "object",
+          "description": "Typed UUID-entity map of KM contents",
+          "properties": {
+            "answers": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmAnswer" }
+              }
+            },
+            "chapters": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmChapter" }
+              }
+            },
+            "expert": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmExpert" }
+              }
+            },
+            "integrations": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmIntegration" }
+              }
+            },
+            "questions": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmQuestion" }
+              }
+            },
+            "references": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmReference" }
+              }
+            },
+            "tags": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/kmTag" }
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "integrationUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmAnswer": {
+      "type": "object",
+      "title": "Answer",
+      "properties": {
+        "advice": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "followUpUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "label": {
+          "type": "string"
+        },
+        "metricMeasures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metricMeasure"
+          }
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmChapter": {
+      "type": "object",
+      "title": "Chapter",
+      "properties": {
+        "questionUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmExpert": {
+      "type": "object",
+      "title": "Expert",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmIntegration": {
+      "type": "object",
+      "title": "Integration",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "itemUrl": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requestBody": {
+          "type": "string"
+        },
+        "requestHeaders": {
+          "$ref": "#/definitions/stringMap"
+        },
+        "requestMethod": {
+          "type": "string"
+        },
+        "responseIdField": {
+          "type": "string"
+        },
+        "responseListField": {
+          "type": "string"
+        },
+        "responseNameField": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmValueQuestion": {
+      "type": "object",
+      "title": "Value Question",
+      "properties": {
+        "expertUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "questionType": {
+          "type": "string",
+          "enum": [
+            "ValueQuestion"
+          ]
+        },
+        "referenceUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "requiredLevel": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "valueType": {
+          "type": "string",
+          "enum": [
+            "DateQuestionValueType",
+            "NumberQuestionValueType",
+            "StringQuestionValueType",
+            "TextQuestionValueType"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmIntegrationQuestion": {
+      "type": "object",
+      "title": "Integration Question",
+      "properties": {
+        "expertUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "integrationUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "props": {
+          "$ref": "#/definitions/stringMap"
+        },
+        "questionType": {
+          "type": "string",
+          "enum": [
+            "IntegrationQuestion"
+          ]
+        },
+        "referenceUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "requiredLevel": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmListQuestion": {
+      "type": "object",
+      "title": "List Question",
+      "properties": {
+        "expertUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "itemTemplateQuestionUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "questionType": {
+          "type": "string",
+          "enum": [
+            "ListQuestion"
+          ]
+        },
+        "referenceUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "requiredLevel": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmOptionsQuestion": {
+      "type": "object",
+      "title": "Options Question",
+      "properties": {
+        "answerUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "expertUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "questionType": {
+          "type": "string",
+          "enum": [
+            "OptionsQuestion"
+          ]
+        },
+        "referenceUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "requiredLevel": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmMultiChoiceQuestion": {
+      "type": "object",
+      "title": "Multi-Choice Question",
+      "properties": {
+        "choiceUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "expertUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "questionType": {
+          "type": "string",
+          "enum": [
+            "MultiChoiceQuestion"
+          ]
+        },
+        "referenceUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "requiredLevel": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tagUuids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        },
+        "text": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "title": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmQuestion": {
+      "title": "Question",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/kmValueQuestion"
+        },
+        {
+          "$ref": "#/definitions/kmIntegrationQuestion"
+        },
+        {
+          "$ref": "#/definitions/kmListQuestion"
+        },
+        {
+          "$ref": "#/definitions/kmOptionsQuestion"
+        },
+        {
+          "$ref": "#/definitions/kmMultiChoiceQuestion"
+        }
+      ]
+    },
+    "kmResourcePageReference": {
+      "type": "object",
+      "title": "Resource Page Reference",
+      "properties": {
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "ResourcePageReference"
+          ]
+        },
+        "shortUuid": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmURLReference": {
+      "type": "object",
+      "title": "URL Reference",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "URLReference"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmCrossReference": {
+      "type": "object",
+      "title": "Cross Reference",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "referenceType": {
+          "type": "string",
+          "enum": [
+            "CrossReference"
+          ]
+        },
+        "targetUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmReference": {
+      "title": "Reference",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/kmResourcePageReference"
+        },
+        {
+          "$ref": "#/definitions/kmURLReference"
+        },
+        {
+          "$ref": "#/definitions/kmCrossReference"
+        }
+      ]
+    },
+    "kmTag": {
+      "type": "object",
+      "title": "Tag",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "kmChoice": {
+      "type": "object",
+      "title": "Choice",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyAnswer": {
+      "type": "object",
+      "title": "Answer Reply",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "AnswerReply"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyValue": {
+      "type": "object",
+      "title": "Value Reply",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "StringReply"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyIntegrationValuePlain": {
+      "type": "object",
+      "title": "Integration Plain Value",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "PlainType"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyIntegrationValueIntegration": {
+      "type": "object",
+      "title": "Integration Value",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "IntegrationType"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyIntegration": {
+      "type": "object",
+      "title": "Integration Reply",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "IntegrationReply"
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/replyIntegrationValuePlain"
+            },
+            {
+              "$ref": "#/definitions/replyIntegrationValueIntegration"
+            }
+          ]
+          
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyList": {
+      "type": "object",
+      "title": "List Reply",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ItemListReply"
+          ]
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyMultiChoice": {
+      "type": "object",
+      "title": "Multi-Choice Reply",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "MultiChoiceReply"
+          ]
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uuid"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "replyCreator": {
+      "type": "object",
+      "title": "Reply Creator",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "gravatarHash": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reply": {
+      "type": "object",
+      "title": "Reply",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/replyCreator"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/replyAnswer"
+            },
+            {
+              "$ref": "#/definitions/replyValue"
+            },
+            {
+              "$ref": "#/definitions/replyIntegration"
+            },
+            {
+              "$ref": "#/definitions/replyList"
+            },
+            {
+              "$ref": "#/definitions/replyMultiChoice"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "questionnaireVersion": {
+      "type": "object",
+      "title": "Questionnaire Version",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/replyCreator"
+        },
+        "description": {
+          "$ref": "#/definitions/optionalString"
+        },
+        "eventUuid": {
+          "$ref": "#/definitions/uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "documentContext": {
+      "type": "object",
+      "title": "Document Context (object)",
+      "description": "Entity capturing how certain metric is affected",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/config"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the document was created"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/user",
+          "description": "Issuer/author of the document"
+        },
+        "knowledgeModel": {
+          "$ref": "#/definitions/knowledgeModel",
+          "description": "Compiled KM used in the questionnaire"
+        },
+        "level": {
+          "type": "integer",
+          "description": "The current desirability level in the questionnaire"
+        },
+        "levels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/level"
+          },
+          "description": "Levels defined for the questionnaire"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metric"
+          },
+          "description": "Metrics defined for the questionnaire"
+        },
+        "organization": {
+          "$ref": "#/definitions/organization",
+          "description": "Organization configured for the DSW instance"
+        },
+        "package": {
+          "$ref": "#/definitions/package",
+          "description": "Metadata about the used KM package"
+        },
+        "questionnaireName": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of the questionnaire"
+        },
+        "questionnaireReplies": {
+          "type": "object",
+          "description": "Replies in the questionnaire stored in map/dictionary where key is UUID path and value is the reply to question in that path",
+          "patternProperties": {
+            ".*": { "$ref": "#/definitions/reply" }
+          }
+        },
+        "questionnaireVersion": {
+          "$ref": "#/definitions/uuid",
+          "description": "UUID of the questionnaire version (if any)"
+        },
+        "questionnaireVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/questionnaireVersion"
+          },
+          "description": "Versions defined for the questionnaire"
+        },
+        "questionnaireUuid": {
+          "$ref": "#/definitions/uuid",
+          "description": "UUID of the questionnaire"
+        },
+        "report": {
+          "$ref": "#/definitions/report",
+          "description": "Report computed for the questionnaire"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the document was last updated"
+        },
+        "uuid": {
+          "$ref": "#/definitions/uuid",
+          "description": "UUID of the document"
+        }
+      },
+      "required": [
+        "metricUuid",
+        "measure",
+        "weight"
+      ],
+      "additionalProperties": false 
+    }
+  },
+  "title": "Document Context",
+  "description": "The JSON representation of document context object provided to document templates in DSW.",
+  "$ref": "#/definitions/documentContext"
+}
