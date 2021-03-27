@@ -253,6 +253,12 @@ You can split your template code into multiple files and the use include directi
 Template Metamodels
 ===================
 
+Version 3 (since 2.12.0)
+-----------------------
+
+- Additional metadata about each replies has been added and structure of reply is changed (extra ``.value`` needed). In case you are using filters such as ``reply_str_value`` no changes are needed.
+- For integration reply, the type values are renamed ``IntegrationValue`` -> ``IntegrationType`` and ``PlainValue`` -> ``PlainType`` for consistency.
+
 Version 2 (since 2.6.0)
 -----------------------
 
