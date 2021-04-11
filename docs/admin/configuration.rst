@@ -334,13 +334,13 @@ Client also provides wide variety of style customizations using `SASS <https://s
 
     volumes:
       # mount SCSS file
-      - /path/to/extras.scss:/src/scss/customizations/_extras.scss
+      - /path/to/extra.scss:/src/scss/customizations/_extra.scss
       - /path/to/overrides.scss:/src/scss/customizations/_overrides.scss
       - /path/to/variables.scss:/src/scss/customizations/_variables.scss
       # mount other assets, you can then refere them from scss using '/assets/...'
       - /path/to/assets:/usr/share/nginx/html/assets
 
-- ``_extras.scss`` = This file is loaded before all other styles. You can use it, for example, to define new styles or import fonts.
+- ``_extra.scss`` = This file is loaded before all other styles. You can use it, for example, to define new styles or import fonts.
 - ``_overrides.scss`` = This file is loaded after all other styles. You can use it to override existing styles.
 - ``_variables.scss`` = A lot of values related to styles are defined as variables. The easiest way to customize the style is to define new values for these variables using this file.
 

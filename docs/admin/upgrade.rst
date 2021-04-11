@@ -43,10 +43,15 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+2.12.X to 2.13.X
+----------------
+
+*(nothing)*
+
 2.11.X to 2.12.X
 ----------------
 
-- The metamodel for templates has been upgraded and accessing the reply values is changed due to additional metadata about each reply, see :ref:`schema-doc-context`. But if you are using filters such as ``reply_str``, it gets the reply object with value correctly. Moreover, for working with integration reply, the type values are renamed ``IntegrationValue`` -> ``IntegrationType`` and ``PlainValue`` -> ``PlainType`` for consistency.
+- The metamodel for templates has been upgraded and accessing the reply values is changed due to additional metadata about each reply, see :ref:`schema-doc-context`. But if you are using filters such as ``reply_str_value``, it gets the reply object with value correctly. Moreover, for working with integration reply, the type values are renamed ``IntegrationValue`` -> ``IntegrationType`` and ``PlainValue`` -> ``PlainType`` for consistency.
 
 2.10.X to 2.11.X
 ----------------
@@ -159,6 +164,8 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+--------------------+-----------+
 | DS Wizard        | KM Metamodel | Template Metamodel | Registry  | 
 +==================+==============+====================+===========+
+| 2.13.0           |            6 |                  3 |    2.13.0 |
++------------------+--------------+--------------------+-----------+
 | 2.12.0           |            5 |                  3 |    2.12.0 |
 +------------------+--------------+--------------------+-----------+
 | 2.11.0           |            5 |                  2 |    2.11.0 |

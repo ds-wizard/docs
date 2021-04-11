@@ -9,15 +9,29 @@ Roadmap
 Planned
 =======
 
-2.13.0
-------
+3.0.0
+-----
 
-- Release (expected): 6 April 2021
-- `Jira issues 2.13.0 <https://ds-wizard.atlassian.net/browse/DSW-1025?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.13.0%20ORDER%20BY%20priority%20DESC>`_
+- Release (expected): 4 May 2021
+- `Jira issues 3.0.0 <https://ds-wizard.atlassian.net/browse/DSW-1054?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%203.0.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Migration from MongoDB to PostgreSQL and S3
 
 
 Released
 ========
+
+2.13.0
+------
+
+- Release: 7 April 2021
+- `Jira issues 2.13.0 <https://ds-wizard.atlassian.net/browse/DSW-1025?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%202.13.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Auto-reconnect in questionnaires (websockets)
+   - Fix text inputs in questionnaires when using Grammarly in browser
+   - Added actions directly to list views of knowledge models and templates
 
 2.12.0
 ------
