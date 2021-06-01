@@ -9,19 +9,29 @@ Roadmap
 Planned
 =======
 
+3.1.0
+-----
+
+- Release (expected): 29 June 2021
+- `Jira issues 3.1.0 <https://ds-wizard.atlassian.net/browse/DSW-1091?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%203.1.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Project templates
+   - Minor UI improvements
+
+
+Released
+========
+
 3.0.0
 -----
 
-- Release (expected): 1 June 2021
+- Release: 1 June 2021
 - `Jira issues 3.0.0 <https://ds-wizard.atlassian.net/browse/DSW-1054?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%203.0.0%20ORDER%20BY%20priority%20DESC>`_
 - Key changes:
 
    - Migration from MongoDB and RabbitMQ to PostgreSQL and S3
    - Deep links feature
-
-
-Released
-========
 
 2.14.0
 ------
