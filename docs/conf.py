@@ -22,7 +22,7 @@ copyright = '2021, DSW Team'
 author = 'DSW Team'
 
 # The full version, including alpha/beta/rc tags
-release = '2.14.0'
+release = '3.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -63,7 +63,7 @@ html_theme_options = {
 }
 
 def setup(app):
-    app.add_stylesheet('style.css')
+    app.add_css_file('style.css')
 
     make_confval(app)
 

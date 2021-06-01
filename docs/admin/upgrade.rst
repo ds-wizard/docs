@@ -43,6 +43,11 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+2.14.X to 3.0.X
+----------------
+
+- All data must be migrated as we switched from MongoDB and RabbitMQ to PostgreSQL and S3. To support data migration, we provide `dsw2to3 tool <https://github.com/ds-wizard/dsw2to3>`_ with step-by-step instructions.
+
 2.13.X to 2.14.X
 ----------------
 
@@ -169,11 +174,13 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+--------------------+-----------+
 | DS Wizard        | KM Metamodel | Template Metamodel | Registry  | 
 +==================+==============+====================+===========+
-| 2.14.0           |            6 |                  3 |    2.14.0 |
+| 3.0.0            |            7 |                  3 |     3.0.0 |
 +------------------+--------------+--------------------+-----------+
-| 2.13.0           |            6 |                  3 |    2.13.0 |
+| 2.14.0           |            7 |                  3 |    2.14.0 |
 +------------------+--------------+--------------------+-----------+
-| 2.12.0           |            5 |                  3 |    2.12.0 |
+| 2.13.0           |            7 |                  3 |    2.13.0 |
++------------------+--------------+--------------------+-----------+
+| 2.12.0           |            6 |                  3 |    2.12.0 |
 +------------------+--------------+--------------------+-----------+
 | 2.11.0           |            5 |                  2 |    2.11.0 |
 +------------------+--------------+--------------------+-----------+
