@@ -12,16 +12,27 @@ Planned
 3.1.0
 -----
 
-- Release (expected): 29 June 2021
+- Release (expected): 3 August 2021
+- `Jira issues 3.2.0 <https://ds-wizard.atlassian.net/browse/DSW-402?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%203.2.0%20ORDER%20BY%20priority%20DESC>`_
+- Key changes:
+
+   - Custom metrics (in KM)
+   - Custom phases (in KM)
+   - Improved default document template (questionnaire-report)
+
+
+Released
+========
+
+3.1.0
+-----
+
+- Release: 25 June 2021
 - `Jira issues 3.1.0 <https://ds-wizard.atlassian.net/browse/DSW-1091?jql=project%20%3D%20DSW%20AND%20fixVersion%20%3D%203.1.0%20ORDER%20BY%20priority%20DESC>`_
 - Key changes:
 
    - Project templates
    - Minor UI improvements
-
-
-Released
-========
 
 3.0.0
 -----

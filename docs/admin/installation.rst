@@ -91,24 +91,7 @@ When you have a fresh installation, there are just the default users and no know
 Database Backup
 ---------------
 
-If you want to regularly backup your database (and you should!), all you need to do is to set-up simple script as cronjob:
-
-.. literalinclude:: dsw-backup.sh
-   :caption: dsw-backup.sh
-   :language: shell
-   :linenos:
-
-Make it executable (chmod a+x dsw-backup.sh) and add it as cronjob with crontab -e:
-
-.. code-block:: none
-
-   0 4 * * * /dsw/dsw-backup.sh
-
-(This will do the backup every day at 4:00 AM. For more information, see `crontab.guru <https://crontab.guru/>`_.)
-
-.. DANGER::
-
-   This is just a very simple example. For production use you need to consider some more advances backup techniques including storing backups encrypted on other servers (or even other geographic location).
+If you want to regularly backup your database (and you should!), all you need to do is to setup a cronjob that backups PostgreSQL database (e.g. using `pg_dump <https://www.postgresql.org/docs/current/app-pgdump.html>`_ utility) as well as S3 storage.
 
 Deployment Requirements
 -----------------------
