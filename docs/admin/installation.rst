@@ -91,21 +91,29 @@ When you have a fresh installation, there are just the default users and no know
 Database Backup
 ---------------
 
-If you want to regularly backup your database (and you should!), all you need to do is to set-up simple script as cronjob:
+If you want to regularly backup your database (and you should!), all you need to do is to setup a cronjob that backups PostgreSQL database (e.g. using `pg_dump <https://www.postgresql.org/docs/current/app-pgdump.html>`_ utility) as well as S3 storage.
 
-.. literalinclude:: dsw-backup.sh
-   :caption: dsw-backup.sh
-   :language: shell
-   :linenos:
+Deployment Requirements
+-----------------------
 
-Make it executable (chmod a+x dsw-backup.sh) and add it as cronjob with crontab -e:
+The following requirements were estimated using `limiting Docker resources <https://docs.docker.com/compose/compose-file/compose-file-v3/#resources>`_ provided to containers.
 
-.. code-block:: none
++------------------+--------------+--------------------+
+| Component        | Minimal      | Recommended        |
++==================+==============+====================+
+| Server           |       128 MB |             512 MB |
++------------------+--------------+--------------------+
+| Client           |        16 MB |              64 MB |
++------------------+--------------+--------------------+
+| Doc-Worker       |       240 MB |             448 MB |
++------------------+--------------+--------------------+
+| Total            |       384 MB |            1024 MB |
++------------------+--------------+--------------------+
 
-   0 4 * * * /dsw/dsw-backup.sh
+As for CPU, there are no long-running tasks that would require excessive CPU consumption. Limiting CPU resources can only make some operations slightly longer (e.g. importing a knowledge model, generating a document). Number of CPUs/cores will then affect performance for concurrent users/actions. Memory consumption is affected by size of content (as some content is being cached for speed optimizations).
 
-(This will do the backup every day at 4:00 AM. For more information, see `crontab.guru <https://crontab.guru/>`_.)
+Memory used by document worker might be affected by size of template (and assets) for generating a document. Recommended memory in the table above is approximated for long-term run (without restarts) with a significant amount of contents. It also minimizes the need of garbage collection technique that may slow down the server component.
 
-.. DANGER::
+.. NOTE::
 
-   This is just a very simple example. For production use you need to consider some more advances backup techniques including storing backups encrypted on other servers (or even other geographic location).
+   Real requirements should be aligned with the intended use (number of concurrent users, number of users in total, size of document templates, etc.). The minimal requirements are sufficient for single-user deployment, recommended should handle tens of concurrent users.
