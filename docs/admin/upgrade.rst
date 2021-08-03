@@ -43,6 +43,12 @@ Upgrade process
 
 Usually, nothing special is required for upgrade. Internal structure changes are migrated automatically using DB migrations and Metamodel migrations *(since 1.8.0)*. See below the changes that needs to be done by you *(since 1.10.0)*:
 
+3.1.X to 3.2.X
+--------------
+
+- The template metamodel version has been updated (to v4). Updating all document templates is needed.
+- All knowledge models have (after the automatic data migration) the default metrics and phases that can be changed in KM Editor.
+
 3.0.X to 3.1.X
 --------------
 
@@ -179,6 +185,8 @@ The DS Wizard is compatible with all recent versions of web browsers Chrome, Ope
 +------------------+--------------+--------------------+-----------+
 | DS Wizard        | KM Metamodel | Template Metamodel | Registry  | 
 +==================+==============+====================+===========+
+| 3.2.0            |            8 |                  4 |     3.2.0 |
++------------------+--------------+--------------------+-----------+
 | 3.1.0            |            7 |                  3 |     3.1.0 |
 +------------------+--------------+--------------------+-----------+
 | 3.0.0            |            7 |                  3 |     3.0.0 |
