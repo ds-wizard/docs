@@ -13,3 +13,9 @@ li > p {
 .wy-table-responsive table td:first-of-type {
     white-space: normal;
 }
+
+.head-warning {
+    background-color: #ffedcc;
+    font-weight: bold;
+    text-align: center;
+}

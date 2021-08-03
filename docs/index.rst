@@ -8,7 +8,7 @@ DS Wizard Technical Documentation
 
 The `Data Stewardship Wizard <https://ds-wizard.org>`_ is an international project to help serious researchers and data stewards with building smart **Data Management Plans for FAIR Open Science**.
 
-This is a technical documentation covering configuration and advanced things. For user documentation, please visit `our guide <https://guide.ds-wizard.org>`_.
+This is a technical documentation (no longer maintained). For current documentation, please visit `our Guide <https://guide.ds-wizard.org>`_.
 
 .. image:: _static/process_overview.png
    :alt: Process of the DS Wizard

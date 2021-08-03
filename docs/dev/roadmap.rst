@@ -9,7 +9,12 @@ Roadmap
 Planned
 =======
 
-3.1.0
+For future roadmap visit the new `User Guide <https://guide.ds-wizard.org/miscellaneous/development/roadmap>`_
+
+Released
+========
+
+3.2.0
 -----
 
 - Release (expected): 3 August 2021
@@ -19,10 +24,6 @@ Planned
    - Custom metrics (in KM)
    - Custom phases (in KM)
    - Improved default document template (questionnaire-report)
-
-
-Released
-========
 
 3.1.0
 -----
